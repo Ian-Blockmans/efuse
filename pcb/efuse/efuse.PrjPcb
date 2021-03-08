@@ -57,6 +57,23 @@ GenerateClassCluster=0
 DocumentUniqueId=UTJKDTPX
 
 [Document2]
+DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\Connector_JST.PcbLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=JBENJIBR
+
+[Document3]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\generic_components.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -73,7 +90,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SOAHJGDM
 
-[Document3]
+[Document4]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\generic_conn.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -90,7 +107,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=MENHOVEU
 
-[Document4]
+[Document5]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\jst_connectors.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -107,7 +124,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=SEBDUKXQ
 
-[Document5]
+[Document6]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\microchip_micro.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -124,7 +141,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TOPETNYS
 
-[Document6]
+[Document7]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\mx_switch.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -141,7 +158,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=QRXORVQD
 
-[Document7]
+[Document8]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\st.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -158,7 +175,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=XMGRSIET
 
-[Document8]
+[Document9]
 DocumentPath=C:\Users\ian66\OneDrive\altium\pads\vias.PvLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -175,7 +192,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
-[Document9]
+[Document10]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\atmel.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -192,7 +209,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=VADYPYTX
 
-[Document10]
+[Document11]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\generic_components.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -209,7 +226,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=NJHOFUGN
 
-[Document11]
+[Document12]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\generic_conn.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -226,7 +243,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=EABHZQSD
 
-[Document12]
+[Document13]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\JST.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -243,7 +260,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=DFOQTRDE
 
-[Document13]
+[Document14]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\mx.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -260,7 +277,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=VNJMJPJD
 
-[Document14]
+[Document15]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\st.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -277,7 +294,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=IXKIYKZN
 
-[Document15]
+[Document16]
 DocumentPath=fuse.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -294,7 +311,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=XJUPFEZL
 
-[Document16]
+[Document17]
 DocumentPath=Digital_Signaling.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -311,7 +328,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CTJXRRQH
 
-[Document17]
+[Document18]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\ti.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -328,7 +345,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=OQHBKOEH
 
-[Document18]
+[Document19]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\ti.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -344,6 +361,40 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=STKBJLKC
+
+[Document20]
+DocumentPath=C:\Users\ian66\OneDrive\altium\scema\Connector.SchLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=RBXGFGJJ
+
+[Document21]
+DocumentPath=C:\Users\ian66\OneDrive\altium\scema\Connector_Generic.SchLib
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=
 
 [Configuration1]
 Name=Sources
