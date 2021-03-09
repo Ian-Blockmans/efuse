@@ -1,0 +1,814 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD20\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">09/03/2021</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">02:37:28 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc" class="file"><acronym title="F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc">F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">154</td></tr>
+</table>
+</td>
+</table><a name="IDN5KI30ROGRSSIZJGQHCFDQP5NBMW53AFQLOADDHKAXEWTBOQYIVI"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDJG1ORFAY3WS4OILVFBESVGXDAD3WAPAEKU1251RKNVAAC0GY4WJ">Clearance Constraint (Gap=0.152mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDU4MIKW4RAXWII3VVJ1JCHXIZ2E1KBBH5SJAG2DLXRHATKQBOXJXC">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQSQDYHSNIR3QLXVGQ2GMIQX21HSSZBMJQB1VWIJK3RJZWVWYQFUL">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">77</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPLAEZ0HBGGNHO3NWMT4H45DMNJCEYNRCM5PM3LERAN5ZPAIUQMRH">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDD3KTTV0A005NCWH4ZTNKFRKRKCUAY22OSHYVJQOZG1DBFFQ23SRK">Width Constraint (Min=0.152mm) (Max=2.54mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTASHKEMH0ERGBVOX3K1RMX1EYCYZESLFM1YQFNHRMAZJTEWPFEOD">Width Constraint (Min=0.254mm) (Max=0.254mm) (Preferred=0.254mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID4PZDKOYT3LOIDW0UTUITZTJTNJJJ23ZVDKTWUBLG3F0V5XCVKZZD">Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDUERHQ5V5QZJGMRQ2EFYGORCWAEH2Z2VJITIS3NOSLFTT51QDL0ZL">Hole Size Constraint (Min=0.152mm) (Max=7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDY3LTRZTH5DOZEHKRTLAH00CTSFNQ1J5PO1HUU1ELA3QPWVQNQIDM">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID2GZEQ0DT34MCPZY0FNICMHVTBENLCKDE2U0GDNPTN3KT111PIYB">Minimum Solder Mask Sliver (Gap=0.025mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYH4O0CQQYRBIOCJMIDQQJILMRJ5KWTKIZYJKMWJLFC0EFZGOOECN">Silk To Solder Mask (Clearance=0.025mm) (IsPad),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDBXWNX1LP4HDFNSWN1GXVK03JEDNN3JMAVHHLAUK13FHKH5SGOIAM">Silk to Silk (Clearance=0.152mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRBQB5R3W4NI3CQZ1EPQL0BZVRGFESUMVRZ0B4VMGCSYIFLMYHD0G">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">15</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDXVXA3CLOWI14HVHT5W0P5VLNIF1KFBUALINY3ONAO5QIXUOYXRWC">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">60</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRTVAV0CIB0KAOKXVJJNDOZTLJOXZQRNVZZ2LKQFQXQPYPITWIFCM">Matched Lengths(Delay Tolerance=0.2ps) (InDifferentialPair('No Differential Pair'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGHUUIXV2W3LSMTFRDM0BGDZGVPHTL03FPEM0Q1CJIANTIGKMQ2SK">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">154</td>
+</tr>
+</table><br><a name="IDQSQDYHSNIR3QLXVGQ2GMIQX21HSSZBMJQB1VWIJK3RJZWVWYQFUL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6728.244mil|Location2.X=7952.346mil|Location1.Y=3044.15mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6728.244mil|Location2.X=7952.346mil|Location1.Y=3044.15mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net DGND Between Pad U2-3(171.449mm,102.632mm) on Top Layer And Pad J1-1(200.913mm,78.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7693.677mil|Location2.X=7952.346mil|Location1.Y=3929.977mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7693.677mil|Location2.X=7952.346mil|Location1.Y=3929.977mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R2-2(195.996mm,102.784mm) on Top Layer And Pad J1-10(200.913mm,100.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3703.244mil|Location2.X=7952.346mil|Location1.Y=3142.575mil|Location2.Y=3824.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3703.244mil|Location2.X=7952.346mil|Location1.Y=3142.575mil|Location2.Y=3824.157mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_2 Between Pad U10-2(94.614mm,96.332mm) on Top Layer And Pad J1-2(200.913mm,80.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3468.244mil|Location2.X=7952.346mil|Location1.Y=3241mil|Location2.Y=3824.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3468.244mil|Location2.X=7952.346mil|Location1.Y=3241mil|Location2.Y=3824.157mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_3 Between Pad U9-2(88.645mm,96.332mm) on Top Layer And Pad J1-3(200.913mm,83.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3233.244mil|Location2.X=7952.346mil|Location1.Y=3339.425mil|Location2.Y=3824.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3233.244mil|Location2.X=7952.346mil|Location1.Y=3339.425mil|Location2.Y=3824.157mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_4 Between Pad U8-2(82.676mm,96.332mm) on Top Layer And Pad J1-4(200.913mm,85.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1323.244mil|Location2.X=7952.346mil|Location1.Y=3437.851mil|Location2.Y=3824.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1323.244mil|Location2.X=7952.346mil|Location1.Y=3437.851mil|Location2.Y=3824.157mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_5 Between Pad U11-2(34.162mm,96.332mm) on Top Layer And Pad J1-5(200.913mm,88.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6963.244mil|Location2.X=7952.346mil|Location1.Y=3536.276mil|Location2.Y=3824.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6963.244mil|Location2.X=7952.346mil|Location1.Y=3536.276mil|Location2.Y=3824.157mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_6 Between Pad U1-2(177.418mm,96.332mm) on Top Layer And Pad J1-6(200.913mm,90.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7328.677mil|Location2.X=7952.346mil|Location1.Y=3634.701mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7328.677mil|Location2.X=7952.346mil|Location1.Y=3634.701mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_7 Between Pad R3-2(186.725mm,102.784mm) on Top Layer And Pad J1-7(200.913mm,93.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7513.677mil|Location2.X=7952.346mil|Location1.Y=3733.126mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7513.677mil|Location2.X=7952.346mil|Location1.Y=3733.126mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_8 Between Pad R1-2(191.424mm,102.784mm) on Top Layer And Pad J1-8(200.913mm,95.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5943.244mil|Location2.X=7952.346mil|Location1.Y=3761.039mil|Location2.Y=3906.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5943.244mil|Location2.X=7952.346mil|Location1.Y=3761.039mil|Location2.Y=3906.48mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_9 Between Pad U4-2(151.51mm,96.332mm) on Top Layer And Pad J1-9(200.913mm,98.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6441.748mil|Location2.X=6548.173mil|Location1.Y=3778.402mil|Location2.Y=4084.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6441.748mil|Location2.X=6548.173mil|Location1.Y=3778.402mil|Location2.Y=4084.827mil|Absolute=True">Un-Routed Net Constraint: Net Vout Between Pad J2-1(164.972mm,97.323mm) on Multi-Layer And Pad J2-1(164.972mm,102.403mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4073.677mil|Location2.X=6548.173mil|Location1.Y=3978.402mil|Location2.Y=4084.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4073.677mil|Location2.X=6548.173mil|Location1.Y=3978.402mil|Location2.Y=4084.827mil|Absolute=True">Un-Routed Net Constraint: Net Vout Between Pad R11-2(104.048mm,102.784mm) on Top Layer And Pad J2-1(164.972mm,102.403mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6051.748mil|Location2.X=6158.173mil|Location1.Y=3778.402mil|Location2.Y=4084.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6051.748mil|Location2.X=6158.173mil|Location1.Y=3778.402mil|Location2.Y=4084.827mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad J3-1(155.066mm,97.323mm) on Multi-Layer And Pad J3-1(155.066mm,102.403mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5843.244mil|Location2.X=6158.173mil|Location1.Y=3978.402mil|Location2.Y=4084.827mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5843.244mil|Location2.X=6158.173mil|Location1.Y=3978.402mil|Location2.Y=4084.827mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad U4-4(148.97mm,102.632mm) on Top Layer And Pad J3-1(155.066mm,102.403mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2798.677mil|Location2.X=4226.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2798.677mil|Location2.X=4226.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR10_1 Between Pad R13-2(71.663mm,102.784mm) on Top Layer And Pad R10-1(106.77mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4253.677mil|Location2.X=4760.221mil|Location1.Y=3941.551mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4253.677mil|Location2.X=4760.221mil|Location1.Y=3941.551mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad R10-2(108.62mm,102.784mm) on Top Layer And Pad U5-2(120.563mm,100.532mm) on Top Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=4299.079mil|Location1.Y=3182.992mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=4299.079mil|Location1.Y=3182.992mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad U6-6(98.552mm,81.123mm) on Top Layer And Pad R10-2(108.62mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2905.095mil|Location2.X=4299.079mil|Location1.Y=3935.528mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2905.095mil|Location2.X=4299.079mil|Location1.Y=3935.528mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad U7-2(74.591mm,100.564mm) on Top Layer And Pad R10-2(108.62mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7440.842mil|Location2.X=7739.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7440.842mil|Location2.X=7739.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R1-1(189.574mm,102.784mm) on Top Layer And Pad R2-2(195.996mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7255.842mil|Location2.X=7486.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7255.842mil|Location2.X=7486.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R3-1(184.875mm,102.784mm) on Top Layer And Pad R1-1(189.574mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1508.677mil|Location2.X=4046.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1508.677mil|Location2.X=4046.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR11_1 Between Pad R20-2(38.897mm,102.784mm) on Top Layer And Pad R11-1(102.198mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4000.843mil|Location2.X=4141.811mil|Location1.Y=3208.583mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4000.843mil|Location2.X=4141.811mil|Location1.Y=3208.583mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR11_1 Between Pad R11-1(102.198mm,102.784mm) on Top Layer And Pad U6-16(104.452mm,81.773mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4073.677mil|Location2.X=4141.811mil|Location1.Y=3310.945mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4073.677mil|Location2.X=4141.811mil|Location1.Y=3310.945mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net Vout Between Pad R11-2(104.048mm,102.784mm) on Top Layer And Pad U6-20(104.452mm,84.373mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6233.244mil|Location2.X=7559.079mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6233.244mil|Location2.X=7559.079mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_8 Between Pad U3-4(158.876mm,102.632mm) on Top Layer And Pad R1-2(191.424mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2725.843mil|Location2.X=3861.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2725.843mil|Location2.X=3861.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR12_1 Between Pad R13-1(69.813mm,102.784mm) on Top Layer And Pad R12-1(97.499mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3815.843mil|Location2.X=3909.528mil|Location1.Y=3157.402mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3815.843mil|Location2.X=3909.528mil|Location1.Y=3157.402mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR12_1 Between Pad R12-1(97.499mm,102.784mm) on Top Layer And Pad U6-7(98.552mm,80.473mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3888.677mil|Location2.X=5986.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3888.677mil|Location2.X=5986.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR12_2 Between Pad R12-2(99.349mm,102.784mm) on Top Layer And Pad U4-3(151.51mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2613.677mil|Location2.X=2771.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2613.677mil|Location2.X=2771.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR12_1 Between Pad R14-2(66.964mm,102.784mm) on Top Layer And Pad R13-1(69.813mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.677mil|Location2.X=2586.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2433.677mil|Location2.X=2586.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR14_1 Between Pad R16-2(62.392mm,102.784mm) on Top Layer And Pad R14-1(65.114mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.843mil|Location2.X=3909.528mil|Location1.Y=3131.811mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2540.843mil|Location2.X=3909.528mil|Location1.Y=3131.811mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR14_1 Between Pad R14-1(65.114mm,102.784mm) on Top Layer And Pad U6-8(98.552mm,79.823mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1223.244mil|Location2.X=2221.244mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1223.244mil|Location2.X=2221.244mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR15_1 Between Pad U11-4(31.622mm,102.632mm) on Top Layer And Pad R15-1(55.843mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2248.677mil|Location2.X=2479.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2248.677mil|Location2.X=2479.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR14_1 Between Pad R15-2(57.693mm,102.784mm) on Top Layer And Pad R16-2(62.392mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1990.842mil|Location2.X=2406.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1990.842mil|Location2.X=2406.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad R19-1(51.144mm,102.784mm) on Top Layer And Pad R16-1(60.542mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2360.843mil|Location2.X=3954.803mil|Location1.Y=3299.134mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2360.843mil|Location2.X=3954.803mil|Location1.Y=3299.134mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad R16-1(60.542mm,102.784mm) on Top Layer And Via (100.202mm,84.048mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1625.842mil|Location2.X=1856.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1625.842mil|Location2.X=1856.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad R17-1(41.873mm,102.784mm) on Top Layer And Pad R18-1(46.572mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.842mil|Location2.X=1671.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.842mil|Location2.X=1671.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad R20-1(37.047mm,102.784mm) on Top Layer And Pad R17-1(41.873mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1698.677mil|Location2.X=3276.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1698.677mil|Location2.X=3276.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR17_2 Between Pad R17-2(43.723mm,102.784mm) on Top Layer And Pad U8-3(82.676mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1810.842mil|Location2.X=2036.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1810.842mil|Location2.X=2036.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad R18-1(46.572mm,102.784mm) on Top Layer And Pad R19-1(51.144mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.677mil|Location2.X=3511.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1883.677mil|Location2.X=3511.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR18_2 Between Pad R18-2(48.422mm,102.784mm) on Top Layer And Pad U9-3(88.645mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2063.677mil|Location2.X=3746.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2063.677mil|Location2.X=3746.677mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR19_2 Between Pad R19-2(52.994mm,102.784mm) on Top Layer And Pad U10-3(94.614mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1323.244mil|Location2.X=1481.244mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1323.244mil|Location2.X=1481.244mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad U11-3(34.162mm,102.632mm) on Top Layer And Pad R20-1(37.047mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6863.244mil|Location2.X=7666.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6863.244mil|Location2.X=7666.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR2_1 Between Pad U1-1(174.878mm,96.332mm) on Top Layer And Pad R2-1(194.146mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1020.842mil|Location2.X=1266.677mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1020.842mil|Location2.X=1266.677mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR21_1 Between Pad R21-1(26.506mm,102.784mm) on Top Layer And Pad U11-1(31.622mm,96.332mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.677mil|Location2.X=5029.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1093.677mil|Location2.X=5029.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R21-2(28.356mm,102.784mm) on Top Layer And Pad R7-2(127.162mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7148.677mil|Location2.X=7301.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7148.677mil|Location2.X=7301.244mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R4-2(182.153mm,102.784mm) on Top Layer And Pad R3-1(184.875mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6628.244mil|Location2.X=7374.079mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6628.244mil|Location2.X=7374.079mil|Location1.Y=4009.071mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_7 Between Pad U2-4(168.909mm,102.632mm) on Top Layer And Pad R3-2(186.725mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5843.244mil|Location2.X=7121.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5843.244mil|Location2.X=7121.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR4_1 Between Pad U4-1(148.97mm,96.332mm) on Top Layer And Pad R4-1(180.303mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5348.677mil|Location2.X=7194.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5348.677mil|Location2.X=7194.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R9-2(136.433mm,102.784mm) on Top Layer And Pad R4-2(182.153mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=5501.244mil|Location1.Y=3234.173mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=5501.244mil|Location1.Y=3234.173mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR5_1 Between Pad U6-17(104.452mm,82.423mm) on Top Layer And Pad R5-1(139.155mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5528.677mil|Location2.X=6276.677mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5528.677mil|Location2.X=6276.677mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR5_2 Between Pad R5-2(141.005mm,102.784mm) on Top Layer And Pad U3-1(158.876mm,96.332mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=5686.244mil|Location1.Y=3182.992mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=5686.244mil|Location1.Y=3182.992mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR6_1 Between Pad U6-15(104.452mm,81.123mm) on Top Layer And Pad R6-1(143.854mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5713.677mil|Location2.X=6671.677mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5713.677mil|Location2.X=6671.677mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR6_2 Between Pad R6-2(145.704mm,102.784mm) on Top Layer And Pad U2-1(168.909mm,96.332mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3133.244mil|Location2.X=4956.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3133.244mil|Location2.X=4956.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR7_1 Between Pad U8-1(80.136mm,96.332mm) on Top Layer And Pad R7-1(125.312mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4983.677mil|Location2.X=5214.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4983.677mil|Location2.X=5214.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R7-2(127.162mm,102.784mm) on Top Layer And Pad R8-2(131.861mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3368.244mil|Location2.X=5141.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3368.244mil|Location2.X=5141.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR8_1 Between Pad U9-1(86.105mm,96.332mm) on Top Layer And Pad R8-1(130.011mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5168.677mil|Location2.X=5394.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=5168.677mil|Location2.X=5394.079mil|Location1.Y=4015.055mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net +5V Between Pad R8-2(131.861mm,102.784mm) on Top Layer And Pad R9-2(136.433mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3603.244mil|Location2.X=5321.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3603.244mil|Location2.X=5321.244mil|Location1.Y=3761.039mil|Location2.Y=4078.173mil|Absolute=True">Un-Routed Net Constraint: Net NetR9_1 Between Pad U10-1(92.074mm,96.332mm) on Top Layer And Pad R9-1(134.583mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3603.244mil|Location2.X=4141.811mil|Location1.Y=3080.63mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3603.244mil|Location2.X=4141.811mil|Location1.Y=3080.63mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net NetU6_11 Between Pad U10-4(92.074mm,102.632mm) on Top Layer And Pad U6-11(104.452mm,78.523mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3368.244mil|Location2.X=3646.677mil|Location1.Y=4009.071mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3368.244mil|Location2.X=3646.677mil|Location1.Y=4009.071mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net NetU6_11 Between Pad U9-4(86.105mm,102.632mm) on Top Layer And Pad U10-4(92.074mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6728.244mil|Location2.X=7006.677mil|Location1.Y=3761.039mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6728.244mil|Location2.X=7006.677mil|Location1.Y=3761.039mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad U2-2(171.449mm,96.332mm) on Top Layer And Pad U1-3(177.418mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=6906.677mil|Location1.Y=3131.811mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=6906.677mil|Location1.Y=3131.811mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net NetU1_4 Between Pad U6-13(104.452mm,79.823mm) on Top Layer And Pad U1-4(174.878mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6333.244mil|Location2.X=6771.677mil|Location1.Y=3761.039mil|Location2.Y=3824.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6333.244mil|Location2.X=6771.677mil|Location1.Y=3761.039mil|Location2.Y=3824.157mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad U3-2(161.416mm,96.332mm) on Top Layer And Pad U2-2(171.449mm,96.332mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6333.244mil|Location2.X=6771.677mil|Location1.Y=4009.071mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6333.244mil|Location2.X=6771.677mil|Location1.Y=4009.071mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net DGND Between Pad U3-3(161.416mm,102.632mm) on Top Layer And Pad U2-3(171.449mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4037.48mil|Location2.X=6376.677mil|Location1.Y=3299.134mil|Location2.Y=3824.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4037.48mil|Location2.X=6376.677mil|Location1.Y=3299.134mil|Location2.Y=3824.157mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Via (102.802mm,84.048mm) from Top Layer to Bottom Layer And Pad U3-2(161.416mm,96.332mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4784.11mil|Location2.X=5886.677mil|Location1.Y=3941.551mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4784.11mil|Location2.X=5886.677mil|Location1.Y=3941.551mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad U5-2(121.863mm,100.532mm) on Top Layer [Unplated] And Pad U4-4(148.97mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=4836.992mil|Location1.Y=3234.173mil|Location2.Y=3974.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=4836.992mil|Location1.Y=3234.173mil|Location2.Y=3974.354mil|Absolute=True">Un-Routed Net Constraint: Net NetU5_1 Between Pad U6-4(98.552mm,82.423mm) on Top Layer And Pad U5-1(122.513mm,100.532mm) on Top Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4732.929mil|Location2.X=4785.811mil|Location1.Y=3941.551mil|Location2.Y=3974.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4732.929mil|Location2.X=4785.811mil|Location1.Y=3941.551mil|Location2.Y=3974.354mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad U5-2(120.563mm,100.532mm) on Top Layer [Unplated] And Pad U5-2(121.213mm,100.532mm) on Top Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4758.52mil|Location2.X=4811.402mil|Location1.Y=3941.551mil|Location2.Y=3974.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4758.52mil|Location2.X=4811.402mil|Location1.Y=3941.551mil|Location2.Y=3974.354mil|Absolute=True">Un-Routed Net Constraint: Net Vin Between Pad U5-2(121.213mm,100.532mm) on Top Layer [Unplated] And Pad U5-2(121.863mm,100.532mm) on Top Layer [Unplated] </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=4794.803mil|Location1.Y=3310.945mil|Location2.Y=4026.457mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=4794.803mil|Location1.Y=3310.945mil|Location2.Y=4026.457mil|Absolute=True">Un-Routed Net Constraint: Net NetU5_3 Between Pad U6-1(98.552mm,84.373mm) on Top Layer And Pad U5-3(121.538mm,102.022mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=3909.528mil|Location1.Y=3285.354mil|Location2.Y=3332.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=3909.528mil|Location1.Y=3285.354mil|Location2.Y=3332.598mil|Absolute=True">Un-Routed Net Constraint: Net NetU5_3 Between Pad U6-2(98.552mm,83.723mm) on Top Layer And Pad U6-1(98.552mm,84.373mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=4141.811mil|Location1.Y=3259.764mil|Location2.Y=3307.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=4141.811mil|Location1.Y=3259.764mil|Location2.Y=3307.008mil|Absolute=True">Un-Routed Net Constraint: Net Vout Between Pad U6-18(104.452mm,83.073mm) on Top Layer And Pad U6-19(104.452mm,83.723mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=4141.811mil|Location1.Y=3285.354mil|Location2.Y=3332.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4082.756mil|Location2.X=4141.811mil|Location1.Y=3285.354mil|Location2.Y=3332.598mil|Absolute=True">Un-Routed Net Constraint: Net Vout Between Pad U6-19(104.452mm,83.723mm) on Top Layer And Pad U6-20(104.452mm,84.373mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=3909.528mil|Location1.Y=3259.764mil|Location2.Y=3307.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=3909.528mil|Location1.Y=3259.764mil|Location2.Y=3307.008mil|Absolute=True">Un-Routed Net Constraint: Net NetU5_3 Between Pad U6-3(98.552mm,83.073mm) on Top Layer And Pad U6-2(98.552mm,83.723mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2991.709mil|Location2.X=3909.528mil|Location1.Y=3234.173mil|Location2.Y=4020.299mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2991.709mil|Location2.X=3909.528mil|Location1.Y=3234.173mil|Location2.Y=4020.299mil|Absolute=True">Un-Routed Net Constraint: Net NetU5_1 Between Pad U7-3(76.791mm,101.514mm) on Top Layer And Pad U6-4(98.552mm,82.423mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2905.095mil|Location2.X=3909.528mil|Location1.Y=3208.583mil|Location2.Y=4057.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2905.095mil|Location2.X=3909.528mil|Location1.Y=3208.583mil|Location2.Y=4057.701mil|Absolute=True">Un-Routed Net Constraint: Net NetU6_5 Between Pad U7-1(74.591mm,102.464mm) on Top Layer And Pad U6-5(98.552mm,81.773mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=3954.803mil|Location1.Y=3094.41mil|Location2.Y=3127.874mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3850.472mil|Location2.X=3954.803mil|Location1.Y=3094.41mil|Location2.Y=3127.874mil|Absolute=True">Un-Routed Net Constraint: Net PGND Between Pad U6-9(98.552mm,79.173mm) on Top Layer And Via (100.202mm,78.848mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3133.244mil|Location2.X=3411.677mil|Location1.Y=4009.071mil|Location2.Y=4072.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3133.244mil|Location2.X=3411.677mil|Location1.Y=4009.071mil|Location2.Y=4072.189mil|Absolute=True">Un-Routed Net Constraint: Net NetU6_11 Between Pad U8-4(80.136mm,102.632mm) on Top Layer And Pad U9-4(86.105mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDYH4O0CQQYRBIOCJMIDQQJILMRJ5KWTKIZYJKMWJLFC0EFZGOOECN"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.025mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2963.191mil|Location2.X=2971.659mil|Location1.Y=4049.774mil|Location2.Y=4055.034mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2963.191mil|Location2.X=2971.659mil|Location1.Y=4049.774mil|Location2.Y=4055.034mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.012mm &lt; 0.025mm) Between Pad U7-1(74.591mm,102.464mm) on Top Layer And Track (75.341mm,103.064mm)(76.441mm,103.064mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.012mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2963.191mil|Location2.X=2971.616mil|Location1.Y=3938.195mil|Location2.Y=3943.544mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2963.191mil|Location2.X=2971.616mil|Location1.Y=3938.195mil|Location2.Y=3943.544mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.012mm &lt; 0.025mm) Between Pad U7-2(74.591mm,100.564mm) on Top Layer And Track (75.341mm,99.964mm)(76.441mm,99.964mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.012mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRBQB5R3W4NI3CQZ1EPQL0BZVRGFESUMVRZ0B4VMGCSYIFLMYHD0G"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3090.91mil|Location2.Y=3142.494mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3090.91mil|Location2.Y=3142.494mil|Absolute=True">Net Antennae: Via (100.202mm,78.848mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3142.091mil|Location2.Y=3193.675mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3142.091mil|Location2.Y=3193.675mil|Absolute=True">Net Antennae: Via (100.202mm,80.148mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3193.272mil|Location2.Y=3244.856mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3193.272mil|Location2.Y=3244.856mil|Absolute=True">Net Antennae: Via (100.202mm,81.448mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3244.453mil|Location2.Y=3296.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3244.453mil|Location2.Y=3296.037mil|Absolute=True">Net Antennae: Via (100.202mm,82.748mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3295.634mil|Location2.Y=3347.218mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3931.618mil|Location2.X=3965.749mil|Location1.Y=3295.634mil|Location2.Y=3347.218mil|Absolute=True">Net Antennae: Via (100.202mm,84.048mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3090.91mil|Location2.Y=3142.494mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3090.91mil|Location2.Y=3142.494mil|Absolute=True">Net Antennae: Via (101.502mm,78.848mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3142.091mil|Location2.Y=3193.675mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3142.091mil|Location2.Y=3193.675mil|Absolute=True">Net Antennae: Via (101.502mm,80.148mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3193.272mil|Location2.Y=3244.856mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3193.272mil|Location2.Y=3244.856mil|Absolute=True">Net Antennae: Via (101.502mm,81.448mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3244.453mil|Location2.Y=3296.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3244.453mil|Location2.Y=3296.037mil|Absolute=True">Net Antennae: Via (101.502mm,82.748mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3295.634mil|Location2.Y=3347.218mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3982.799mil|Location2.X=4016.93mil|Location1.Y=3295.634mil|Location2.Y=3347.218mil|Absolute=True">Net Antennae: Via (101.502mm,84.048mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3090.91mil|Location2.Y=3142.494mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3090.91mil|Location2.Y=3142.494mil|Absolute=True">Net Antennae: Via (102.802mm,78.848mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3142.091mil|Location2.Y=3193.675mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3142.091mil|Location2.Y=3193.675mil|Absolute=True">Net Antennae: Via (102.802mm,80.148mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3193.272mil|Location2.Y=3244.856mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3193.272mil|Location2.Y=3244.856mil|Absolute=True">Net Antennae: Via (102.802mm,81.448mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3244.453mil|Location2.Y=3296.037mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3244.453mil|Location2.Y=3296.037mil|Absolute=True">Net Antennae: Via (102.802mm,82.748mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3295.634mil|Location2.Y=3347.218mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4033.98mil|Location2.X=4068.111mil|Location1.Y=3295.634mil|Location2.Y=3347.218mil|Absolute=True">Net Antennae: Via (102.802mm,84.048mm) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDXVXA3CLOWI14HVHT5W0P5VLNIF1KFBUALINY3ONAO5QIXUOYXRWC"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3079.114mil|Location2.Y=3084.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3079.114mil|Location2.Y=3084.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-1(200.913mm,78.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3964.941mil|Location2.Y=3969.941mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3964.941mil|Location2.Y=3969.941mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-10(200.913mm,100.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3177.539mil|Location2.Y=3182.539mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3177.539mil|Location2.Y=3182.539mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-2(200.913mm,80.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3275.965mil|Location2.Y=3280.965mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3275.965mil|Location2.Y=3280.965mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-3(200.913mm,83.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3374.39mil|Location2.Y=3379.39mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3374.39mil|Location2.Y=3379.39mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-4(200.913mm,85.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3472.815mil|Location2.Y=3477.815mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3472.815mil|Location2.Y=3477.815mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-5(200.913mm,88.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3571.24mil|Location2.Y=3576.24mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3571.24mil|Location2.Y=3576.24mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-6(200.913mm,90.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3669.665mil|Location2.Y=3674.665mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3669.665mil|Location2.Y=3674.665mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-7(200.913mm,93.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3768.091mil|Location2.Y=3773.091mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3768.091mil|Location2.Y=3773.091mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-8(200.913mm,95.773mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3866.516mil|Location2.Y=3871.516mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7907.461mil|Location2.X=7912.461mil|Location1.Y=3866.516mil|Location2.Y=3871.516mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad J1-9(200.913mm,98.273mm) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7461.043mil|Location2.X=7466.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7461.043mil|Location2.X=7466.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R1-1(189.574mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7533.878mil|Location2.X=7538.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7533.878mil|Location2.X=7538.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R1-2(191.424mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7641.043mil|Location2.X=7646.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7641.043mil|Location2.X=7646.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R2-1(194.146mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7713.878mil|Location2.X=7718.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7713.878mil|Location2.X=7718.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R2-2(195.996mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7276.043mil|Location2.X=7281.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7276.043mil|Location2.X=7281.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R3-1(184.875mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7348.878mil|Location2.X=7353.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7348.878mil|Location2.X=7353.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R3-2(186.725mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7096.043mil|Location2.X=7101.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7096.043mil|Location2.X=7101.043mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R4-1(180.303mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7168.878mil|Location2.X=7173.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7168.878mil|Location2.X=7173.878mil|Location1.Y=4044.114mil|Location2.Y=4049.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad R4-2(182.153mm,102.784mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6998.838mil|Location2.X=7003.838mil|Location1.Y=3790.099mil|Location2.Y=3795.099mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6998.838mil|Location2.X=7003.838mil|Location1.Y=3790.099mil|Location2.Y=3795.099mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad U1-2(177.418mm,96.332mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6998.838mil|Location2.X=7003.838mil|Location1.Y=4038.13mil|Location2.Y=4043.13mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6998.838mil|Location2.X=7003.838mil|Location1.Y=4038.13mil|Location2.Y=4043.13mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Pad U1-3(177.418mm,102.632mm) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7834.49mil|Location2.X=7839.49mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7834.49mil|Location2.X=7839.49mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Text "J1" (198.298mm,104.521mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7471.49mil|Location2.X=7476.49mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7471.49mil|Location2.X=7476.49mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Text "R1" (189.078mm,104.521mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7658.988mil|Location2.X=7663.988mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7658.988mil|Location2.X=7663.988mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Text "R2" (193.65mm,104.521mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7293.988mil|Location2.X=7298.988mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7293.988mil|Location2.X=7298.988mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Text "R3" (184.379mm,104.521mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7113.988mil|Location2.X=7118.988mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7113.988mil|Location2.X=7118.988mil|Location1.Y=4134.993mil|Location2.Y=4139.993mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Text "R4" (179.807mm,104.521mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7004.512mil|Location2.X=7009.512mil|Location1.Y=3992.854mil|Location2.Y=3997.854mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7004.512mil|Location2.X=7009.512mil|Location1.Y=3992.854mil|Location2.Y=3997.854mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (174.248mm,101.482mm)(178.048mm,101.482mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7004.512mil|Location2.X=7009.512mil|Location1.Y=3835.374mil|Location2.Y=3840.374mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7004.512mil|Location2.X=7009.512mil|Location1.Y=3835.374mil|Location2.Y=3840.374mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (174.248mm,97.482mm)(178.048mm,97.482mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7007.264mil|Location2.X=7012.264mil|Location1.Y=3914.114mil|Location2.Y=3919.114mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7007.264mil|Location2.X=7012.264mil|Location1.Y=3914.114mil|Location2.Y=3919.114mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (178.048mm,97.482mm)(178.048mm,101.482mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7132.461mil|Location2.X=7137.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7132.461mil|Location2.X=7137.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (181.178mm,102.184mm)(181.278mm,102.184mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7132.461mil|Location2.X=7137.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7132.461mil|Location2.X=7137.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (181.178mm,103.384mm)(181.278mm,103.384mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7312.461mil|Location2.X=7317.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7312.461mil|Location2.X=7317.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (185.75mm,102.184mm)(185.85mm,102.184mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7312.461mil|Location2.X=7317.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7312.461mil|Location2.X=7317.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (185.75mm,103.384mm)(185.85mm,103.384mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7497.461mil|Location2.X=7502.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7497.461mil|Location2.X=7502.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (190.449mm,102.184mm)(190.549mm,102.184mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7497.461mil|Location2.X=7502.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7497.461mil|Location2.X=7502.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (190.449mm,103.384mm)(190.549mm,103.384mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7677.461mil|Location2.X=7682.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7677.461mil|Location2.X=7682.461mil|Location1.Y=4020.492mil|Location2.Y=4025.492mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (195.021mm,102.184mm)(195.121mm,102.184mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7677.461mil|Location2.X=7682.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7677.461mil|Location2.X=7682.461mil|Location1.Y=4067.736mil|Location2.Y=4072.736mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (195.021mm,103.384mm)(195.121mm,103.384mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7799.193mil|Location2.X=7804.193mil|Location1.Y=2991.516mil|Location2.Y=2996.516mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7799.193mil|Location2.X=7804.193mil|Location1.Y=2991.516mil|Location2.Y=2996.516mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.163mm,75.423mm)(198.163mm,76.673mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7823.799mil|Location2.X=7828.799mil|Location1.Y=2966.91mil|Location2.Y=2971.91mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7823.799mil|Location2.X=7828.799mil|Location1.Y=2966.91mil|Location2.Y=2971.91mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.163mm,75.423mm)(199.413mm,75.423mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7928.13mil|Location2.X=7933.13mil|Location1.Y=4065.728mil|Location2.Y=4070.728mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7928.13mil|Location2.X=7933.13mil|Location1.Y=4065.728mil|Location2.Y=4070.728mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.453mm,103.333mm)(204.423mm,103.333mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7810.61mil|Location2.X=7815.61mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7810.61mil|Location2.X=7815.61mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.453mm,75.713mm)(198.453mm,103.333mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7928.13mil|Location2.X=7933.13mil|Location1.Y=2978.327mil|Location2.Y=2983.327mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7928.13mil|Location2.X=7933.13mil|Location1.Y=2978.327mil|Location2.Y=2983.327mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.453mm,75.713mm)(204.423mm,75.713mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3935.413mil|Location2.Y=3940.413mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3935.413mil|Location2.Y=3940.413mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,100.023mm)(199.213mm,100.023mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7811.004mil|Location2.X=7816.004mil|Location1.Y=4029.902mil|Location2.Y=4034.902mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7811.004mil|Location2.X=7816.004mil|Location1.Y=4029.902mil|Location2.Y=4034.902mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,101.523mm)(198.463mm,103.323mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3994.468mil|Location2.Y=3999.468mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3994.468mil|Location2.Y=3999.468mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,101.523mm)(199.213mm,101.523mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=4065.335mil|Location2.Y=4070.335mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=4065.335mil|Location2.Y=4070.335mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,103.323mm)(199.213mm,103.323mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7811.004mil|Location2.X=7816.004mil|Location1.Y=3014.153mil|Location2.Y=3019.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7811.004mil|Location2.X=7816.004mil|Location1.Y=3014.153mil|Location2.Y=3019.153mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,75.723mm)(198.463mm,77.523mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=2978.72mil|Location2.Y=2983.72mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=2978.72mil|Location2.Y=2983.72mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,75.723mm)(199.213mm,75.723mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3049.587mil|Location2.Y=3054.587mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3049.587mil|Location2.Y=3054.587mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,77.523mm)(199.213mm,77.523mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7811.004mil|Location2.X=7816.004mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7811.004mil|Location2.X=7816.004mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,79.023mm)(198.463mm,100.023mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3108.642mil|Location2.Y=3113.642mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7825.768mil|Location2.X=7830.768mil|Location1.Y=3108.642mil|Location2.Y=3113.642mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (198.463mm,79.023mm)(199.213mm,79.023mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7840.532mil|Location2.X=7845.532mil|Location1.Y=4029.902mil|Location2.Y=4034.902mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7840.532mil|Location2.X=7845.532mil|Location1.Y=4029.902mil|Location2.Y=4034.902mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (199.213mm,101.523mm)(199.213mm,103.323mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7840.532mil|Location2.X=7845.532mil|Location1.Y=3014.153mil|Location2.Y=3019.153mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7840.532mil|Location2.X=7845.532mil|Location1.Y=3014.153mil|Location2.Y=3019.153mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (199.213mm,75.723mm)(199.213mm,77.523mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7840.532mil|Location2.X=7845.532mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7840.532mil|Location2.X=7845.532mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (199.213mm,79.023mm)(199.213mm,100.023mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7899.587mil|Location2.X=7904.587mil|Location1.Y=4050.571mil|Location2.Y=4055.571mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7899.587mil|Location2.X=7904.587mil|Location1.Y=4050.571mil|Location2.Y=4055.571mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (200.713mm,102.573mm)(200.713mm,103.323mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7957.657mil|Location2.X=7962.657mil|Location1.Y=4035.807mil|Location2.Y=4040.807mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7957.657mil|Location2.X=7962.657mil|Location1.Y=4035.807mil|Location2.Y=4040.807mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (200.713mm,102.573mm)(203.663mm,102.573mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7899.587mil|Location2.X=7904.587mil|Location1.Y=2993.484mil|Location2.Y=2998.484mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7899.587mil|Location2.X=7904.587mil|Location1.Y=2993.484mil|Location2.Y=2998.484mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (200.713mm,75.723mm)(200.713mm,76.473mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7957.657mil|Location2.X=7962.657mil|Location1.Y=3008.248mil|Location2.Y=3013.248mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7957.657mil|Location2.X=7962.657mil|Location1.Y=3008.248mil|Location2.Y=3013.248mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (200.713mm,76.473mm)(203.663mm,76.473mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8015.728mil|Location2.X=8020.728mil|Location1.Y=3265.138mil|Location2.Y=3270.138mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8015.728mil|Location2.X=8020.728mil|Location1.Y=3265.138mil|Location2.Y=3270.138mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (203.663mm,76.473mm)(203.663mm,89.523mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8015.728mil|Location2.X=8020.728mil|Location1.Y=3778.917mil|Location2.Y=3783.917mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8015.728mil|Location2.X=8020.728mil|Location1.Y=3778.917mil|Location2.Y=3783.917mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (203.663mm,89.523mm)(203.663mm,102.573mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8045.65mil|Location2.X=8050.65mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8045.65mil|Location2.X=8050.65mil|Location1.Y=3522.028mil|Location2.Y=3527.028mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.152mm) Between Board Edge And Track (204.423mm,75.713mm)(204.423mm,103.333mm) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

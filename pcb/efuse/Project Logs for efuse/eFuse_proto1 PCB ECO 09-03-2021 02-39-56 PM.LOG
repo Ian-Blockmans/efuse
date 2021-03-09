@@ -1,0 +1,9 @@
+Added Component: Designator=J4(TE blade connector)
+Added Component: Designator=J5(TE blade connector)
+Added Pin To Net: NetName=PGND Pin=J4-1
+Added Pin To Net: NetName=PGND Pin=J4-1
+Added Pin To Net: NetName=PGND Pin=J5-1
+Added Pin To Net: NetName=PGND Pin=J5-1
+Added Member To Class: ClassName=eFuse Member=Component J4 Blade Quick Disconnect
+Added Member To Class: ClassName=eFuse Member=Component J5 Blade Quick Disconnect
+Added Room: Name=eFuse
