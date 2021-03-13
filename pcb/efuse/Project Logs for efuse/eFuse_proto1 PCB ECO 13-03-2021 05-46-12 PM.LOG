@@ -1,0 +1,9 @@
+Added Component: Designator=R27(0805)
+Added Pin To Net: NetName=NetR27_1 Pin=R27-1
+Added Pin To Net: NetName=NetR27_1 Pin=TP6-1
+Added Pin To Net: NetName=NetR27_1 Pin=U12-1
+Added Net: Name=NetR27_1
+Added Pin To Net: NetName=NetR27_2 Pin=R27-2
+Added Pin To Net: NetName=NetR27_2 Pin=U7-14
+Added Net: Name=NetR27_2
+Added Member To Class: ClassName=Signal Member=Component R27 1K
