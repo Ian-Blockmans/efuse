@@ -1,0 +1,75 @@
+Removed Pin From Net: NetName=NetJ1_9 Pin=U2-4
+Change Component Comment : Designator=R6 Old Comment=10k New Comment=2k
+Change Component Comment : Designator=R11 Old Comment=10k New Comment=2k
+Change Component Comment : Designator=R26 Old Comment=740 New Comment=390
+Added Component: Designator=TP11(Test Loop 1.6mm)
+Added Pin To Net: NetName=+3.3V Pin=TP11-1
+Added Member To Class: ClassName=eFuse Member=Component C1 470uF
+Added Member To Class: ClassName=eFuse Member=Component C2 1uF
+Added Member To Class: ClassName=eFuse Member=Component C3 x
+Added Member To Class: ClassName=eFuse Member=Component D1 SMCJ58CA-HF
+Added Member To Class: ClassName=eFuse Member=Component D2 SS210ATR
+Added Member To Class: ClassName=eFuse Member=Component D3 SS210ATR
+Added Member To Class: ClassName=Signal Member=Component D4 Green
+Added Member To Class: ClassName=Signal Member=Component D5 Red
+Added Member To Class: ClassName=eFuse Member=Component H1 mounting hole
+Added Member To Class: ClassName=eFuse Member=Component H2 mounting hole
+Added Member To Class: ClassName=eFuse Member=Component H3 mounting hole
+Added Member To Class: ClassName=eFuse Member=Component H4 mounting hole
+Added Member To Class: ClassName=Signal Member=Component J1 xh_12_vert
+Added Member To Class: ClassName=eFuse Member=Component J2 Blade Quick Disconnect
+Added Member To Class: ClassName=eFuse Member=Component J3 Blade Quick Disconnect
+Added Member To Class: ClassName=eFuse Member=Component J4 Blade Quick Disconnect
+Added Member To Class: ClassName=eFuse Member=Component J5 Blade Quick Disconnect
+Added Member To Class: ClassName=eFuse Member=Component K1 G6RL-1A DC3
+Added Member To Class: ClassName=Signal Member=Component R1 10k
+Added Member To Class: ClassName=Signal Member=Component R2 10k
+Added Member To Class: ClassName=Signal Member=Component R3 390
+Added Member To Class: ClassName=Signal Member=Component R4 390
+Added Member To Class: ClassName=Signal Member=Component R5 x
+Added Member To Class: ClassName=Signal Member=Component R6 2k
+Added Member To Class: ClassName=Signal Member=Component R7 4.3k
+Added Member To Class: ClassName=Signal Member=Component R8 390
+Added Member To Class: ClassName=Signal Member=Component R9 390
+Added Member To Class: ClassName=Signal Member=Component R10 390
+Added Member To Class: ClassName=Signal Member=Component R11 2k
+Added Member To Class: ClassName=eFuse Member=Component R12 910K
+Added Member To Class: ClassName=Signal Member=Component R13 4.3k
+Added Member To Class: ClassName=eFuse Member=Component R14 1M
+Added Member To Class: ClassName=Signal Member=Component R15 >620
+Added Member To Class: ClassName=eFuse Member=Component R16 430k
+Added Member To Class: ClassName=eFuse Member=Component R17 75k
+Added Member To Class: ClassName=eFuse Member=Component R18 24k
+Added Member To Class: ClassName=eFuse Member=Component R19 10k
+Added Member To Class: ClassName=eFuse Member=Component R20 51k
+Added Member To Class: ClassName=eFuse Member=Component R21 91k
+Added Member To Class: ClassName=Signal Member=Component R22 13K
+Added Member To Class: ClassName=Signal Member=Component R23 6.8k
+Added Member To Class: ClassName=Signal Member=Component R24 4.3k
+Added Member To Class: ClassName=eFuse Member=Component R25 56k
+Added Member To Class: ClassName=Signal Member=Component R26 390
+Added Member To Class: ClassName=eFuse Member=Component TP1 Vout
+Added Member To Class: ClassName=Signal Member=Component TP2 DGND
+Added Member To Class: ClassName=eFuse Member=Component TP3 Vin
+Added Member To Class: ClassName=Signal Member=Component TP4 PGOOD
+Added Member To Class: ClassName=Signal Member=Component TP5 FLT
+Added Member To Class: ClassName=Signal Member=Component TP6 IMON
+Added Member To Class: ClassName=eFuse Member=Component TP7 UVLO
+Added Member To Class: ClassName=eFuse Member=Component TP8 ILIM
+Added Member To Class: ClassName=eFuse Member=Component TP9 OVP
+Added Member To Class: ClassName=eFuse Member=Component TP10 PGND
+Added Member To Class: ClassName=Signal Member=Component TP11 +3.3V
+Added Member To Class: ClassName=Signal Member=Component U1 WL-OCPT
+Added Member To Class: ClassName=Signal Member=Component U2 WL-OCPT
+Added Member To Class: ClassName=Signal Member=Component U3 WL-OCPT
+Added Member To Class: ClassName=Signal Member=Component U4 WL-OCPT
+Added Member To Class: ClassName=Signal Member=Component U5 WL-OCPT
+Added Member To Class: ClassName=eFuse Member=Component U6 ?CSD19537Q3?
+Added Member To Class: ClassName=eFuse Member=Component U7 TPS26631PWPT
+Added Member To Class: ClassName=eFuse Member=Component U8 BSS138?
+Added Member To Class: ClassName=Signal Member=Component U9 WL-OCPT
+Added Member To Class: ClassName=Signal Member=Component U10 WL-OCPT
+Added Member To Class: ClassName=Signal Member=Component U11 WL-OCPT
+Added Member To Class: ClassName=Signal Member=Component U12 NPN
+Added Member To Class: ClassName=Signal Member=Component U13 WL-OCPT
+Added Room: Name=Signal

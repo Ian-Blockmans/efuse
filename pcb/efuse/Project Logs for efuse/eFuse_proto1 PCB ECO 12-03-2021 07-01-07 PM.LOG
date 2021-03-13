@@ -1,0 +1,5 @@
+Removed Pin From Net: NetName=NetJ2_1 Pin=K1-2
+Removed Pin From Net: NetName=Vout Pin=K1-3
+Added Pin To Net: NetName=Vout Pin=K1-2
+Added Pin To Net: NetName=NetJ2_1 Pin=K1-3
+Added Room: Name=eFuse

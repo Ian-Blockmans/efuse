@@ -1,0 +1,74 @@
+Removed Pin From Net: NetName=+5V Pin=J1-10
+Removed Pin From Net: NetName=NetJ1_8 Pin=R1-2
+Removed Pin From Net: NetName=NetJ1_7 Pin=R3-2
+Removed Pin From Net: NetName=NetJ1_6 Pin=U1-2
+Removed Pin From Net: NetName=NetR6_2 Pin=U2-1
+Removed Pin From Net: NetName=PGND Pin=U2-2
+Removed Pin From Net: NetName=NetJ1_7 Pin=U2-4
+Removed Pin From Net: NetName=NetJ1_8 Pin=U3-4
+Removed Pin From Net: NetName=NetJ1_9 Pin=U4-2
+Change Component Comment : Designator=R2 Old Comment=750 New Comment=390
+Change Component Comment : Designator=R4 Old Comment=750 New Comment=390
+Change Component Comment : Designator=R7 Old Comment=750 New Comment=390
+Change Component Comment : Designator=R8 Old Comment=750 New Comment=390
+Change Component Comment : Designator=R9 Old Comment=750 New Comment=390
+Change Component Comment : Designator=C3 Old Comment=cap New Comment=x
+Change Component Comment : Designator=J1 Old Comment=xh_10_vert New Comment=xh_11_vert
+Added Component: Designator=D3(0805 LED)
+Added Component: Designator=D4(0805 LED)
+Added Component: Designator=R22(0805)
+Added Component: Designator=R23(0805)
+Added Component: Designator=R24(0805)
+Added Component: Designator=R25(0805)
+Added Component: Designator=R26(0805)
+Added Component: Designator=U12(4-SOP_WE_opto-isolator)
+Added Pin To Net: NetName=PGND Pin=D3-2
+Added Pin To Net: NetName=NetJ1_9 Pin=R1-2
+Added Pin To Net: NetName=NetJ1_8 Pin=R3-2
+Added Pin To Net: NetName=NetJ1_6 Pin=R22-1
+Added Pin To Net: NetName=DGND Pin=R22-2
+Added Pin To Net: NetName=Vout Pin=R23-2
+Added Pin To Net: NetName=Vin Pin=R24-2
+Added Pin To Net: NetName=Vout Pin=R25-1
+Added Pin To Net: NetName=Vin Pin=R26-1
+Added Pin To Net: NetName=NetJ1_7 Pin=U1-2
+Added Pin To Net: NetName=Vin Pin=U2-1
+Added Pin To Net: NetName=NetR6_2 Pin=U2-2
+Added Pin To Net: NetName=NetJ1_8 Pin=U2-4
+Added Pin To Net: NetName=NetJ1_9 Pin=U3-4
+Added Pin To Net: NetName=NetJ1_6 Pin=U12-3
+Added Pin To Net: NetName=+5V Pin=U12-4
+Change Net Name : Old Net Name=+5V New Net Name=+3.3V
+Added Pin To Net: NetName=NetD3_1 Pin=D3-1
+Added Pin To Net: NetName=NetD3_1 Pin=R5-1
+Added Pin To Net: NetName=NetD3_1 Pin=R23-1
+Added Pin To Net: NetName=NetD3_1 Pin=U6-17
+Added Net: Name=NetD3_1
+Added Pin To Net: NetName=NetD4_1 Pin=D4-1
+Added Pin To Net: NetName=NetD4_1 Pin=R24-1
+Added Net: Name=NetD4_1
+Added Pin To Net: NetName=NetD4_2 Pin=D4-2
+Added Pin To Net: NetName=NetD4_2 Pin=R6-1
+Added Pin To Net: NetName=NetD4_2 Pin=U6-15
+Added Net: Name=NetD4_2
+Added Pin To Net: NetName=NetJ1_10 Pin=J1-10
+Added Pin To Net: NetName=NetJ1_10 Pin=U4-2
+Added Net: Name=NetJ1_10
+Added Pin To Net: NetName=NetR25_2 Pin=R25-2
+Added Pin To Net: NetName=NetR25_2 Pin=U12-1
+Added Net: Name=NetR25_2
+Added Pin To Net: NetName=NetR26_2 Pin=R26-2
+Added Pin To Net: NetName=NetR26_2 Pin=U6-12
+Added Net: Name=NetR26_2
+Added Pin To Net: NetName=NetU6_14 Pin=U6-14
+Added Net: Name=NetU6_14
+Added Pin To Net: NetName=NetU12_2 Pin=U12-2
+Added Net: Name=NetU12_2
+Added Member To Class: ClassName=eFuse Member=Component D3 Green
+Added Member To Class: ClassName=eFuse Member=Component D4 Red
+Added Member To Class: ClassName=eFuse Member=Component R22 x
+Added Member To Class: ClassName=eFuse Member=Component R23 10k
+Added Member To Class: ClassName=eFuse Member=Component R24 10k
+Added Member To Class: ClassName=eFuse Member=Component R25 >620
+Added Member To Class: ClassName=eFuse Member=Component R26 10k
+Added Member To Class: ClassName=eFuse Member=Component U12 WL-OCPT

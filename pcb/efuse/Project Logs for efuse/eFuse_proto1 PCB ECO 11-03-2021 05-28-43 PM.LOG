@@ -1,0 +1,5 @@
+Added Component: Designator=U13(SOT23(TO-236AB)P095S230x290)
+Added Pin To Net: NetName=NetU6_14 Pin=U13-1
+Added Pin To Net: NetName=PGND Pin=U13-2
+Added Pin To Net: NetName=NetU12_2 Pin=U13-3
+Added Member To Class: ClassName=eFuse Member=Component U13 NPN

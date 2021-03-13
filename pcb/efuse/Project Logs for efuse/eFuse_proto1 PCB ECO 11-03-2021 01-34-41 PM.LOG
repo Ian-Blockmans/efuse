@@ -1,0 +1,12 @@
+Change Component Comment : Designator= Old Comment=Comment New Comment=mountinghole
+Change Component Comment : Designator= Old Comment=Comment New Comment=mountinghole
+Change Component Comment : Designator= Old Comment=Comment New Comment=mountinghole
+Change Component Comment : Designator= Old Comment=Comment New Comment=mountinghole
+Change Component Designator: OldDesignator= NewDesignator=H1
+Change Component Designator: OldDesignator= NewDesignator=H2
+Change Component Designator: OldDesignator= NewDesignator=H3
+Change Component Designator: OldDesignator= NewDesignator=H4
+Added Member To Class: ClassName=eFuse Member=Component H1 mountinghole
+Added Member To Class: ClassName=eFuse Member=Component H2 mountinghole
+Added Member To Class: ClassName=eFuse Member=Component H3 mountinghole
+Added Member To Class: ClassName=eFuse Member=Component H4 mountinghole

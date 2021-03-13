@@ -1,0 +1,3 @@
+Change Component Footprint: Designator=J1 Old Footprint=JST_XH_B10B-XH-A_1x10_P2.50mm_Vertical New Footprint=JST_XH_B11B-XH-A_1x11_P2.50mm_Vertical
+Added Pin To Net: NetName=+3.3V Pin=J1-11
+Added Member To Class: ClassName=eFuse Member=Component J1 xh_11_vert

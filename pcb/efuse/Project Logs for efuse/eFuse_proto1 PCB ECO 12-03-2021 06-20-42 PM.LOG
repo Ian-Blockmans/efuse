@@ -1,0 +1,6 @@
+Added Component: Designator=K1(G6RL-1A DC3 relay)
+Added Pin To Net: NetName=NetD3_2 Pin=K1-1
+Added Pin To Net: NetName=NetJ2_1 Pin=K1-2
+Added Pin To Net: NetName=Vout Pin=K1-3
+Added Pin To Net: NetName=DGND Pin=K1-5
+Added Member To Class: ClassName=eFuse Member=Component K1 G6RL-1A DC3

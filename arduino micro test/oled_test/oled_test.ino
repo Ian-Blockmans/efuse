@@ -24,23 +24,25 @@ void setup() {
   oled.println("Hello World!"); // text to display
   oled.display();               // show on OLED
 
-  Serial.begin(9600);
+  Serial.begin(115200);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
-
+  Serial.println("hallo");
 }
 
 void loop() {
   static char temp[50];
-  static char temp1[50];
+  static char character;
   static int i = 0;
   temp[0]=0;
 
   if (Serial.available() > 0) {
-    while ((temp[i] = Serial.read()) > 1) {
+    while(Serial.available() > 0){
+      temp[i] = Serial.read();
       i++;
     }
+    Serial.write("recieved\n\r");
     temp[i] = 0;
   }
   i = 0;

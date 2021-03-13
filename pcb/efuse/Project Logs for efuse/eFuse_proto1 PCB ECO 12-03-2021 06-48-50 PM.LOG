@@ -1,0 +1,8 @@
+Added Component: Designator=H1(M3 HOLE iso)
+Added Component: Designator=H2(M3 HOLE iso)
+Added Component: Designator=H3(M3 HOLE iso)
+Added Component: Designator=H4(M3 HOLE iso)
+Added Member To Class: ClassName=eFuse Member=Component H1 mounting hole
+Added Member To Class: ClassName=eFuse Member=Component H2 mounting hole
+Added Member To Class: ClassName=eFuse Member=Component H3 mounting hole
+Added Member To Class: ClassName=eFuse Member=Component H4 mounting hole
