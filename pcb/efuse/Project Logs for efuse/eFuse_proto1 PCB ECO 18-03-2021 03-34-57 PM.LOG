@@ -1,0 +1,35 @@
+Removed Pin From Net: NetName=DGND Pin=D3-1
+Removed Pin From Net: NetName=DGND Pin=K1-5
+Removed Pin From Net: NetName=Vout Pin=R15-1
+Removed Pin From Net: NetName=NetR27_2 Pin=TP6-1
+Removed Pin From Net: NetName=NetR27_2 Pin=U7-14
+Added Component: Designator=R28(0805)
+Added Component: Designator=R29(0805)
+Added Component: Designator=R30(0805)
+Added Component: Designator=R31(0805)
+Added Pin To Net: NetName=+3.3V Pin=D3-2
+Added Pin To Net: NetName=+3.3V Pin=K1-1
+Added Pin To Net: NetName=PGND Pin=R28-2
+Added Pin To Net: NetName=NetR27_2 Pin=R30-1
+Added Pin To Net: NetName=Vout Pin=R31-2
+Added Pin To Net: NetName=NetD3_1 Pin=D3-1
+Added Pin To Net: NetName=NetD3_1 Pin=J1-2
+Added Pin To Net: NetName=NetD3_1 Pin=K1-5
+Added Net: Name=NetD3_1
+Added Pin To Net: NetName=NetR15_1 Pin=R15-1
+Added Pin To Net: NetName=NetR15_1 Pin=R29-2
+Added Pin To Net: NetName=NetR15_1 Pin=R31-1
+Added Net: Name=NetR15_1
+Added Pin To Net: NetName=NetR28_1 Pin=R28-1
+Added Pin To Net: NetName=NetR28_1 Pin=U5-2
+Added Pin To Net: NetName=NetR28_1 Pin=U12-3
+Added Net: Name=NetR28_1
+Added Pin To Net: NetName=NetR29_1 Pin=R29-1
+Added Pin To Net: NetName=NetR29_1 Pin=R30-2
+Added Pin To Net: NetName=NetR29_1 Pin=TP6-1
+Added Pin To Net: NetName=NetR29_1 Pin=U7-14
+Added Net: Name=NetR29_1
+Added Member To Class: ClassName=Signal Member=Component R28 0 
+Added Member To Class: ClassName=Signal Member=Component R29 0 
+Added Member To Class: ClassName=Signal Member=Component R30 0
+Added Member To Class: ClassName=Signal Member=Component R31 0 
