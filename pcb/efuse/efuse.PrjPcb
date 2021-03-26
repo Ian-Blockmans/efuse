@@ -313,6 +313,23 @@ GenerateClassCluster=0
 DocumentUniqueId=IXKIYKZN
 
 [Document17]
+DocumentPath=eFuse_proto1.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=IUTGQWJK
+
+[Document18]
 DocumentPath=Digital.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -329,7 +346,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CTJXRRQH
 
-[Document18]
+[Document19]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\ti.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -346,7 +363,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=OQHBKOEH
 
-[Document19]
+[Document20]
 DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\ti.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -363,7 +380,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=STKBJLKC
 
-[Document20]
+[Document21]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\Connector.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -380,7 +397,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=RBXGFGJJ
 
-[Document21]
+[Document22]
 DocumentPath=C:\Users\ian66\OneDrive\altium\scema\Connector_Generic.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -396,23 +413,6 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CSCVHVIU
-
-[Document22]
-DocumentPath=eFuse_proto1.PcbDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=IUTGQWJK
 
 [GeneratedDocument1]
 DocumentPath=Project Outputs for efuse\Design Rule Check - eFuse_proto1.html
