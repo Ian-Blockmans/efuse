@@ -32,7 +32,8 @@ void control_and_wait_state(void *);
 void emission_state(void *);
 void init_timer(void);
 
-int ReadCoils(uint16_t,uint16_t);
+uint8_t ReadCoils(uint16_t,uint16_t);
+uint8_t ReadReg(uint16_t, uint16_t);
 int ReadInput(int);
 void WriteCoils(uint16_t, uint16_t, uint8_t *, uint16_t);
 void Exeption(uint8_t);
@@ -179,7 +180,7 @@ void reception_state(void *arg)
 	}
 }
 
-int ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
+uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 {
 	uint8_t retdata = 0;
 	for (int16_t i = starta; i < bits+starta; i++)
@@ -198,8 +199,14 @@ int ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 	return retdata;
 }
 
+uint8_t ReadReg(uint16_t starta, uint16_t byte){
+	uint8_t reg[50];//make global
+	return reg[starta+byte]
+}
+
 int ReadInput(int)
 {
+
 }
 
 void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
@@ -300,6 +307,36 @@ void control_and_wait_state(void *arg)
 				crc[1] = crc16bit >> 8;
 				dataToSend[4] = crc[0];
 				dataToSend[5] = crc[1];
+				send = 1;
+				done = 1;
+			}
+			if (data[1] == 0x03) //read register
+			{
+				starta = data[3];
+				starta |= data[2]<<8;
+				bytecount = data[5];
+				bytecount |= data[4]<<8;
+				if (bitcount > COILS || starta+bitcount > COILS)
+				{
+					Exeption(2);
+					error = 1;
+				}
+				else
+				{
+					dataToSend[0] = data[0];
+					dataToSend[1] = data[1];
+					dataToSend[2] = bytecount;
+					for (int i = 0; i < bytecount; i++)
+					{
+						dataToSend[i+3] = ReadReg(starta, bitcount);
+					}
+					crc16bit = CRC16(dataToSend, 3+bytecount);
+					crc[0] = crc16bit;
+					crc[1] = crc16bit >> 8;
+
+					dataToSend[bytecount+3] = crc[0];
+					dataToSend[bytecount+4] = crc[1];
+				}
 				send = 1;
 				done = 1;
 			}

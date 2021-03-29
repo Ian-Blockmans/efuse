@@ -1,0 +1,17 @@
+Removed Pin From Net: NetName=NetD3_1 Pin=D3-2
+Removed Pin From Net: NetName=NetD3_1 Pin=K1-1
+Change Component Comment : Designator=R28 Old Comment=0  New Comment=0
+Change Component Comment : Designator=R29 Old Comment=0  New Comment=0
+Change Component Comment : Designator=R31 Old Comment=0  New Comment=0
+Added Component: Designator=R?(0805)
+Added Pin To Net: NetName=+3.3V Pin=D3-2
+Added Pin To Net: NetName=+3.3V Pin=K1-1
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=DGND Pin=R?-2
+Added Pin To Net: NetName=NetR?_1 Pin=R?-1
+Added Pin To Net: NetName=NetR?_1 Pin=R?-2
+Added Net: Name=NetR?_1
+Added Member To Class: ClassName=Signal Member=Component R? NTC
+Added Member To Class: ClassName=Signal Member=Component R? 10k
+Added Room: Name=eFuse
+Added Room: Name=Signal

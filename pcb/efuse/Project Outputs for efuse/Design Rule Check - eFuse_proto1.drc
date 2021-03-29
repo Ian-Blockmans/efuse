@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : F:\github\efuse\pcb\efuse\eFuse_proto1.PcbDoc
-Date     : 13/03/2021
-Time     : 05:05:44 PM
+Date     : 26/03/2021
+Time     : 03:40:08 PM
 
 Processing Rule : Clearance Constraint (Gap=0.152mm) (All),(All)
 Rule Violations :0
@@ -43,12 +43,6 @@ Processing Rule : Board Clearance Constraint (Gap=0mm) (All)
 Rule Violations :0
 
 Processing Rule : Matched Lengths(Delay Tolerance=0.2ps) (InDifferentialPair('No Differential Pair'))
-Rule Violations :0
-
-Processing Rule : Room Signal (Bounding Region = (57.2mm, 45.8mm, 160.9mm, 112.6mm) (InComponentClass('Signal'))
-Rule Violations :0
-
-Processing Rule : Room eFuse (Bounding Region = (62mm, 49.3mm, 155.1mm, 109mm) (InComponentClass('eFuse'))
 Rule Violations :0
 
 Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
