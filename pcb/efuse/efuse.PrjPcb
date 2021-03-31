@@ -24,7 +24,6 @@ ReorderDocumentsOnCompile=1
 NameNetsHierarchically=0
 PowerPortNamesTakePriority=0
 AutoSheetNumbering=1
-AutoCrossReferences=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
@@ -75,7 +74,7 @@ GenerateClassCluster=0
 DocumentUniqueId=UTJKDTPX
 
 [Document3]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\Connector_JST.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\Connector_JST.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -92,7 +91,7 @@ GenerateClassCluster=0
 DocumentUniqueId=JBENJIBR
 
 [Document4]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\generic_components.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\generic_components.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -109,7 +108,7 @@ GenerateClassCluster=0
 DocumentUniqueId=SOAHJGDM
 
 [Document5]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\generic_conn.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\generic_conn.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -126,7 +125,7 @@ GenerateClassCluster=0
 DocumentUniqueId=MENHOVEU
 
 [Document6]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\jst_connectors.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\jst_connectors.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -143,7 +142,7 @@ GenerateClassCluster=0
 DocumentUniqueId=SEBDUKXQ
 
 [Document7]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\microchip_micro.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\microchip_micro.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -160,7 +159,7 @@ GenerateClassCluster=0
 DocumentUniqueId=TOPETNYS
 
 [Document8]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\mx_switch.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\mx_switch.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -177,7 +176,7 @@ GenerateClassCluster=0
 DocumentUniqueId=QRXORVQD
 
 [Document9]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\st.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\st.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -194,7 +193,7 @@ GenerateClassCluster=0
 DocumentUniqueId=XMGRSIET
 
 [Document10]
-DocumentPath=C:\Users\ian66\OneDrive\altium\pads\proto_small.PvLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\pads\proto_small.PvLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -211,7 +210,7 @@ GenerateClassCluster=0
 DocumentUniqueId=
 
 [Document11]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\atmel.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\atmel.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -228,7 +227,7 @@ GenerateClassCluster=0
 DocumentUniqueId=VADYPYTX
 
 [Document12]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\generic_components.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\generic_components.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -245,7 +244,7 @@ GenerateClassCluster=0
 DocumentUniqueId=NJHOFUGN
 
 [Document13]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\generic_conn.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\generic_conn.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -262,7 +261,7 @@ GenerateClassCluster=0
 DocumentUniqueId=EABHZQSD
 
 [Document14]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\JST.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\JST.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -279,7 +278,7 @@ GenerateClassCluster=0
 DocumentUniqueId=DFOQTRDE
 
 [Document15]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\mx.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\mx.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -296,7 +295,7 @@ GenerateClassCluster=0
 DocumentUniqueId=VNJMJPJD
 
 [Document16]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\st.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\st.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -347,7 +346,7 @@ GenerateClassCluster=0
 DocumentUniqueId=CTJXRRQH
 
 [Document19]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\ti.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\ti.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -364,7 +363,7 @@ GenerateClassCluster=0
 DocumentUniqueId=OQHBKOEH
 
 [Document20]
-DocumentPath=C:\Users\ian66\OneDrive\altium\footprints\ti.PcbLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\footprints\ti.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -381,7 +380,7 @@ GenerateClassCluster=0
 DocumentUniqueId=STKBJLKC
 
 [Document21]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\Connector.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\Connector.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -398,7 +397,7 @@ GenerateClassCluster=0
 DocumentUniqueId=RBXGFGJJ
 
 [Document22]
-DocumentPath=C:\Users\ian66\OneDrive\altium\scema\Connector_Generic.SchLib
+DocumentPath=..\..\..\..\..\OneDrive\altium\scema\Connector_Generic.SchLib
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -431,7 +430,7 @@ ConfigurationType=Source
 [OutputGroup1]
 Name=Netlist Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=CadnetixNetlist
 OutputName1=Cadnetix Netlist
@@ -537,7 +536,7 @@ OutputDefault20=0
 [OutputGroup2]
 Name=Simulator Outputs
 Description=
-TargetPrinter=Adobe PDF
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 
 [OutputGroup3]
@@ -647,7 +646,7 @@ PageOptions11=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|Print
 [OutputGroup4]
 Name=Assembly Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Assembly
 OutputName1=Assembly Drawings
@@ -669,7 +668,7 @@ OutputDefault3=0
 [OutputGroup5]
 Name=Fabrication Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Board Stack Report
 OutputName1=Report Board Stack
@@ -741,7 +740,7 @@ OutputDefault12=0
 [OutputGroup6]
 Name=Report Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=BOM_PartType
 OutputName1=Bill of Materials
@@ -778,7 +777,7 @@ OutputDefault6=0
 [OutputGroup7]
 Name=Other Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Text Print
 OutputName1=Text Print
@@ -886,7 +885,7 @@ PageOptions17=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|Print
 [OutputGroup8]
 Name=Validation Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=BOM_Violations
 OutputName1=BOM Checks Report
@@ -930,7 +929,7 @@ OutputDefault7=0
 [OutputGroup9]
 Name=Export Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=AutoCAD dwg/dxf PCB
 OutputName1=AutoCAD dwg/dxf File PCB
@@ -991,7 +990,7 @@ OutputDefault11=0
 [OutputGroup10]
 Name=PostProcess Outputs
 Description=
-TargetPrinter=Brother MFC-L2710DW series
+TargetPrinter=OrCADPS_17.2
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Copy Files
 OutputName1=Copy Files
