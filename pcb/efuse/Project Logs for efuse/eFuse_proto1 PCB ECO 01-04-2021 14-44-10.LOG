@@ -1,0 +1,6 @@
+Added Component: Designator=R32(0805)
+Added Pin To Net: NetName=NetJ1_2 Pin=R32-1
+Added Pin To Net: NetName=+3.3V Pin=R32-2
+Added Member To Class: ClassName=Signal Member=Component R32 10k
+Added Room: Name=eFuse
+Added Room: Name=Signal

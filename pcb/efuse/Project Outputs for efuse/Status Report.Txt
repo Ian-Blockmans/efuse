@@ -1,0 +1,25 @@
+Output: Gerber X2 Files
+Type  : GerberX2
+From  : Project [efuse.PrjPcb]
+   Generated File[eFuse_proto1_Copper_Signal_Top.gbr]
+   Generated File[eFuse_proto1_Copper_Signal_Bot.gbr]
+   Generated File[eFuse_proto1_Legend_Bot.gbr]
+   Generated File[eFuse_proto1_Soldermask_Bot.gbr]
+   Generated File[eFuse_proto1_Paste_Bot.gbr]
+   Generated File[eFuse_proto1_Legend_Top.gbr]
+   Generated File[eFuse_proto1_Paste_Top.gbr]
+   Generated File[eFuse_proto1_Soldermask_Top.gbr]
+   Generated File[eFuse_proto1_Mechanical_1.gbr]
+   Generated File[eFuse_proto1_NPTH_Drill.gbr]
+   Generated File[eFuse_proto1_PTH_Drill.gbr]
+   Generated File[eFuse_proto1_Drawing_1.gbr]
+   Generated File[eFuse_proto1_Drillmap_1.gbr]
+   Generated File[eFuse_proto1.RUL]
+   Generated File[eFuse_proto1.EXTREP]
+   Generated File[eFuse_proto1.REP]
+
+
+Files Generated   : 16
+Documents Printed : 0
+
+Finished Output Generation At 15:32:50 On 01/04/2021

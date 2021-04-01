@@ -1,7 +1,7 @@
 Protel Design System Design Rule Check
 PCB File : C:\Users\ian66\Documents\GitHub\efuse\pcb\efuse\eFuse_proto1.PcbDoc
-Date     : 31/03/2021
-Time     : 15:55:19
+Date     : 01/04/2021
+Time     : 14:51:34
 
 Processing Rule : Clearance Constraint (Gap=0.152mm) (All),(All)
 Rule Violations :0
@@ -51,4 +51,4 @@ Rule Violations :0
 
 Violations Detected : 0
 Waived Violations : 0
-Time Elapsed        : 00:00:01
+Time Elapsed        : 00:00:02

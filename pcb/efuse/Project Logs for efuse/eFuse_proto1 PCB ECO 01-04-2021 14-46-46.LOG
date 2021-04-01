@@ -1,0 +1,7 @@
+Removed Pin From Net: NetName=Vout Pin=R6-2
+Removed Pin From Net: NetName=Vin Pin=R11-2
+Removed Pin From Net: NetName=Vout Pin=R31-2
+Removed Pin From Net: NetName=Vin Pin=U2-1
+Removed Pin From Net: NetName=Vin Pin=U4-4
+Added Room: Name=eFuse
+Added Room: Name=Signal
