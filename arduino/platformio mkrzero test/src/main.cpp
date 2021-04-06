@@ -34,7 +34,7 @@ void init_timer(void);
 
 uint8_t ReadCoils(uint16_t,uint16_t);
 uint8_t ReadReg(uint16_t, uint16_t);
-int ReadInput(int);
+uint8_t ReadInputs(uint16_t, uint16_t);
 void WriteCoils(uint16_t, uint16_t, uint8_t *, uint16_t);
 void Exeption(uint8_t);
 
@@ -204,9 +204,23 @@ uint8_t ReadReg(uint16_t starta, uint16_t byte){
 	return reg[starta+byte];
 }
 
-int ReadInput(int)
+uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 {
-
+	uint8_t retdata = 0;
+	for (int16_t i = starta; i < bits+starta; i++)
+	{
+		int req = i;
+		if (i == 0)
+		{
+			retdata |= digitalRead(LED_BUILTIN)<<(i-starta);
+		}
+		if (i == 1)
+		{
+			retdata |= dummycoil<<(i-starta);
+		}
+		//... to add coils for read
+	}
+	return retdata;
 }
 
 void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
@@ -298,15 +312,32 @@ void control_and_wait_state(void *arg)
 			}
 			else if (data[1] == 0x02) //read input
 			{
-				dataToSend[0] = data[0];
-				dataToSend[1] = data[1];
-				dataToSend[2] = 1;
-				dataToSend[3] = digitalRead(LED_BUILTIN);
-				crc16bit = CRC16(dataToSend, 4);
-				crc[0] = crc16bit;
-				crc[1] = crc16bit >> 8;
-				dataToSend[4] = crc[0];
-				dataToSend[5] = crc[1];
+				starta = data[3];
+				starta |= data[2]<<8;
+				bitcount = data[5];
+				bitcount |= data[4]<<8;
+				bytecount = ((float)bitcount / 8) + 1;
+				if (bitcount > COILS || starta+bitcount > COILS)
+				{
+					Exeption(2);
+					error = 1;
+				}
+				else
+				{
+					dataToSend[0] = data[0];
+					dataToSend[1] = data[1];
+					dataToSend[2] = bytecount;
+					for (int i = 0; i < bytecount; i++)
+					{
+						dataToSend[i+3] = ReadInputs(starta, bitcount);
+					}
+					crc16bit = CRC16(dataToSend, 3+bytecount);
+					crc[0] = crc16bit;
+					crc[1] = crc16bit >> 8;
+
+					dataToSend[bytecount+3] = crc[0];
+					dataToSend[bytecount+4] = crc[1];
+				}
 				send = 1;
 				done = 1;
 			}
