@@ -201,7 +201,7 @@ uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 
 uint8_t ReadReg(uint16_t starta, uint16_t byte){
 	uint8_t reg[50];//make global
-	return reg[starta+byte]
+	return reg[starta+byte];
 }
 
 int ReadInput(int)
@@ -310,7 +310,7 @@ void control_and_wait_state(void *arg)
 				send = 1;
 				done = 1;
 			}
-			if (data[1] == 0x03) //read register
+			else if (data[1] == 0x03) //read register
 			{
 				starta = data[3];
 				starta |= data[2]<<8;
