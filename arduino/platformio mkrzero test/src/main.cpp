@@ -10,6 +10,10 @@
 #define COILS 2
 #define INPUTS 0
 
+#define DOWN_BUTTON 5
+#define OK_BUTTON 4
+#define UP_BUTTON 3
+
 // declare an SSD1306 display object connected to I2C
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
@@ -30,6 +34,7 @@ void idle_state(void *);
 void reception_state(void *);
 void control_and_wait_state(void *);
 void emission_state(void *);
+
 void init_timer(void);
 
 uint8_t ReadCoils(uint16_t,uint16_t);
@@ -37,6 +42,8 @@ uint8_t ReadReg(uint16_t, uint16_t);
 uint8_t ReadInputs(uint16_t, uint16_t);
 void WriteCoils(uint16_t, uint16_t, uint8_t *, uint16_t);
 void Exeption(uint8_t);
+
+void UserInterface(void);
 
 fsm_states_t fsm_current_state = INITIAL_STATE;
 typedef void (*fsm_handler_t)(void *arg);
@@ -159,6 +166,10 @@ void idle_state(void *arg)
 		send = 0;
 		fsm_current_state = EMISSION_STATE;
 	}
+	else 
+	{
+		UserInterface();
+	}
 }
 
 void reception_state(void *arg)
@@ -226,7 +237,7 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 {
 	//adress:                                  ↓                   ↓                   ↓
-	if (((write[byte]<<(starta+(byte*8))) & 1<<0) > 0 && starta <= 0 && bits+starta >= 0)
+	if (((write[byte]<<(starta+(byte*8))) & (1<<0)) && starta <= 0 && bits+starta >= 0)
 	{
 		digitalWrite(LED_BUILTIN, HIGH);
 	}
@@ -235,7 +246,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	{
 		digitalWrite(LED_BUILTIN, LOW);
 	}
-	if (((write[byte]<<(starta+(byte*8))) & 1<<1) > 0 && starta <= 1 && bits+starta >= 1)
+	if (((write[byte]<<(starta+(byte*8))) & (1<<1)) && starta <= 1 && bits+starta >= 1)
 	{
 		dummycoil = 1;
 	}
@@ -286,7 +297,12 @@ void control_and_wait_state(void *arg)
 				bitcount = data[5];
 				bitcount |= data[4]<<8;
 				bytecount = ((float)bitcount / 8) + 1;
-				if (bitcount > COILS || starta+bitcount > COILS)
+				if (bitcount < 1 || bitcount > 65536)
+				{
+					Exeption(3);
+					error = 1;
+				}
+				else if (bitcount > COILS || starta+bitcount > COILS)
 				{
 					Exeption(2);
 					error = 1;
@@ -317,7 +333,12 @@ void control_and_wait_state(void *arg)
 				bitcount = data[5];
 				bitcount |= data[4]<<8;
 				bytecount = ((float)bitcount / 8) + 1;
-				if (bitcount > COILS || starta+bitcount > COILS)
+				if (bitcount < 1 || bitcount > 65536)
+				{
+					Exeption(3);
+					error = 1;
+				}
+				else if (bitcount > COILS || starta+bitcount > COILS)
 				{
 					Exeption(2);
 					error = 1;
@@ -341,13 +362,18 @@ void control_and_wait_state(void *arg)
 				send = 1;
 				done = 1;
 			}
-			else if (data[1] == 0x03) //read register
+			else if (data[1] == 0x03) //read registers
 			{
 				starta = data[3];
 				starta |= data[2]<<8;
 				bytecount = data[5];
 				bytecount |= data[4]<<8;
-				if (bitcount > COILS || starta+bitcount > COILS)
+				if (bitcount < 1 || bitcount > 65536)
+				{
+					Exeption(3);
+					error = 1;
+				}
+				else if (bitcount > COILS || starta+bitcount > COILS)
 				{
 					Exeption(2);
 					error = 1;
@@ -383,7 +409,12 @@ void control_and_wait_state(void *arg)
 				{
 					write[i] = data[7+i];
 				}
-				if (bitcount > COILS || starta+bitcount > COILS)
+				if (bitcount < 1 || bitcount > 65536)
+				{
+					Exeption(3);
+					error = 1;
+				}
+				else if (bitcount > COILS || starta+bitcount > COILS)
 				{
 					Exeption(2);
 					error = 1;
@@ -415,8 +446,13 @@ void control_and_wait_state(void *arg)
 				uint8_t write[10];
 				starta = data[3];
 				starta |= data[2]<<8;
-				write[0] = data[4] & (1<<starta);
-				if (bitcount > COILS || starta+bitcount > COILS)
+				write[0] = data[4] & 1 ;
+				if (starta < 0 || starta > 65536)
+				{
+					Exeption(3);
+					error = 1;
+				}
+				else if (starta > COILS)
 				{
 					Exeption(2);
 					error = 1;
@@ -509,6 +545,134 @@ void emission_state(void *arg)
 	}
 }
 
+void UserInterface(void){
+	static uint8_t redraw = 1, position = 0;
+	uint8_t one = 1, zero = 0;
+	enum menu {lcl1,lcl2,lcl3,V5,V12};
+
+	if (!digitalRead(UP_BUTTON)){
+		delay(20);
+		if (!digitalRead(UP_BUTTON)){
+			if(position == 4){
+				position = 0;
+			}
+			else
+			{
+				position++;
+			}
+			redraw = 1;
+		}
+	}
+	else if (!digitalRead(DOWN_BUTTON)){
+		delay(20);
+		if (!digitalRead(DOWN_BUTTON)){
+			if(position == 0){
+				position = 4;
+			}
+			else
+			{
+				position--;
+			}
+			redraw = 1;
+		}
+	}
+	else if (!digitalRead(OK_BUTTON)){
+		delay(20);
+		if (!digitalRead(OK_BUTTON)){
+			switch (position)
+			{
+			case 0:
+				WriteCoils(0,0,&one,0);
+				break;
+			case 1:
+				WriteCoils(0,0,&zero,0);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	if (redraw == 1){
+		switch (position)
+		{
+		case 0:
+			oled.clearDisplay(); // clear display
+			for (uint8_t i = 2-2; i < 8+4; i++)
+			{
+				oled.drawLine(0,i,128,i,WHITE);
+			}
+			oled.setTextSize(1);		  // text size
+			oled.setTextColor(BLACK,WHITE);	  // text color
+			oled.setCursor(20, 2);		  // position to display
+			oled.println("LCL1"); // text to display
+			oled.display();	
+			redraw = 0;
+			break;
+		case 1:
+			oled.clearDisplay(); // clear display
+			for (uint8_t i = 2-2; i < 8+4; i++)
+			{
+				oled.drawLine(0,i,128,i,WHITE);
+			}
+			oled.setTextSize(1);		  // text size
+			oled.setTextColor(BLACK,WHITE);	  // text color
+			oled.setCursor(20, 2);		  // position to display
+			oled.println("LCL2"); // text to display
+			oled.display();	
+			redraw = 0;
+			break;
+		case 2:
+			oled.clearDisplay(); // clear display
+			for (uint8_t i = 2-2; i < 8+4; i++)
+			{
+				oled.drawLine(0,i,128,i,WHITE);
+			}
+			oled.setTextSize(1);		  // text size
+			oled.setTextColor(BLACK,WHITE);	  // text color
+			oled.setCursor(20, 2);		  // position to display
+			oled.println("LCL3"); // text to display
+			oled.display();	
+			redraw = 0;
+			break;
+		case 3:
+			oled.clearDisplay(); // clear display
+			for (uint8_t i = 2-2; i < 8+4; i++)
+			{
+				oled.drawLine(0,i,128,i,WHITE);
+			}
+			oled.setTextSize(1);		  // text size
+			oled.setTextColor(BLACK,WHITE);	  // text color
+			oled.setCursor(20, 2);		  // position to display
+			oled.println("5V"); // text to display
+			oled.display();	
+			redraw = 0;
+			break;
+		case 4:
+			oled.clearDisplay(); // clear display
+			for (uint8_t i = 2-2; i < 8+4; i++)
+			{
+				oled.drawLine(0,i,128,i,WHITE);
+			}
+			oled.setTextSize(1);		  // text size
+			oled.setTextColor(BLACK,WHITE);	  // text color
+			oled.setCursor(20, 2);		  // position to display
+			oled.println("12V"); // text to display
+			oled.display();	
+			redraw = 0;
+			break;
+		default:
+			oled.clearDisplay();
+			redraw = 0;
+			break;
+		}
+		delay(50);
+		while (!digitalRead(UP_BUTTON) || !digitalRead(OK_BUTTON) || !digitalRead(DOWN_BUTTON))
+		{
+		}
+	}
+}
+
 void TC4_Handler(void)
 {
 	t15 = 1;
@@ -559,11 +723,16 @@ void init_timer(void)
 
 void setup()
 {
+	// setup I/O
 	pinMode(LED_BUILTIN, OUTPUT);
+	pinMode(UP_BUTTON, INPUT_PULLUP);
+	pinMode(OK_BUTTON, INPUT_PULLUP);
+	pinMode(DOWN_BUTTON, INPUT_PULLUP);
+
+	// setup Timers
 	init_timer();
-	//start_t35();
-	//Serial.write("w1");
-	// put your setup code here, to run once:
+
+	// setup oled display
 	if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3C))
 	{
 		Serial.println(F("SSD1306 allocation failed"));
@@ -572,22 +741,15 @@ void setup()
 	}
 	delay(2000);		 // wait for initializing
 	oled.clearDisplay(); // clear display
-	for (uint8_t i = 2-2; i < 8+4; i++)
-	{
-		oled.drawLine(0,i,128,i,WHITE);
-	}
-	oled.setTextSize(1);		  // text size
-	oled.setTextColor(BLACK,WHITE);	  // text color
-	oled.setCursor(20, 2);		  // position to display
-	oled.println("Hello World!"); // text to display
-	oled.display();				  // show on OLED
 
-	Serial.begin(9600);
-	while (!Serial)
+	//setup serial
+	Serial.begin(9600,SERIAL_8N2);
+	/*while (!Serial)
 	{
 		; // wait for serial port to connect. Needed for native USB port only
-	}
-
+	}*/
+	
+	// initialize fsm
 	fsm_current_state = IDLE_STATE;
 	call_handler[fsm_current_state](NULL);
 }
