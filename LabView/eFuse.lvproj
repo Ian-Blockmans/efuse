@@ -40,7 +40,8 @@
 			<Item Name="Data.ctl" Type="VI" URL="../controls/Data.ctl"/>
 			<Item Name="State.ctl" Type="VI" URL="../controls/State.ctl"/>
 		</Item>
-		<Item Name="Main.vi" Type="VI" URL="../Main.vi"/>
+		<Item Name="test.vi" Type="VI" URL="../test.vi"/>
+		<Item Name="controll.vi" Type="VI" URL="../controll.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="Simple Error Handler.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/Simple Error Handler.vi"/>
@@ -131,7 +132,7 @@
 				<Property Name="Source[0].itemID" Type="Str">{E14DB2DD-E011-49B1-8A6D-0145D8676319}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[1].itemID" Type="Ref">/My Computer/Main.vi</Property>
+				<Property Name="Source[1].itemID" Type="Ref">/My Computer/test.vi</Property>
 				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
 				<Property Name="Source[1].type" Type="Str">VI</Property>
 				<Property Name="SourceCount" Type="Int">2</Property>

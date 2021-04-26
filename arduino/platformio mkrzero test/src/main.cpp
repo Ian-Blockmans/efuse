@@ -10,9 +10,9 @@
 #define COILS 2
 #define INPUTS 0
 
-#define DOWN_BUTTON 5
+#define UP_BUTTON 5
 #define OK_BUTTON 4
-#define UP_BUTTON 3
+#define DOWN_BUTTON 3
 
 // declare an SSD1306 display object connected to I2C
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
@@ -44,6 +44,7 @@ void WriteCoils(uint16_t, uint16_t, uint8_t *, uint16_t);
 void Exeption(uint8_t);
 
 void UserInterface(void);
+void OledDisplay(uint8_t);
 
 fsm_states_t fsm_current_state = INITIAL_STATE;
 typedef void (*fsm_handler_t)(void *arg);
@@ -545,10 +546,38 @@ void emission_state(void *arg)
 	}
 }
 
+void OledDisplay(uint8_t pos){
+	const char * items[5] = {"LCL1", "LCL2", "LCL3", "12V", "5V"};
+	oled.clearDisplay(); // clear display
+
+	for (uint8_t i = 0; i < 8+2; i++)
+	{
+		oled.drawLine(0,i+(pos*10),128,i+(pos*10),WHITE);
+	}
+
+	oled.setTextSize(1);		  // text size
+	for (uint8_t i = 0; i < 5; i++)
+	{
+		if (pos == i){
+			oled.setTextColor(BLACK,WHITE);	  // text color
+			oled.setCursor(20, 1+i+(i*9));	// position to display
+			oled.println(items[i]); // text to display
+		}
+		else
+		{
+			oled.setTextColor(WHITE);	  // text color
+			oled.setCursor(20, 1+i+(i*9));	// position to display
+			oled.println(items[i]); // text to display
+		}
+	}
+	oled.display();
+	return;
+}
+
 void UserInterface(void){
 	static uint8_t redraw = 1, position = 0;
 	uint8_t one = 1, zero = 0;
-	enum menu {lcl1,lcl2,lcl3,V5,V12};
+	//enum menu {lcl1,lcl2,lcl3,V5,V12};
 
 	if (!digitalRead(UP_BUTTON)){
 		delay(20);
@@ -594,78 +623,8 @@ void UserInterface(void){
 	}
 
 	if (redraw == 1){
-		switch (position)
-		{
-		case 0:
-			oled.clearDisplay(); // clear display
-			for (uint8_t i = 2-2; i < 8+4; i++)
-			{
-				oled.drawLine(0,i,128,i,WHITE);
-			}
-			oled.setTextSize(1);		  // text size
-			oled.setTextColor(BLACK,WHITE);	  // text color
-			oled.setCursor(20, 2);		  // position to display
-			oled.println("LCL1"); // text to display
-			oled.display();	
-			redraw = 0;
-			break;
-		case 1:
-			oled.clearDisplay(); // clear display
-			for (uint8_t i = 2-2; i < 8+4; i++)
-			{
-				oled.drawLine(0,i,128,i,WHITE);
-			}
-			oled.setTextSize(1);		  // text size
-			oled.setTextColor(BLACK,WHITE);	  // text color
-			oled.setCursor(20, 2);		  // position to display
-			oled.println("LCL2"); // text to display
-			oled.display();	
-			redraw = 0;
-			break;
-		case 2:
-			oled.clearDisplay(); // clear display
-			for (uint8_t i = 2-2; i < 8+4; i++)
-			{
-				oled.drawLine(0,i,128,i,WHITE);
-			}
-			oled.setTextSize(1);		  // text size
-			oled.setTextColor(BLACK,WHITE);	  // text color
-			oled.setCursor(20, 2);		  // position to display
-			oled.println("LCL3"); // text to display
-			oled.display();	
-			redraw = 0;
-			break;
-		case 3:
-			oled.clearDisplay(); // clear display
-			for (uint8_t i = 2-2; i < 8+4; i++)
-			{
-				oled.drawLine(0,i,128,i,WHITE);
-			}
-			oled.setTextSize(1);		  // text size
-			oled.setTextColor(BLACK,WHITE);	  // text color
-			oled.setCursor(20, 2);		  // position to display
-			oled.println("5V"); // text to display
-			oled.display();	
-			redraw = 0;
-			break;
-		case 4:
-			oled.clearDisplay(); // clear display
-			for (uint8_t i = 2-2; i < 8+4; i++)
-			{
-				oled.drawLine(0,i,128,i,WHITE);
-			}
-			oled.setTextSize(1);		  // text size
-			oled.setTextColor(BLACK,WHITE);	  // text color
-			oled.setCursor(20, 2);		  // position to display
-			oled.println("12V"); // text to display
-			oled.display();	
-			redraw = 0;
-			break;
-		default:
-			oled.clearDisplay();
-			redraw = 0;
-			break;
-		}
+		OledDisplay(position);
+		redraw = 0;
 		delay(50);
 		while (!digitalRead(UP_BUTTON) || !digitalRead(OK_BUTTON) || !digitalRead(DOWN_BUTTON))
 		{

@@ -18,6 +18,11 @@ class Test_Modbus:
         modbus_efuse.write_multiple_coils(0, [True, True])
         coils = modbus_efuse.read_coils(0, 2)
         assert coils == [True,True]
-
-
-
+    def test_efuse_turn_on(self):
+        modbus_efuse.write_single_coils(1, True)
+        input = modbus_efuse.read_inputregisters(1, 1)
+        assert input == True
+    def test_efuse_turn_off(self):
+        modbus_efuse.write_single_coils(1, False)
+        input = modbus_efuse.read_inputregisters(1, 1)
+        assert input == False
