@@ -444,7 +444,6 @@ void control_and_wait_state(void *arg)
 			}
 			else if (data[1] == 0x05) //write coil
 			{
-				uint8_t write[10];
 				starta = data[3];
 				starta |= data[2]<<8;
 				write[0] = data[4] & 1 ;

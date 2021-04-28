@@ -26,3 +26,8 @@ class Test_Modbus:
         modbus_efuse.write_single_coils(1, False)
         input = modbus_efuse.read_inputregisters(1, 1)
         assert input == False
+    def test_LCL2(self):
+        modbus_efuse.write_single_coil(2, True)
+        modbus_efuse.write_single_coil(3, True)
+        input = modbus_efuse.read_coils(1, 5)
+        sert input == [False,True,False,False,False]
