@@ -7,12 +7,22 @@
 #define SCREEN_WIDTH 128 // OLED display width,  in pixels
 #define SCREEN_HEIGHT 32 // OLED display height, in pixels
 
-#define COILS 2
-#define INPUTS 0
+#define COILS 7
+#define INPUTS 2
 
 #define UP_BUTTON 5
 #define OK_BUTTON 4
 #define DOWN_BUTTON 3
+#define SHDN 10
+#define A42 9
+#define A28 8
+#define A14 7
+#define OVP 6
+#define UVP 2
+#define PGOOD 1
+#define FLT 0
+
+
 
 // declare an SSD1306 display object connected to I2C
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
@@ -200,11 +210,37 @@ uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 		int req = i;
 		if (i == 0)
 		{
-			retdata |= digitalRead(LED_BUILTIN)<<(i-starta);
+			retdata |= digitalRead(SHDN)<<(i-starta);
 		}
 		if (i == 1)
 		{
-			retdata |= dummycoil<<(i-starta);
+			retdata |= ((!digitalRead(A14))&1)<<(i-starta);
+		}
+		if (i == 2)
+		{
+			retdata |= ((!digitalRead(A28))&1)<<(i-starta);
+		}
+		if (i == 3)
+		{
+			if (digitalRead(OVP) && !digitalRead(UVP)&1 && (!digitalRead(A42))&1){
+				retdata |= 1<<(i-starta);
+			}
+		}
+		if (i == 4)
+		{
+			if (digitalRead(OVP) && digitalRead(UVP)){
+				retdata |= 1<<(i-starta);
+			}
+		}
+		if (i == 5)
+		{
+			if ((!digitalRead(OVP))&1 && digitalRead(UVP)){
+				retdata |= 1<<(i-starta);
+			}
+		}
+		if (i == 6)
+		{
+			retdata |= digitalRead(LED_BUILTIN)<<(i-starta);
 		}
 		//... to add coils for read
 	}
@@ -224,11 +260,11 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 		int req = i;
 		if (i == 0)
 		{
-			retdata |= digitalRead(LED_BUILTIN)<<(i-starta);
+			retdata |= digitalRead(PGOOD)<<(i-starta); //0 == good 
 		}
 		if (i == 1)
 		{
-			retdata |= dummycoil<<(i-starta);
+			retdata |= digitalRead(FLT)<<(i-starta); //0 == fault
 		}
 		//... to add coils for read
 	}
@@ -237,29 +273,98 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 
 void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 {
-	//adress:                                  ↓                   ↓                   ↓
+	//adress:                                   ↓                ↓                   ↓
+	if (((write[byte]<<(starta+(byte*8))) & (1<<0)) && starta <= 0 && bits+starta >= 0) //ON/OFF
+	{
+		digitalWrite(SHDN, HIGH);
+	}
+	//adress:          ↓                   ↓
+	else if (starta <= 0 && bits+starta >= 0)
+	{
+		digitalWrite(SHDN, LOW);
+	}
+
+	if (((write[byte]<<(starta+(byte*8))) & (1<<1)) && starta <= 1 && bits+starta >= 1) //LCL1
+	{
+		digitalWrite(A14, LOW);
+		digitalWrite(A28, HIGH);
+		digitalWrite(A42, HIGH);
+		digitalWrite(OVP, HIGH);
+		digitalWrite(UVP, LOW);
+	}
+	else if(starta <= 1 && bits+starta >= 1)
+	{
+		digitalWrite(SHDN, LOW);
+	}
+
+	if (((write[byte]<<(starta+(byte*8))) & (1<<2)) && starta <= 2 && bits+starta >= 2) //LCL2
+	{
+		digitalWrite(A14, HIGH);
+		digitalWrite(A28, LOW);
+		digitalWrite(A42, HIGH);
+		digitalWrite(OVP, HIGH);
+		digitalWrite(UVP, LOW);
+	}
+	else if(starta <= 2 && bits+starta >= 2)
+	{
+		digitalWrite(SHDN, LOW);
+	}
+
+	if (((write[byte]<<(starta+(byte*8))) & (1<<3)) && starta <= 3 && bits+starta >= 3) //LCL3
+	{
+		digitalWrite(A14, HIGH);
+		digitalWrite(A28, HIGH);
+		digitalWrite(A42, LOW);
+		digitalWrite(OVP, HIGH);
+		digitalWrite(UVP, LOW);
+	}
+	else if(starta <= 3 && bits+starta >= 3)
+	{
+		digitalWrite(SHDN, LOW);
+	}
+
+	if (((write[byte]<<(starta+(byte*8))) & (1<<4)) && starta <= 4 && bits+starta >= 4) //12V
+	{
+		digitalWrite(A14, HIGH);
+		digitalWrite(A28, HIGH);
+		digitalWrite(A42, LOW);
+		digitalWrite(OVP, HIGH);
+		digitalWrite(UVP, HIGH);
+	}
+	else if(starta <= 4 && bits+starta >= 4)
+	{
+		digitalWrite(SHDN, LOW);
+	}
+
+	if (((write[byte]<<(starta+(byte*8))) & (1<<5)) && starta <= 5 && bits+starta >= 5) //5V
+	{
+		digitalWrite(A14, HIGH);
+		digitalWrite(A28, HIGH);
+		digitalWrite(A42, LOW);
+		digitalWrite(OVP, LOW);
+		digitalWrite(UVP, HIGH);
+	}
+	else if(starta <= 5 && bits+starta >= 5)
+	{
+		digitalWrite(SHDN, LOW);
+	}
+
+	if (((write[byte]<<(starta+(byte*8))) & (1<<6)) && starta <= 6 && bits+starta >= 6) //buildin led
+	{
+		digitalWrite(LED_BUILTIN, HIGH);
+	}
+	else if(starta <= 6 && bits+starta >= 6)
+	{
+		digitalWrite(LED_BUILTIN, LOW);
+	}
+
+	/*//adress:                                 ↓                ↓                   ↓
 	if (((write[byte]<<(starta+(byte*8))) & (1<<0)) && starta <= 0 && bits+starta >= 0)
 	{
 		digitalWrite(LED_BUILTIN, HIGH);
 	}
 	//adress:          ↓                   ↓
 	else if (starta <= 0 && bits+starta >= 0)
-	{
-		digitalWrite(LED_BUILTIN, LOW);
-	}
-	if (((write[byte]<<(starta+(byte*8))) & (1<<1)) && starta <= 1 && bits+starta >= 1)
-	{
-		dummycoil = 1;
-	}
-	else if(starta <= 1 && bits+starta >= 1)
-	{
-		dummycoil = 0;
-	}
-	/*if (((write[byte]<<(starta+(byte*8))) & 1<<2) > 0)
-	{
-		digitalWrite(LED_BUILTIN, HIGH);
-	}
-	else if(starta <= 1 && bits+starta >= 1)
 	{
 		digitalWrite(LED_BUILTIN, LOW);
 	}*/
@@ -444,6 +549,7 @@ void control_and_wait_state(void *arg)
 			}
 			else if (data[1] == 0x05) //write coil
 			{
+				uint8_t write[10];
 				starta = data[3];
 				starta |= data[2]<<8;
 				write[0] = data[4] & 1 ;
@@ -682,10 +788,27 @@ void init_timer(void)
 void setup()
 {
 	// setup I/O
+	pinMode(SHDN, OUTPUT);
+	pinMode(A42, OUTPUT);
+	pinMode(A28, OUTPUT);
+	pinMode(A14, OUTPUT);
+	pinMode(OVP, OUTPUT);
+	pinMode(UVP, OUTPUT);
+	pinMode(PGOOD, INPUT);
+	pinMode(FLT, INPUT);
 	pinMode(LED_BUILTIN, OUTPUT);
 	pinMode(UP_BUTTON, INPUT_PULLUP);
 	pinMode(OK_BUTTON, INPUT_PULLUP);
 	pinMode(DOWN_BUTTON, INPUT_PULLUP);
+
+	// i/o initial set
+
+	digitalWrite(SHDN, LOW);
+	digitalWrite(A14, HIGH);
+	digitalWrite(A28, HIGH);
+	digitalWrite(A42, HIGH);
+	digitalWrite(OVP, HIGH);
+	digitalWrite(UVP, LOW);
 
 	// setup Timers
 	init_timer();
