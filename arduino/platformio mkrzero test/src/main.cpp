@@ -21,6 +21,7 @@
 #define UVP 2
 #define PGOOD 1
 #define FLT 0
+#define RELAY A6
 
 
 
@@ -222,7 +223,7 @@ uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 		}
 		if (i == 3)
 		{
-			if (digitalRead(OVP) && !digitalRead(UVP)&1 && (!digitalRead(A42))&1){
+			if (digitalRead(UVP) && !digitalRead(OVP)&1 && (!digitalRead(A42))&1){
 				retdata |= 1<<(i-starta);
 			}
 		}
@@ -234,7 +235,7 @@ uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 		}
 		if (i == 5)
 		{
-			if ((!digitalRead(OVP))&1 && digitalRead(UVP)){
+			if ((!digitalRead(UVP))&1 && digitalRead(OVP)){
 				retdata |= 1<<(i-starta);
 			}
 		}
@@ -277,11 +278,13 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	if (((write[byte]<<(starta+(byte*8))) & (1<<0)) && starta <= 0 && bits+starta >= 0) //ON/OFF
 	{
 		digitalWrite(SHDN, HIGH);
+		digitalWrite(RELAY, HIGH);
 	}
 	//adress:          ↓                   ↓
 	else if (starta <= 0 && bits+starta >= 0)
 	{
 		digitalWrite(SHDN, LOW);
+		digitalWrite(RELAY, LOW);
 	}
 
 	if (((write[byte]<<(starta+(byte*8))) & (1<<1)) && starta <= 1 && bits+starta >= 1) //LCL1
@@ -289,12 +292,11 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(A14, LOW);
 		digitalWrite(A28, HIGH);
 		digitalWrite(A42, HIGH);
-		digitalWrite(OVP, HIGH);
-		digitalWrite(UVP, LOW);
+		digitalWrite(OVP, LOW);
+		digitalWrite(UVP, HIGH);
 	}
 	else if(starta <= 1 && bits+starta >= 1)
 	{
-		digitalWrite(SHDN, LOW);
 	}
 
 	if (((write[byte]<<(starta+(byte*8))) & (1<<2)) && starta <= 2 && bits+starta >= 2) //LCL2
@@ -302,12 +304,11 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(A14, HIGH);
 		digitalWrite(A28, LOW);
 		digitalWrite(A42, HIGH);
-		digitalWrite(OVP, HIGH);
-		digitalWrite(UVP, LOW);
+		digitalWrite(OVP, LOW);
+		digitalWrite(UVP, HIGH);
 	}
 	else if(starta <= 2 && bits+starta >= 2)
 	{
-		digitalWrite(SHDN, LOW);
 	}
 
 	if (((write[byte]<<(starta+(byte*8))) & (1<<3)) && starta <= 3 && bits+starta >= 3) //LCL3
@@ -315,12 +316,11 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(A14, HIGH);
 		digitalWrite(A28, HIGH);
 		digitalWrite(A42, LOW);
-		digitalWrite(OVP, HIGH);
-		digitalWrite(UVP, LOW);
+		digitalWrite(OVP, LOW);
+		digitalWrite(UVP, HIGH);
 	}
 	else if(starta <= 3 && bits+starta >= 3)
 	{
-		digitalWrite(SHDN, LOW);
 	}
 
 	if (((write[byte]<<(starta+(byte*8))) & (1<<4)) && starta <= 4 && bits+starta >= 4) //12V
@@ -333,7 +333,6 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	}
 	else if(starta <= 4 && bits+starta >= 4)
 	{
-		digitalWrite(SHDN, LOW);
 	}
 
 	if (((write[byte]<<(starta+(byte*8))) & (1<<5)) && starta <= 5 && bits+starta >= 5) //5V
@@ -341,12 +340,11 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(A14, HIGH);
 		digitalWrite(A28, HIGH);
 		digitalWrite(A42, LOW);
-		digitalWrite(OVP, LOW);
-		digitalWrite(UVP, HIGH);
+		digitalWrite(OVP, HIGH);
+		digitalWrite(UVP, LOW);
 	}
 	else if(starta <= 5 && bits+starta >= 5)
 	{
-		digitalWrite(SHDN, LOW);
 	}
 
 	if (((write[byte]<<(starta+(byte*8))) & (1<<6)) && starta <= 6 && bits+starta >= 6) //buildin led
@@ -796,6 +794,7 @@ void setup()
 	pinMode(UVP, OUTPUT);
 	pinMode(PGOOD, INPUT);
 	pinMode(FLT, INPUT);
+	pinMode(RELAY, OUTPUT);
 	pinMode(LED_BUILTIN, OUTPUT);
 	pinMode(UP_BUTTON, INPUT_PULLUP);
 	pinMode(OK_BUTTON, INPUT_PULLUP);
@@ -803,12 +802,13 @@ void setup()
 
 	// i/o initial set
 
+	digitalWrite(RELAY, HIGH);
 	digitalWrite(SHDN, LOW);
 	digitalWrite(A14, HIGH);
 	digitalWrite(A28, HIGH);
 	digitalWrite(A42, HIGH);
-	digitalWrite(OVP, HIGH);
-	digitalWrite(UVP, LOW);
+	digitalWrite(OVP, LOW);
+	digitalWrite(UVP, HIGH);
 
 	// setup Timers
 	init_timer();
