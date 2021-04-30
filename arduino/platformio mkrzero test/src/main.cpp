@@ -60,7 +60,9 @@ void OledDisplay(uint8_t);
 fsm_states_t fsm_current_state = INITIAL_STATE;
 typedef void (*fsm_handler_t)(void *arg);
 fsm_handler_t call_handler[6] = {initial_state, idle_state, emission_state, reception_state, control_and_wait_state};
-volatile uint8_t t35 = 0, t15 = 0, send = 0;
+volatile uint8_t t35 = 0; 
+volatile uint8_t t15 = 0;
+volatile uint8_t send = 0;
 uint8_t data[50];
 uint8_t dataToSend[50];
 uint8_t bytesRecieved;
@@ -70,25 +72,26 @@ uint16_t bitcount = 0;
 uint8_t dummycoil = 0;
 
 unsigned short CRC16(unsigned char *puchMsg, unsigned short usDataLen) /* The function returns the CRC as a unsigned short type   */
-//unsigned char *puchMsg ; /* message to calculate CRC upon */
-//unsigned short usDataLen ; /* quantity of bytes in message  */
+//unsigned char *puchMsg ;  message to calculate CRC upon 
+//unsigned short usDataLen ;  quantity of bytes in message 
 {
 	unsigned char uchCRCHi = 0xFF; /* high byte of CRC initialized  */
 	unsigned char uchCRCLo = 0xFF; /* low byte of CRC initialized  */
 	unsigned uIndex;			   /* will index into CRC lookup table  */
-	while (usDataLen--)			   /* pass through message buffer  */
+	while (usDataLen-- != NULL)			   /* pass through message buffer  */
 	{
-		uIndex = uchCRCLo ^ *puchMsg++; /* calculate the CRC  */
+		uIndex = uchCRCLo ^ *puchMsg; /* calculate the CRC  */
+		puchMsg++;
 		uchCRCLo = uchCRCHi ^ auchCRCHi[uIndex];
 		uchCRCHi = auchCRCLo[uIndex];
 	}
-	return (uchCRCHi << 8 | uchCRCLo);
+	return (((uint16_t)uchCRCHi << 8) | uchCRCLo);
 }
 
 void start_t15()
 {
 	REG_TC4_CTRLA |= TC_CTRLA_ENABLE; //enable timer4
-	while (REG_TC4_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC4_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	} //wait for sync
 }
@@ -96,7 +99,7 @@ void start_t15()
 void stop_t15()
 {
 	REG_TC4_CTRLA &= ~TC_CTRLA_ENABLE; //disable timer4
-	while (REG_TC4_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC4_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	}						   //wait for sync
 	REG_TC4_COUNT16_COUNT = 0; //clear counter
@@ -105,7 +108,7 @@ void stop_t15()
 void start_t35()
 {
 	REG_TC5_CTRLA |= TC_CTRLA_ENABLE; //enable timer5
-	while (REG_TC5_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC5_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	} //wait for sync
 }
@@ -113,7 +116,7 @@ void start_t35()
 void stop_t35()
 {
 	REG_TC5_CTRLA &= ~TC_CTRLA_ENABLE; //disable timer5
-	while (REG_TC5_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC5_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	}						   //wait for sync
 	REG_TC5_COUNT16_COUNT = 0; //clear counter
@@ -122,11 +125,11 @@ void stop_t35()
 void start_timers()
 {
 	REG_TC4_CTRLA |= TC_CTRLA_ENABLE; //enable timer4
-	while (REG_TC4_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC4_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	}								  //wait for sync
 	REG_TC5_CTRLA |= TC_CTRLA_ENABLE; //enable timer5
-	while (REG_TC5_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC5_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	} //wait for sync
 }
@@ -134,12 +137,12 @@ void start_timers()
 void stop_timers()
 {
 	REG_TC4_CTRLA &= ~TC_CTRLA_ENABLE; //disable timer4
-	while (REG_TC4_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC4_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	}								   //wait for sync
 	REG_TC4_COUNT16_COUNT = 0;		   //clear counter
 	REG_TC5_CTRLA &= ~TC_CTRLA_ENABLE; //disable timer5
-	while (REG_TC5_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC5_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	}						   //wait for sync
 	REG_TC5_COUNT16_COUNT = 0; //clear counter
@@ -148,7 +151,7 @@ void stop_timers()
 void initial_state(void *arg)
 {
 	start_t35();
-	if (t35 == 1)
+	if (t35 == (uint8_t)1)
 	{
 		t35 = 0;
 		stop_t35();
@@ -161,6 +164,7 @@ void initial_state(void *arg)
 		stop_t35();
 		start_t35();
 	}
+	else{}	
 }
 
 void idle_state(void *arg)
@@ -173,7 +177,7 @@ void idle_state(void *arg)
 		start_timers();
 		fsm_current_state = RECEPTION_STATE;
 	}
-	else if (send == 1)
+	else if (send == (uint8_t)1)
 	{
 		send = 0;
 		fsm_current_state = EMISSION_STATE;
@@ -194,7 +198,7 @@ void reception_state(void *arg)
 		start_timers();
 		fsm_current_state = RECEPTION_STATE;
 	}
-	if (t15 == 1)
+	if (t15 == (uint8_t)1)
 	{
 		bytesRecieved = 0;
 		t15 = 0;
@@ -206,40 +210,40 @@ void reception_state(void *arg)
 uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 {
 	uint8_t retdata = 0;
-	for (int16_t i = starta; i < bits+starta; i++)
+	for (uint16_t i = starta; i < (bits+starta); i++)
 	{
 		int req = i;
-		if (i == 0)
+		if (i == (uint16_t)0)
 		{
 			retdata |= digitalRead(SHDN)<<(i-starta);
 		}
-		if (i == 1)
+		if (i == (uint16_t)1)
 		{
-			retdata |= ((!digitalRead(A14))&1)<<(i-starta);
+			retdata |= ((!digitalRead(A14))&HIGH)<<(i-starta);
 		}
-		if (i == 2)
+		if (i == (uint16_t)2)
 		{
-			retdata |= ((!digitalRead(A28))&1)<<(i-starta);
+			retdata |= ((!digitalRead(A28))&HIGH)<<(i-starta);
 		}
-		if (i == 3)
+		if (i == (uint16_t)3)
 		{
-			if (digitalRead(UVP) && !digitalRead(OVP)&1 && (!digitalRead(A42))&1){
-				retdata |= 1<<(i-starta);
+			if (digitalRead(UVP) && ((!digitalRead(OVP))&HIGH) && (!digitalRead(A42))&HIGH){
+				retdata |= (uint16_t)1<<(i-starta);
 			}
 		}
-		if (i == 4)
+		if (i == (uint16_t)4)
 		{
 			if (digitalRead(OVP) && digitalRead(UVP)){
-				retdata |= 1<<(i-starta);
+				retdata |= (uint16_t)1<<(i-starta);
 			}
 		}
-		if (i == 5)
+		if (i == (uint16_t)5)
 		{
-			if ((!digitalRead(UVP))&1 && digitalRead(OVP)){
-				retdata |= 1<<(i-starta);
+			if (((!digitalRead(UVP))&HIGH) && digitalRead(OVP)){
+				retdata |= (uint16_t)1<<(i-starta);
 			}
 		}
-		if (i == 6)
+		if (i == (uint16_t)6)
 		{
 			retdata |= digitalRead(LED_BUILTIN)<<(i-starta);
 		}
@@ -256,14 +260,14 @@ uint8_t ReadReg(uint16_t starta, uint16_t byte){
 uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 {
 	uint8_t retdata = 0;
-	for (int16_t i = starta; i < bits+starta; i++)
+	for (uint16_t i = starta; i < (bits+starta); i++)
 	{
 		int req = i;
-		if (i == 0)
+		if (i == (uint16_t)0)
 		{
 			retdata |= digitalRead(PGOOD)<<(i-starta); //0 == good 
 		}
-		if (i == 1)
+		if (i == (uint16_t)1)
 		{
 			retdata |= digitalRead(FLT)<<(i-starta); //0 == fault
 		}
@@ -274,20 +278,21 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 
 void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 {
-	//adress:                                   ↓                ↓                   ↓
-	if (((write[byte]<<(starta+(byte*8))) & (1<<0)) && starta <= 0 && bits+starta >= 0) //ON/OFF
+	//adress:                                                              ↓                          ↓                                ↓
+	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)0)) && (starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0)) //ON/OFF
 	{
 		digitalWrite(SHDN, HIGH);
 		digitalWrite(RELAY, HIGH);
 	}
-	//adress:          ↓                   ↓
-	else if (starta <= 0 && bits+starta >= 0)
+	//adress:                    ↓                                ↓
+	else if ((starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0))
 	{
 		digitalWrite(SHDN, LOW);
 		digitalWrite(RELAY, LOW);
 	}
+	else{}
 
-	if (((write[byte]<<(starta+(byte*8))) & (1<<1)) && starta <= 1 && bits+starta >= 1) //LCL1
+	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)1)) && (starta <= (uint8_t)1) && ((bits+starta) >= (uint8_t)1)) //LCL1
 	{
 		digitalWrite(A14, LOW);
 		digitalWrite(A28, HIGH);
@@ -295,11 +300,12 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(OVP, LOW);
 		digitalWrite(UVP, HIGH);
 	}
-	else if(starta <= 1 && bits+starta >= 1)
+	else if((starta <= (uint8_t)1) && ((bits+starta) >= (uint8_t)1))
 	{
 	}
+	else{}
 
-	if (((write[byte]<<(starta+(byte*8))) & (1<<2)) && starta <= 2 && bits+starta >= 2) //LCL2
+	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)2)) && (starta <= (uint8_t)2) && ((bits+starta) >= (uint8_t)2)) //LCL2
 	{
 		digitalWrite(A14, HIGH);
 		digitalWrite(A28, LOW);
@@ -307,11 +313,12 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(OVP, LOW);
 		digitalWrite(UVP, HIGH);
 	}
-	else if(starta <= 2 && bits+starta >= 2)
+	else if((starta <= (uint8_t)2) && ((bits+starta) >= (uint8_t)2))
 	{
 	}
+	else{}
 
-	if (((write[byte]<<(starta+(byte*8))) & (1<<3)) && starta <= 3 && bits+starta >= 3) //LCL3
+	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)3)) && (starta <= (uint8_t)3) && ((bits+starta) >= (uint8_t)3)) //LCL3
 	{
 		digitalWrite(A14, HIGH);
 		digitalWrite(A28, HIGH);
@@ -319,11 +326,12 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(OVP, LOW);
 		digitalWrite(UVP, HIGH);
 	}
-	else if(starta <= 3 && bits+starta >= 3)
+	else if((starta <= (uint8_t)3) && ((bits+starta) >= (uint8_t)3))
 	{
 	}
+	else{}
 
-	if (((write[byte]<<(starta+(byte*8))) & (1<<4)) && starta <= 4 && bits+starta >= 4) //12V
+	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)4)) && (starta <= (uint8_t)4) && ((bits+starta) >= (uint8_t)4)) //12V
 	{
 		digitalWrite(A14, HIGH);
 		digitalWrite(A28, HIGH);
@@ -331,11 +339,12 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(OVP, HIGH);
 		digitalWrite(UVP, HIGH);
 	}
-	else if(starta <= 4 && bits+starta >= 4)
+	else if((starta <= (uint8_t)4) && ((bits+starta) >= (uint8_t)4))
 	{
 	}
+	else{}
 
-	if (((write[byte]<<(starta+(byte*8))) & (1<<5)) && starta <= 5 && bits+starta >= 5) //5V
+	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)5)) && (starta <= (uint8_t)5) && ((bits+starta) >= (uint8_t)5)) //5V
 	{
 		digitalWrite(A14, HIGH);
 		digitalWrite(A28, HIGH);
@@ -343,25 +352,27 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(OVP, HIGH);
 		digitalWrite(UVP, LOW);
 	}
-	else if(starta <= 5 && bits+starta >= 5)
+	else if((starta <= (uint8_t)5) && ((bits+starta) >= (uint8_t)5))
 	{
 	}
+	else{}
 
-	if (((write[byte]<<(starta+(byte*8))) & (1<<6)) && starta <= 6 && bits+starta >= 6) //buildin led
+	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)6)) && (starta <= (uint8_t)6) && ((bits+starta) >= (uint8_t)6)) //buildin led
 	{
 		digitalWrite(LED_BUILTIN, HIGH);
 	}
-	else if(starta <= 6 && bits+starta >= 6)
+	else if((starta <= (uint8_t)6) && ((bits+starta) >= (uint8_t)6))
 	{
 		digitalWrite(LED_BUILTIN, LOW);
 	}
+	else{}
 
-	/*//adress:                                 ↓                ↓                   ↓
+	/*  adress:                                 ↓                ↓                   ↓
 	if (((write[byte]<<(starta+(byte*8))) & (1<<0)) && starta <= 0 && bits+starta >= 0)
 	{
 		digitalWrite(LED_BUILTIN, HIGH);
 	}
-	//adress:          ↓                   ↓
+	  adress:          ↓                   ↓
 	else if (starta <= 0 && bits+starta >= 0)
 	{
 		digitalWrite(LED_BUILTIN, LOW);
@@ -372,7 +383,7 @@ void Exeption(uint8_t code){
 	uint16_t crc16bit;
 	uint8_t crc[2];
 	dataToSend[0] = data[0];
-	dataToSend[1] = data[1] | 0x80;
+	dataToSend[1] = data[1] | (uint8_t)0x80;
 	dataToSend[2] = code;
 	crc16bit = CRC16(dataToSend, 3);
 	crc[0] = crc16bit;
@@ -387,26 +398,27 @@ void control_and_wait_state(void *arg)
 {
 	uint16_t crc16bit;
 	uint8_t crc[2];
-	uint16_t starta, by;
+	uint16_t starta;
+	uint16_t by;
 	uint8_t write[10];
 	static uint8_t done = 0;
-	if (data[0] == 1) //slave adress
+	if (data[0] == (uint8_t)1) //slave adress
 	{
-		if (done == 0) //keep going until done normaly once
+		if (done == (uint8_t)0) //keep going until done normaly once
 		{
-			if (data[1] == 0x01) //read coil
+			if (data[1] == (uint8_t)0x01) //read coil
 			{
 				starta = data[3];
-				starta |= data[2]<<8;
+				starta |= data[2]<<(uint8_t)8;
 				bitcount = data[5];
-				bitcount |= data[4]<<8;
+				bitcount |= data[4]<<(uint8_t)8;
 				bytecount = ((float)bitcount / 8) + 1;
-				if (bitcount < 1 || bitcount > 65536)
+				if ((bitcount < (uint16_t)1) || (bitcount > (uint16_t)65536))
 				{
 					Exeption(3);
 					error = 1;
 				}
-				else if (bitcount > COILS || starta+bitcount > COILS)
+				else if ((bitcount > (uint8_t)COILS) || ((starta+bitcount) > (uint8_t)COILS))
 				{
 					Exeption(2);
 					error = 1;
@@ -416,33 +428,33 @@ void control_and_wait_state(void *arg)
 					dataToSend[0] = data[0];
 					dataToSend[1] = data[1];
 					dataToSend[2] = bytecount;
-					for (int i = 0; i < bytecount; i++)
+					for (uint16_t i = 0; i < bytecount; i++)
 					{
-						dataToSend[i+3] = ReadCoils(starta, bitcount);
+						dataToSend[i+(uint8_t)3] = ReadCoils(starta, bitcount);
 					}
-					crc16bit = CRC16(dataToSend, 3+bytecount);
+					crc16bit = CRC16(dataToSend, (uint8_t)3 + bytecount);
 					crc[0] = crc16bit;
-					crc[1] = crc16bit >> 8;
+					crc[1] = crc16bit >> (uint8_t)8;
 
-					dataToSend[bytecount+3] = crc[0];
-					dataToSend[bytecount+4] = crc[1];
+					dataToSend[bytecount+(uint8_t)3] = crc[0];
+					dataToSend[bytecount+(uint8_t)4] = crc[1];
 				}
 				send = 1;
 				done = 1;
 			}
-			else if (data[1] == 0x02) //read input
+			else if (data[1] == (uint8_t)0x02) //read input
 			{
 				starta = data[3];
-				starta |= data[2]<<8;
+				starta |= data[2]<<(uint8_t)8;
 				bitcount = data[5];
-				bitcount |= data[4]<<8;
+				bitcount |= data[4]<<(uint8_t)8;
 				bytecount = ((float)bitcount / 8) + 1;
-				if (bitcount < 1 || bitcount > 65536)
+				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65536))
 				{
 					Exeption(3);
 					error = 1;
 				}
-				else if (bitcount > COILS || starta+bitcount > COILS)
+				else if ((bitcount > (uint8_t)COILS) || ((starta+bitcount) > (uint8_t)COILS))
 				{
 					Exeption(2);
 					error = 1;
@@ -452,32 +464,32 @@ void control_and_wait_state(void *arg)
 					dataToSend[0] = data[0];
 					dataToSend[1] = data[1];
 					dataToSend[2] = bytecount;
-					for (int i = 0; i < bytecount; i++)
+					for (uint16_t i = 0; i < bytecount; i++)
 					{
-						dataToSend[i+3] = ReadInputs(starta, bitcount);
+						dataToSend[i+(uint8_t)3] = ReadInputs(starta, bitcount);
 					}
-					crc16bit = CRC16(dataToSend, 3+bytecount);
+					crc16bit = CRC16(dataToSend, (uint8_t)3+bytecount);
 					crc[0] = crc16bit;
-					crc[1] = crc16bit >> 8;
+					crc[1] = crc16bit >> (uint8_t)8;
 
-					dataToSend[bytecount+3] = crc[0];
-					dataToSend[bytecount+4] = crc[1];
+					dataToSend[bytecount+(uint8_t)3] = crc[0];
+					dataToSend[bytecount+(uint8_t)4] = crc[1];
 				}
 				send = 1;
 				done = 1;
 			}
-			else if (data[1] == 0x03) //read registers
+			else if (data[1] == (uint8_t)0x03) //read registers
 			{
 				starta = data[3];
-				starta |= data[2]<<8;
+				starta |= data[2]<<(uint8_t)8;
 				bytecount = data[5];
-				bytecount |= data[4]<<8;
-				if (bitcount < 1 || bitcount > 65536)
+				bytecount |= data[4]<<(uint8_t)8;
+				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65536))
 				{
 					Exeption(3);
 					error = 1;
 				}
-				else if (bitcount > COILS || starta+bitcount > COILS)
+				else if ((bitcount > (uint8_t)COILS) || ((starta+bitcount) > (uint8_t)COILS))
 				{
 					Exeption(2);
 					error = 1;
@@ -487,21 +499,21 @@ void control_and_wait_state(void *arg)
 					dataToSend[0] = data[0];
 					dataToSend[1] = data[1];
 					dataToSend[2] = bytecount;
-					for (int i = 0; i < bytecount; i++)
+					for (uint16_t i = 0; i < bytecount; i++)
 					{
-						dataToSend[i+3] = ReadReg(starta, bitcount);
+						dataToSend[i+(uint8_t)3] = ReadReg(starta, bitcount);
 					}
-					crc16bit = CRC16(dataToSend, 3+bytecount);
+					crc16bit = CRC16(dataToSend, (uint8_t)3+bytecount);
 					crc[0] = crc16bit;
 					crc[1] = crc16bit >> 8;
 
-					dataToSend[bytecount+3] = crc[0];
-					dataToSend[bytecount+4] = crc[1];
+					dataToSend[bytecount+(uint8_t)3] = crc[0];
+					dataToSend[bytecount+(uint8_t)4] = crc[1];
 				}
 				send = 1;
 				done = 1;
 			}
-			else if (data[1] == 0x0F) //write multiple coils
+			else if (data[1] == (uint8_t)0x0F) //write multiple coils
 			{
 				
 				starta = data[3];
@@ -511,14 +523,14 @@ void control_and_wait_state(void *arg)
 				bytecount = data[6];
 				for (uint16_t i = 0; i < bytecount; i++)
 				{
-					write[i] = data[7+i];
+					write[i] = data[(uint8_t)7+i];
 				}
-				if (bitcount < 1 || bitcount > 65536)
+				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65536))
 				{
 					Exeption(3);
 					error = 1;
 				}
-				else if (bitcount > COILS || starta+bitcount > COILS)
+				else if ((bitcount > (uint8_t)COILS) || ((starta+bitcount) > (uint8_t)COILS))
 				{
 					Exeption(2);
 					error = 1;
@@ -531,13 +543,13 @@ void control_and_wait_state(void *arg)
 					dataToSend[3] = data[3];
 					dataToSend[4] = data[4];
 					dataToSend[5] = data[5];
-					for (int i = 0; i < bytecount; i++)
+					for (uint16_t i = 0; i < bytecount; i++)
 					{
-						WriteCoils(starta, i, write, bitcount-1);
+						WriteCoils(starta, i, write, bitcount-(uint8_t)1);
 					}
 					crc16bit = CRC16(dataToSend, 6);
 					crc[0] = crc16bit;
-					crc[1] = crc16bit >> 8;
+					crc[1] = crc16bit >> (uint8_t)8;
 
 					dataToSend[6] = crc[0];
 					dataToSend[7] = crc[1];
@@ -545,18 +557,18 @@ void control_and_wait_state(void *arg)
 				send = 1;
 				done = 1;
 			}
-			else if (data[1] == 0x05) //write coil
+			else if (data[1] == (uint8_t)0x05) //write coil
 			{
 				uint8_t write[10];
 				starta = data[3];
-				starta |= data[2]<<8;
-				write[0] = data[4] & 1 ;
-				if (starta < 0 || starta > 65536)
+				starta |= data[2]<<(uint8_t)8;
+				write[0] = data[4] & (uint8_t)1 ;
+				if ((starta < (uint8_t)0) || (starta > (uint16_t)65536))
 				{
 					Exeption(3);
 					error = 1;
 				}
-				else if (starta > COILS)
+				else if (starta > (uint8_t)COILS)
 				{
 					Exeption(2);
 					error = 1;
@@ -572,7 +584,7 @@ void control_and_wait_state(void *arg)
 					WriteCoils(starta, 0, write, 0);
 					crc16bit = CRC16(dataToSend, 6);
 					crc[0] = crc16bit;
-					crc[1] = crc16bit >> 8;
+					crc[1] = crc16bit >> (uint8_t)8;
 
 					dataToSend[6] = crc[0];
 					dataToSend[7] = crc[1];
@@ -589,12 +601,12 @@ void control_and_wait_state(void *arg)
 	}
 	else
 	{
-		for (uint8_t i = 0; i < 6; ++i)
+		for (uint8_t i = 0; i < (uint8_t)6; ++i)
 		{
 			dataToSend[i] = 0;
 		}
 	}
-	if (t35 == 1)
+	if (t35 == (uint8_t)1)
 	{
 		done = 0;
 		stop_t35();
@@ -607,38 +619,39 @@ void control_and_wait_state(void *arg)
 void emission_state(void *arg)
 {
 	static uint8_t done = 0;
-	if (done == 0)
+	if (done == (uint8_t)0)
 	{
-		if (error == 1)
+		if (error == (uint8_t)1)
 		{
-			for (uint8_t i = 0; i < 5; ++i)
+			for (uint8_t i = 0; i < (uint8_t)5; ++i)
 			{
 				Serial.write(dataToSend[i]);
 				stop_t35();
 				start_t35();
 			}
 		}
-		else if (data[1] == 0x01 || data[1] == 0x02)
+		else if ((data[1] == (uint8_t)0x01) || (data[1] == (uint8_t)0x02))
 		{
-			for (uint8_t i = 0; i < 5+bytecount; ++i)
+			for (uint8_t i = 0; i < ((uint8_t)5+bytecount); ++i)
 			{
 				Serial.write(dataToSend[i]); 
 				stop_t35();
 				start_t35();
 			}
 		}
-		else if (data[1] == 0x05 || data[1] == 0x0F)
+		else if ((data[1] == (uint8_t)0x05) || (data[1] == (uint8_t)0x0F))
 		{
-			for (uint8_t i = 0; i < 8; ++i)
+			for (uint8_t i = 0; i < (uint8_t)8; ++i)
 			{
 				Serial.write(dataToSend[i]);
 				stop_t35();
 				start_t35();
 			}
 		}
+		else{}
 		done = 1;
 	}
-	if (t35 == 1)
+	if (t35 == (uint8_t)1)
 	{
 		bytecount = 0;
 		done = 0;
@@ -653,23 +666,23 @@ void OledDisplay(uint8_t pos){
 	const char * items[5] = {"LCL1", "LCL2", "LCL3", "12V", "5V"};
 	oled.clearDisplay(); // clear display
 
-	for (uint8_t i = 0; i < 8+2; i++)
+	for (uint8_t i = 0; i < ((uint8_t)8+(uint8_t)2); i++)
 	{
-		oled.drawLine(0,i+(pos*10),128,i+(pos*10),WHITE);
+		oled.drawLine(0,i+(pos*(uint8_t)10),128,i+(pos*(uint8_t)10),WHITE);
 	}
 
 	oled.setTextSize(1);		  // text size
-	for (uint8_t i = 0; i < 5; i++)
+	for (uint8_t i = 0; i < (uint8_t)5; i++)
 	{
 		if (pos == i){
 			oled.setTextColor(BLACK,WHITE);	  // text color
-			oled.setCursor(20, 1+i+(i*9));	// position to display
+			oled.setCursor(20, (uint8_t)1+i+(i*(uint8_t)9));	// position to display
 			oled.println(items[i]); // text to display
 		}
 		else
 		{
 			oled.setTextColor(WHITE);	  // text color
-			oled.setCursor(20, 1+i+(i*9));	// position to display
+			oled.setCursor(20, (uint8_t)1+i+(i*(uint8_t)9));	// position to display
 			oled.println(items[i]); // text to display
 		}
 	}
@@ -678,14 +691,16 @@ void OledDisplay(uint8_t pos){
 }
 
 void UserInterface(void){
-	static uint8_t redraw = 1, position = 0;
-	uint8_t one = 1, zero = 0;
+	static uint8_t redraw = 1;
+	static uint8_t position = 0;
+	uint8_t one = 1;
+	uint8_t zero = 0;
 	//enum menu {lcl1,lcl2,lcl3,V5,V12};
 
 	if (!digitalRead(UP_BUTTON)){
 		delay(20);
 		if (!digitalRead(UP_BUTTON)){
-			if(position == 4){
+			if(position == (uint8_t)4){
 				position = 0;
 			}
 			else
@@ -698,7 +713,7 @@ void UserInterface(void){
 	else if (!digitalRead(DOWN_BUTTON)){
 		delay(20);
 		if (!digitalRead(DOWN_BUTTON)){
-			if(position == 0){
+			if(position == (uint8_t)0){
 				position = 4;
 			}
 			else
@@ -724,8 +739,9 @@ void UserInterface(void){
 			}
 		}
 	}
+	else{}
 
-	if (redraw == 1){
+	if (redraw == (uint8_t)1){
 		OledDisplay(position);
 		redraw = 0;
 		delay(50);
@@ -756,7 +772,7 @@ void init_timer(void)
 	REG_TC4_CTRLA |= TC_CTRLA_WAVEGEN_MFRQ;	  // set cc0 as top
 	REG_TC4_CTRLA |= TC_CTRLA_PRESCALER_DIV4; // prescaler clock/4
 	REG_TC4_COUNT16_CC0 |= 18000;			  //timer top 1.5ms/t15
-	while (REG_TC4_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC4_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	}
 	// Configure interrupt request
@@ -771,7 +787,7 @@ void init_timer(void)
 	REG_TC5_CTRLA |= TC_CTRLA_WAVEGEN_MFRQ;	  // set cc0 as top
 	REG_TC5_CTRLA |= TC_CTRLA_PRESCALER_DIV4; // prescaler clock/4
 	REG_TC5_COUNT16_CC0 |= 42000;			  //timer top 3.5ms/t35
-	while (REG_TC5_STATUS & TC_STATUS_SYNCBUSY)
+	while ((REG_TC5_STATUS & TC_STATUS_SYNCBUSY) != NULL)
 	{
 	}
 	// Configure interrupt request
@@ -817,18 +833,13 @@ void setup()
 	if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3C))
 	{
 		Serial.println(F("SSD1306 allocation failed"));
-		while (true)
-			;
+		while (true){}
 	}
 	delay(2000);		 // wait for initializing
 	oled.clearDisplay(); // clear display
 
 	//setup serial
 	Serial.begin(9600,SERIAL_8N2);
-	/*while (!Serial)
-	{
-		; // wait for serial port to connect. Needed for native USB port only
-	}*/
 	
 	// initialize fsm
 	fsm_current_state = IDLE_STATE;

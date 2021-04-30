@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "platformio mkrzero test",
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.tcc": "cpp",
+			"algorithm": "cpp",
+			"cstddef": "cpp"
+		}
+	}
+}
