@@ -181,11 +181,20 @@ void idle_state(void *arg)
 	{
 		send = 0;
 		fsm_current_state = EMISSION_STATE;
-	}
+	}	
 	else 
 	{
 		UserInterface();
 	}
+	if (digitalRead(FLT) == LOW)
+	{
+		digitalWrite(RELAY, LOW);
+	}
+	else
+	{
+		//digitalWrite(RELAY, HIGH);
+	}
+	
 }
 
 void reception_state(void *arg)
@@ -215,7 +224,7 @@ uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 		int req = i;
 		if (i == (uint16_t)0)
 		{
-			retdata |= digitalRead(SHDN)<<(i-starta);
+			retdata |= ((digitalRead(SHDN) & digitalRead(RELAY)) <<(i-starta));
 		}
 		if (i == (uint16_t)1)
 		{
@@ -413,7 +422,7 @@ void control_and_wait_state(void *arg)
 				bitcount = data[5];
 				bitcount |= data[4]<<(uint8_t)8;
 				bytecount = ((float)bitcount / 8) + 1;
-				if ((bitcount < (uint16_t)1) || (bitcount > (uint16_t)65536))
+				if ((bitcount < (uint16_t)1) || (bitcount > (uint16_t)65535))
 				{
 					Exeption(3);
 					error = 1;
@@ -449,7 +458,7 @@ void control_and_wait_state(void *arg)
 				bitcount = data[5];
 				bitcount |= data[4]<<(uint8_t)8;
 				bytecount = ((float)bitcount / 8) + 1;
-				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65536))
+				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65535))
 				{
 					Exeption(3);
 					error = 1;
@@ -484,7 +493,7 @@ void control_and_wait_state(void *arg)
 				starta |= data[2]<<(uint8_t)8;
 				bytecount = data[5];
 				bytecount |= data[4]<<(uint8_t)8;
-				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65536))
+				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65535))
 				{
 					Exeption(3);
 					error = 1;
@@ -525,7 +534,7 @@ void control_and_wait_state(void *arg)
 				{
 					write[i] = data[(uint8_t)7+i];
 				}
-				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65536))
+				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65535))
 				{
 					Exeption(3);
 					error = 1;
@@ -563,7 +572,7 @@ void control_and_wait_state(void *arg)
 				starta = data[3];
 				starta |= data[2]<<(uint8_t)8;
 				write[0] = data[4] & (uint8_t)1 ;
-				if ((starta < (uint8_t)0) || (starta > (uint16_t)65536))
+				if ((starta < (uint8_t)0) || (starta > (uint16_t)65535))
 				{
 					Exeption(3);
 					error = 1;
@@ -818,7 +827,7 @@ void setup()
 
 	// i/o initial set
 
-	digitalWrite(RELAY, HIGH);
+	digitalWrite(RELAY, LOW);
 	digitalWrite(SHDN, LOW);
 	digitalWrite(A14, HIGH);
 	digitalWrite(A28, HIGH);
