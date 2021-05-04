@@ -1,4 +1,4 @@
-Record=TopLevelDocument|FileName=topV0.1.SchDoc|SheetNumber=1
-Record=SheetSymbol|SourceDocument=topV0.1.SchDoc|Designator=eFuse|SchDesignator=eFuse|FileName=fuseV0.1.SchDoc|SheetNumber=1|SymbolType=Normal|RawFileName=fuseV0.1.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
-Record=SheetSymbol|SourceDocument=topV0.1.SchDoc|Designator=Signal|SchDesignator=Signal|FileName=DigitalV0.1.SchDoc|SheetNumber=3|SymbolType=Normal|RawFileName=DigitalV0.1.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
-Record=NoMainPathDocument|SourceDocument=topV0.1.SchDoc|FileName=fuse.SchDoc|SheetNumber=1
+Record=TopLevelDocument|FileName=top.SchDoc|SheetNumber=1
+Record=SheetSymbol|SourceDocument=top.SchDoc|Designator=eFuse|SchDesignator=eFuse|FileName=fuse.SchDoc|SheetNumber=3|SymbolType=Normal|RawFileName=fuse.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=SheetSymbol|SourceDocument=top.SchDoc|Designator=Signal|SchDesignator=Signal|FileName=Digital.SchDoc|SheetNumber=3|SymbolType=Normal|RawFileName=Digital.SchDoc|DesignItemId= |SourceLibraryName= |ObjectKind=Sheet Symbol|RevisionGUID= |ItemGUID= |VaultGUID= 
+Record=NoMainPathDocument|SourceDocument=top.SchDoc|FileName=controller.SchDoc|SheetNumber=1
