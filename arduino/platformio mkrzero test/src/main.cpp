@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define SCREEN_WIDTH 128 // OLED display width,  in pixels
-#define SCREEN_HEIGHT 32 // OLED display height, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
 #define COILS 7
 #define INPUTS 2
@@ -838,6 +838,9 @@ void setup()
 	// setup Timers
 	init_timer();
 
+	//setup serial
+	Serial.begin(9600,SERIAL_8N2);
+
 	// setup oled display
 	if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3C))
 	{
@@ -846,9 +849,6 @@ void setup()
 	}
 	delay(2000);		 // wait for initializing
 	oled.clearDisplay(); // clear display
-
-	//setup serial
-	Serial.begin(9600,SERIAL_8N2);
 	
 	// initialize fsm
 	fsm_current_state = IDLE_STATE;
