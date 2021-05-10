@@ -1,0 +1,19 @@
+Replace Part * 8-pin in F:\github\efuse\pcb\efuse\Digital.SchDoc with 8-pin from JST.SchLib
+Replace Part D5 LED in F:\github\efuse\pcb\efuse\Digital.SchDoc with LED from generic_components.SchLib
+Replace Part R1 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R3 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R8 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R9 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R10 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R11 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R13 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R22 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R23 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R24 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part R32 res0805 in F:\github\efuse\pcb\efuse\Digital.SchDoc with res0805 from generic_components.SchLib
+Replace Part U1 optoc WE in F:\github\efuse\pcb\efuse\Digital.SchDoc with optoc WE from generic_components.SchLib
+Replace Part U2 optoc WE in F:\github\efuse\pcb\efuse\Digital.SchDoc with optoc WE from generic_components.SchLib
+Replace Part U9 optoc WE in F:\github\efuse\pcb\efuse\Digital.SchDoc with optoc WE from generic_components.SchLib
+Replace Part U10 optoc WE in F:\github\efuse\pcb\efuse\Digital.SchDoc with optoc WE from generic_components.SchLib
+Replace Part U11 optoc WE in F:\github\efuse\pcb\efuse\Digital.SchDoc with optoc WE from generic_components.SchLib
+Replace Part U14 N-mosfet en in F:\github\efuse\pcb\efuse\Digital.SchDoc with N-mosfet en from generic_components.SchLib
