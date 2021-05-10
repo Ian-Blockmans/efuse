@@ -15,8 +15,8 @@
 #define OK_BUTTON 4
 #define DOWN_BUTTON 3
 #define SHDN 10
-#define A42 9
-#define A28 8
+#define A42 A5
+#define A28 A4
 #define A14 7
 #define OVP 6
 #define UVP 2
@@ -195,7 +195,7 @@ void idle_state(void *arg)
 		{
 			backup_state = 0;
 			if (ReadCoils(0,8) != Restore_state.read()){
-				Restore_state.write(ReadCoils(0,8));
+				//Restore_state.write(ReadCoils(0,8));
 			}
 		}
 		if(config_error == 1){
@@ -210,6 +210,7 @@ void idle_state(void *arg)
 		if (digitalRead(FLT) == LOW)
 		{
 			digitalWrite(RELAY, LOW);
+			digitalWrite(SHDN, LOW);
 		}
 		else
 		{
