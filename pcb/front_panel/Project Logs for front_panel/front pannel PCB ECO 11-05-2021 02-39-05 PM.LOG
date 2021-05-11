@@ -1,0 +1,61 @@
+Added Component: Designator=D?(0805 LED)
+Added Component: Designator=D?(0805 LED)
+Added Component: Designator=D?(0805 LED)
+Added Component: Designator=J?(JST_XH_B12B-XH-A_1x12_P2.50mm_Vertical)
+Add component (AddParameter): Name = "Supplier"; Value = ""; VariantName = "[No Variations]"
+Added Component: Designator=J?(JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal)
+Added Component: Designator=R?(0805)
+Added Component: Designator=R?(0805)
+Added Component: Designator=R?(0805)
+Added Component: Designator=R?(0805)
+Added Component: Designator=R?(0805)
+Added Component: Designator=R?(0805)
+Added Component: Designator=R?(0805)
+Added Component: Designator=S?(NAV_SWITCH_SJ1400BFQ)
+Added Pin To Net: NetName=NetD?_1 Pin=D?-1
+Added Pin To Net: NetName=NetD?_2 Pin=D?-2
+Added Pin To Net: NetName=NetD?_2 Pin=D?-2
+Added Pin To Net: NetName=NetD?_2 Pin=D?-2
+Added Pin To Net: NetName=GND Pin=J?-1
+Added Pin To Net: NetName=GND Pin=J?-1
+Added Pin To Net: NetName=+3.3V Pin=J?-2
+Added Pin To Net: NetName=NetJ?_2 Pin=J?-2
+Added Pin To Net: NetName=NetJ?_3 Pin=J?-3
+Added Pin To Net: NetName=NetJ?_4 Pin=J?-4
+Added Pin To Net: NetName=NetJ?_5 Pin=J?-5
+Added Pin To Net: NetName=NetJ?_6 Pin=J?-6
+Added Pin To Net: NetName=NetD?_1 Pin=J?-7
+Added Pin To Net: NetName=+3.3V Pin=J?-12
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=+3.3V Pin=R?-1
+Added Pin To Net: NetName=NetD?_2 Pin=R?-2
+Added Pin To Net: NetName=NetJ?_2 Pin=R?-2
+Added Pin To Net: NetName=NetJ?_2 Pin=R?-2
+Added Pin To Net: NetName=NetJ?_3 Pin=R?-2
+Added Pin To Net: NetName=NetJ?_4 Pin=R?-2
+Added Pin To Net: NetName=NetJ?_5 Pin=R?-2
+Added Pin To Net: NetName=NetJ?_6 Pin=R?-2
+Added Pin To Net: NetName=NetJ?_3 Pin=S?-1
+Added Pin To Net: NetName=NetJ?_4 Pin=S?-2
+Added Pin To Net: NetName=NetJ?_5 Pin=S?-3
+Added Pin To Net: NetName=NetJ?_2 Pin=S?-4
+Added Pin To Net: NetName=GND Pin=S?-5
+Added Pin To Net: NetName=NetJ?_6 Pin=S?-6
+Added Member To Class: ClassName=UI Member=Component D? red
+Added Member To Class: ClassName=UI Member=Component D? green
+Added Member To Class: ClassName=UI Member=Component D? red
+Added Member To Class: ClassName=UI Member=Component J? 12-pin
+Added Member To Class: ClassName=UI Member=Component J? 4-pin
+Added Member To Class: ClassName=UI Member=Component R? 10k
+Added Member To Class: ClassName=UI Member=Component R? 10k
+Added Member To Class: ClassName=UI Member=Component R? 10k
+Added Member To Class: ClassName=UI Member=Component R? 390
+Added Member To Class: ClassName=UI Member=Component R? 10k
+Added Member To Class: ClassName=UI Member=Component R? 10k
+Added Member To Class: ClassName=UI Member=Component R? 10k
+Added Member To Class: ClassName=UI Member=Component S? nav_switch

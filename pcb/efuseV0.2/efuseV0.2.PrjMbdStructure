@@ -1,0 +1,6 @@
+Record=DiagramHierarchy|SourceDocument=MultiBoardSchematic1.MbsDoc|Kind=Multi-board Schematic Module|Designator=controller|Source=..\controll_board\controll_board.PrjPcb
+Record=SubProject|SourceDocument=MultiBoardSchematic1.MbsDoc|ProjectPath=..\controll_board\controll_board.PrjPcb
+Record=DiagramHierarchy|SourceDocument=MultiBoardSchematic1.MbsDoc|Kind=Multi-board Schematic Module|Designator=front pannel|Source=..\front_panel\front_panel.PrjPcb
+Record=SubProject|SourceDocument=MultiBoardSchematic1.MbsDoc|ProjectPath=..\front_panel\front_panel.PrjPcb
+Record=DiagramHierarchy|SourceDocument=MultiBoardSchematic1.MbsDoc|Kind=Multi-board Schematic Module|Designator=efuse|Source=..\efuse\efuse.PrjPcb
+Record=SubProject|SourceDocument=MultiBoardSchematic1.MbsDoc|ProjectPath=..\efuse\efuse.PrjPcb
