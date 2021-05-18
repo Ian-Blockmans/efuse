@@ -1,0 +1,196 @@
+*************************************************************
+FileName = controller.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Layer
+      File : controller_Copper_Signal_Top.gbr
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : controller_Copper_Signal_Bot.gbr
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : controller_Legend_Bot.gbr
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : controller_Soldermask_Bot.gbr
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+*************************************************************
+
+*************************************************************
+Generating : Bottom Paste
+      File : controller_Paste_Bot.gbr
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : controller_Legend_Top.gbr
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D23
+    D24
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : controller_Paste_Top.gbr
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : controller_Soldermask_Top.gbr
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : controller_Mechanical_1.gbr
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+    D25
+*************************************************************
+
+*************************************************************
+Generating : Profile
+      File : controller_Profile.gbr
+
+
+Used DCodes :
+    D26
+*************************************************************
+
+*************************************************************
+Generating : Non-plated through-hole drill file
+      File : controller_NPTH_Drill.gbr
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Plated through-hole drill file
+      File : controller_PTH_Drill.gbr
+
+
+Used DCodes :
+    D27
+    D28
+    D29
+*************************************************************
+
+*************************************************************
+Generating : Drill Drawing
+      File : controller_Drawing_1.gbr
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Drawing
+
+
+Used DCodes :
+    D31
+    D32
+*************************************************************
+
+*************************************************************
+Generating : Drill Guide
+      File : controller_Drillmap_1.gbr
+
+    Adding Drill Pair : Top Layer-Bottom Layer
+
+    Adding Layer      : Drill Guide
+
+
+Used DCodes :
+    D31
+*************************************************************
+

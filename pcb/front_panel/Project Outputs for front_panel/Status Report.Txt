@@ -1,0 +1,26 @@
+Output: Gerber X2 Files
+Type  : GerberX2
+From  : Project [front_panel.PrjPcb]
+   Generated File[front pannel_Copper_Signal_Top.gbr]
+   Generated File[front pannel_Copper_Signal_Bot.gbr]
+   Generated File[front pannel_Legend_Bot.gbr]
+   Generated File[front pannel_Soldermask_Bot.gbr]
+   Generated File[front pannel_Paste_Bot.gbr]
+   Generated File[front pannel_Legend_Top.gbr]
+   Generated File[front pannel_Paste_Top.gbr]
+   Generated File[front pannel_Soldermask_Top.gbr]
+   Generated File[front pannel_Mechanical_1.gbr]
+   Generated File[front pannel_Profile.gbr]
+   Generated File[front pannel_NPTH_Drill.gbr]
+   Generated File[front pannel_PTH_Drill.gbr]
+   Generated File[front pannel_Drawing_1.gbr]
+   Generated File[front pannel_Drillmap_1.gbr]
+   Generated File[front pannel.RUL]
+   Generated File[front pannel.EXTREP]
+   Generated File[front pannel.REP]
+
+
+Files Generated   : 17
+Documents Printed : 0
+
+Finished Output Generation At 08:24:45 PM On 13/05/2021

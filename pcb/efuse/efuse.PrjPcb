@@ -353,7 +353,7 @@ AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=-1
+AnnotateOrder=0
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -370,7 +370,7 @@ AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=-1
+AnnotateOrder=1
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -387,7 +387,7 @@ AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
 AnnotateSuffix=
 AnnotateScope=All
-AnnotateOrder=-1
+AnnotateOrder=2
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
@@ -431,67 +431,88 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
 
+[Document24]
+DocumentPath=efuseV0.2.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=NMGHAXHM
+
 [GeneratedDocument1]
-DocumentPath=Project Outputs for efuse\eFuse_proto1.EXTREP
+DocumentPath=Project Outputs for efuse\Design Rule Check - efuseV0.html
 DItemRevisionGUID=
 
 [GeneratedDocument2]
-DocumentPath=Project Outputs for efuse\eFuse_proto1.REP
+DocumentPath=Project Outputs for efuse\eFuse_proto1.EXTREP
 DItemRevisionGUID=
 
 [GeneratedDocument3]
-DocumentPath=Project Outputs for efuse\eFuse_proto1.RUL
+DocumentPath=Project Outputs for efuse\eFuse_proto1.REP
 DItemRevisionGUID=
 
 [GeneratedDocument4]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Copper_Signal_Bot.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1.RUL
 DItemRevisionGUID=
 
 [GeneratedDocument5]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Copper_Signal_Top.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Copper_Signal_Bot.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument6]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Drawing_1.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Copper_Signal_Top.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument7]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Drillmap_1.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Drawing_1.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument8]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Legend_Bot.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Drillmap_1.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument9]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Legend_Top.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Legend_Bot.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument10]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Mechanical_1.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Legend_Top.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument11]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_NPTH_Drill.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Mechanical_1.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument12]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Paste_Bot.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_NPTH_Drill.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument13]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Paste_Top.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Paste_Bot.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument14]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_PTH_Drill.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Paste_Top.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument15]
-DocumentPath=Project Outputs for efuse\eFuse_proto1_Soldermask_Bot.gbr
+DocumentPath=Project Outputs for efuse\eFuse_proto1_PTH_Drill.gbr
 DItemRevisionGUID=
 
 [GeneratedDocument16]
+DocumentPath=Project Outputs for efuse\eFuse_proto1_Soldermask_Bot.gbr
+DItemRevisionGUID=
+
+[GeneratedDocument17]
 DocumentPath=Project Outputs for efuse\eFuse_proto1_Soldermask_Top.gbr
 DItemRevisionGUID=
 
@@ -753,6 +774,10 @@ OutputName1=NC Drill Files
 OutputDocumentPath1=
 OutputVariantName1=
 OutputDefault1=0
+Configuration1_Name1=ForceUpdateSettings
+Configuration1_Item1=False
+Configuration1_Name2=OutputConfigurationParameter1
+Configuration1_Item2=BoardEdgeRoutToolDia=2000000|GenerateBoardEdgeRout=False|GenerateDrilledSlotsG85=False|GenerateEIADrillFile=False|GenerateSeparatePlatedNonPlatedFiles=False|NumberOfDecimals=4|NumberOfUnits=2|OptimizeChangeLocationCommands=True|OriginPosition=Relative|Record=DrillView|Units=Imperial|ZeroesMode=SuppressLeadingZeroes|DocumentPath=F:\github\efuse\pcb\efuse\efuseV0.2.PcbDoc
 OutputType2=Mask
 OutputName2=Solder/Paste Mask Prints
 OutputDocumentPath2=
@@ -806,7 +831,7 @@ OutputDefault10=0
 Configuration10_Name1=ForceUpdateSettings
 Configuration10_Item1=False
 Configuration10_Name2=OutputConfigurationParameter1
-Configuration10_Item2=FileComment= |FileSubject=Autodetect|GenerateDRCRulesFile=True|GerberUnit=Metric|MinusApertureTolerance=39|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|PlotBackDrillingPairs=False|PlotBlindViasPairs=False|PlotBoardProfile=False|PlotDrillDrawingPair0_Backdrill=False|PlotDrillDrawingPair0_DrillType=Regular|PlotDrillDrawingPair0_HighLayer=Bottom Layer|PlotDrillDrawingPair0_LowLayer=Top Layer|PlotDrillDrawingPairs=False|PlotDrillGuidePair0_Backdrill=False|PlotDrillGuidePair0_DrillType=Regular|PlotDrillGuidePair0_HighLayer=Bottom Layer|PlotDrillGuidePair0_LowLayer=Top Layer|PlotDrillGuidePairs=False|PlotMicroViasPairs=False|PlotNPTHPair0_Backdrill=False|PlotNPTHPair0_DrillType=Regular|PlotNPTHPair0_HighLayer=Top Layer|PlotNPTHPair0_LowLayer=Bottom Layer|PlotNPTHPairs=False|PlotPTHPair0_Backdrill=False|PlotPTHPair0_DrillType=Regular|PlotPTHPair0_HighLayer=Top Layer|PlotPTHPair0_LowLayer=Bottom Layer|PlotPTHPairs=False|PlotX2.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray,16777217~1,16973831~1,16973835~1,16973833~1,16973830~1,16973832~1,16842751~1,16908289~1,16973834~1|PlusApertureTolerance=39|Record=GerberX2View|Sorted=False|DocumentPath=C:\Users\ian66\Documents\GitHub\efuse\pcb\efuse\eFuse_proto1.PcbDoc
+Configuration10_Item2=FileComment= |FileSubject=Autodetect|GenerateDRCRulesFile=True|GerberUnit=Metric|MinusApertureTolerance=39|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|PlotBackDrillingPairs=False|PlotBlindViasPairs=False|PlotBoardProfile=True|PlotDrillDrawingPair0_Backdrill=False|PlotDrillDrawingPair0_DrillType=Regular|PlotDrillDrawingPair0_HighLayer=Bottom Layer|PlotDrillDrawingPair0_LowLayer=Top Layer|PlotDrillDrawingPairs=False|PlotDrillGuidePair0_Backdrill=False|PlotDrillGuidePair0_DrillType=Regular|PlotDrillGuidePair0_HighLayer=Bottom Layer|PlotDrillGuidePair0_LowLayer=Top Layer|PlotDrillGuidePairs=False|PlotMicroViasPairs=False|PlotNPTHPair0_Backdrill=False|PlotNPTHPair0_DrillType=Regular|PlotNPTHPair0_HighLayer=Top Layer|PlotNPTHPair0_LowLayer=Bottom Layer|PlotNPTHPairs=False|PlotPTHPair0_Backdrill=False|PlotPTHPair0_DrillType=Regular|PlotPTHPair0_HighLayer=Top Layer|PlotPTHPair0_LowLayer=Bottom Layer|PlotPTHPairs=False|PlotX2.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray,16777217~1,16973831~1,16973835~1,16973833~1,16973830~1,16973832~1,16842751~1,16908289~1,16973834~1|PlusApertureTolerance=39|Record=GerberX2View|Sorted=False|DocumentPath=F:\github\efuse\pcb\efuse\efuseV0.2.PcbDoc
 OutputType11=Final
 OutputName11=Final Artwork Prints
 OutputDocumentPath11=
@@ -821,7 +846,7 @@ OutputDefault12=0
 Configuration12_Name1=ForceUpdateSettings
 Configuration12_Item1=False
 Configuration12_Name2=OutputConfigurationParameter1
-Configuration12_Item2=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray|CentrePlots=False|DrillDrawingSymbol=GraphicsSymbol|DrillDrawingSymbolSize=500000|EmbeddedApertures=True|FilmBorderSize=10000000|FilmXSize=200000000|FilmYSize=160000000|FlashAllFills=False|FlashPadShapes=True|G54OnApertureChange=False|GenerateDRCRulesFile=True|GenerateDRCRulesFile=True|GenerateReliefShapes=True|GerberUnit=Imperial|GerberUnit=Imperial|IncludeUnconnectedMidLayerPads=False|LayerClassesMirror.Set= |LayerClassesPlot.Set= |LeadingAndTrailingZeroesMode=SuppressLeadingZeroes|MaxApertureSize=2500000|MinusApertureTolerance=50|MinusApertureTolerance=50|Mirror.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray|MirrorDrillDrawingPlots=False|MirrorDrillGuidePlots=False|NoRegularPolygons=False|NumberOfDecimals=5|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|OptimizeChangeLocationCommands=True|OriginPosition=Relative|Panelize=False|Plot.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray|PlotPositivePlaneLayers=False|PlotUsedDrillDrawingLayerPairs=False|PlotUsedDrillGuideLayerPairs=False|PlusApertureTolerance=50|PlusApertureTolerance=50|Record=GerberView|SoftwareArcs=False|Sorted=False|Sorted=False|DocumentPath=C:\Users\ian66\Documents\GitHub\efuse\pcb\efuse\eFuse_proto1.PcbDoc
+Configuration12_Item2=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray|CentrePlots=False|DrillDrawingSymbol=GraphicsSymbol|DrillDrawingSymbolSize=200000|EmbeddedApertures=True|FilmBorderSize=10000000|FilmXSize=200000000|FilmYSize=160000000|FlashAllFills=False|FlashPadShapes=True|G54OnApertureChange=False|GenerateDRCRulesFile=True|GenerateDRCRulesFile=True|GenerateReliefShapes=True|GerberUnit=Imperial|GerberUnit=Imperial|IncludeUnconnectedMidLayerPads=False|LayerClassesMirror.Set= |LayerClassesPlot.Set= |LeadingAndTrailingZeroesMode=SuppressLeadingZeroes|MaxApertureSize=2500000|MinusApertureTolerance=40|MinusApertureTolerance=40|Mirror.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray|MirrorDrillDrawingPlots=False|MirrorDrillGuidePlots=False|NoRegularPolygons=False|NumberOfDecimals=5|NumberOfDecimals=5|OptimizeChangeLocationCommands=True|OptimizeChangeLocationCommands=True|OriginPosition=Relative|Panelize=False|Plot.Set=SerializeLayerHash.Version~2,ClassName~TPlotLayerStateArray,16973830~1,16973832~1,16973834~1,16777217~1,16842751~1,16973835~1,16973833~1,16973831~1,16908289~1,16973848~1,16973849~1|PlotPositivePlaneLayers=False|PlotUsedDrillDrawingLayerPairs=False|PlotUsedDrillGuideLayerPairs=False|PlusApertureTolerance=40|PlusApertureTolerance=40|Record=GerberView|SoftwareArcs=True|Sorted=False|Sorted=False|DocumentPath=F:\github\efuse\pcb\efuse\efuseV0.2.PcbDoc
 
 [OutputGroup6]
 Name=Report Outputs
