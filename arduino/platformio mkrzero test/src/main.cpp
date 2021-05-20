@@ -200,6 +200,7 @@ void idle_state(void *arg)
 		}
 		if(config_error == 1){
 			digitalWrite(RELAY, LOW);
+			digitalWrite(SHDN, LOW);
 			//turn on error led
 		}
 		else
