@@ -1,0 +1,6 @@
+Change Physical Footprint: Designator=J1 Old Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical New Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical
+Change Physical Footprint: Designator=J2 Old Footprint=JST_XH_B16B-XH-A_1x16_P2.50mm_Vertical New Footprint=JST_XH_B16B-XH-A_1x16_P2.50mm_Vertical
+Change Physical Footprint: Designator=J3 Old Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical New Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical
+Change Physical Footprint: Designator=J4 Old Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical New Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical
+Change Physical Footprint: Designator=J5 Old Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical New Footprint=JST_XH_B8B-XH-A_1x08_P2.50mm_Vertical
+Change Physical Footprint: Designator=U1 Old Footprint=ARDUINO_DUE New Footprint=ARDUINO_DUE

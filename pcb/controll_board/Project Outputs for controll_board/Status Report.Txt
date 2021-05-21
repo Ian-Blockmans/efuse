@@ -1,0 +1,26 @@
+Output: Gerber X2 Files
+Type  : GerberX2
+From  : Project [controll_board.PrjPcb]
+   Generated File[controller_Copper_Signal_Top.gbr]
+   Generated File[controller_Copper_Signal_Bot.gbr]
+   Generated File[controller_Legend_Bot.gbr]
+   Generated File[controller_Soldermask_Bot.gbr]
+   Generated File[controller_Paste_Bot.gbr]
+   Generated File[controller_Legend_Top.gbr]
+   Generated File[controller_Paste_Top.gbr]
+   Generated File[controller_Soldermask_Top.gbr]
+   Generated File[controller_Mechanical_1.gbr]
+   Generated File[controller_Profile.gbr]
+   Generated File[controller_NPTH_Drill.gbr]
+   Generated File[controller_PTH_Drill.gbr]
+   Generated File[controller_Drawing_1.gbr]
+   Generated File[controller_Drillmap_1.gbr]
+   Generated File[controller.RUL]
+   Generated File[controller.EXTREP]
+   Generated File[controller.REP]
+
+
+Files Generated   : 17
+Documents Printed : 0
+
+Finished Output Generation At 06:38:17 PM On 13/05/2021

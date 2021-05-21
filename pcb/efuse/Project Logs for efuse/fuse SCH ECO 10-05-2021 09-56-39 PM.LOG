@@ -1,0 +1,25 @@
+Replace Part C1 cap pol in F:\github\efuse\pcb\efuse\fuse.SchDoc with cap pol from generic_components.SchLib
+Replace Part C2 cap in F:\github\efuse\pcb\efuse\fuse.SchDoc with cap from generic_components.SchLib
+Replace Part C3 cap in F:\github\efuse\pcb\efuse\fuse.SchDoc with cap from generic_components.SchLib
+Replace Part D1 TVS Diode in F:\github\efuse\pcb\efuse\fuse.SchDoc with TVS Diode from generic_components.SchLib
+Replace Part D2 shotkey diode in F:\github\efuse\pcb\efuse\fuse.SchDoc with shotkey diode from generic_components.SchLib
+Replace Part D3 shotkey diode in F:\github\efuse\pcb\efuse\fuse.SchDoc with shotkey diode from generic_components.SchLib
+Replace Part H1 mounting hole in F:\github\efuse\pcb\efuse\fuse.SchDoc with mounting hole from generic_components.SchLib
+Replace Part H2 mounting hole in F:\github\efuse\pcb\efuse\fuse.SchDoc with mounting hole from generic_components.SchLib
+Replace Part H3 mounting hole in F:\github\efuse\pcb\efuse\fuse.SchDoc with mounting hole from generic_components.SchLib
+Replace Part H4 mounting hole in F:\github\efuse\pcb\efuse\fuse.SchDoc with mounting hole from generic_components.SchLib
+Replace Part J2 Blade Quick Disconnect in F:\github\efuse\pcb\efuse\fuse.SchDoc with Blade Quick Disconnect from generic_conn.SchLib
+Replace Part J3 Blade Quick Disconnect in F:\github\efuse\pcb\efuse\fuse.SchDoc with Blade Quick Disconnect from generic_conn.SchLib
+Replace Part J4 Blade Quick Disconnect in F:\github\efuse\pcb\efuse\fuse.SchDoc with Blade Quick Disconnect from generic_conn.SchLib
+Replace Part J5 Blade Quick Disconnect in F:\github\efuse\pcb\efuse\fuse.SchDoc with Blade Quick Disconnect from generic_conn.SchLib
+Replace Part K1 Relay in F:\github\efuse\pcb\efuse\fuse.SchDoc with Relay from generic_components.SchLib
+Replace Part R12 res0805 in F:\github\efuse\pcb\efuse\fuse.SchDoc with res0805 from generic_components.SchLib
+Replace Part R14 res0805 in F:\github\efuse\pcb\efuse\fuse.SchDoc with res0805 from generic_components.SchLib
+Replace Part R17 res0805 in F:\github\efuse\pcb\efuse\fuse.SchDoc with res0805 from generic_components.SchLib
+Replace Part R18 res0805 in F:\github\efuse\pcb\efuse\fuse.SchDoc with res0805 from generic_components.SchLib
+Replace Part R19 res0805 in F:\github\efuse\pcb\efuse\fuse.SchDoc with res0805 from generic_components.SchLib
+Replace Part R21 res0805 in F:\github\efuse\pcb\efuse\fuse.SchDoc with res0805 from generic_components.SchLib
+Replace Part R25 res0805 in F:\github\efuse\pcb\efuse\fuse.SchDoc with res0805 from generic_components.SchLib
+Replace Part U6 N-mosfet en in F:\github\efuse\pcb\efuse\fuse.SchDoc with N-mosfet en from generic_components.SchLib
+Replace Part U7 TPS26631PWPT in F:\github\efuse\pcb\efuse\fuse.SchDoc with TPS26631PWPT from ti.SchLib
+Replace Part U8 N-mosfet en in F:\github\efuse\pcb\efuse\fuse.SchDoc with N-mosfet en from generic_components.SchLib

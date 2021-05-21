@@ -1,0 +1,77 @@
+Removed Pin From Net: NetName=NetD1_1 Pin=J1-7
+Removed Pin From Net: NetName=NetD2_1 Pin=J1-8
+Removed Pin From Net: NetName=NetD3_1 Pin=J1-9
+Removed Pin From Net: NetName=+3.3V Pin=J1-12
+Removed Pin From Net: NetName=NetJ1_10 Pin=J2-3
+Removed Pin From Net: NetName=+3.3V Pin=R7-1
+Change Component Footprint: Designator=J1 Old Footprint=JST_XH_B12B-XH-A_1x12_P2.50mm_Vertical New Footprint=JST_XH_B16B-XH-A_1x16_P2.50mm_Vertical
+Change Component Comment : Designator=J1 Old Comment=12-pin New Comment=16-pin
+Change component parameters: Designator = "J1" ("J1"); Footprint = "JST_XH_B12B-XH-A_1x12_P2.50mm_Vertical"; UniqueID = "\VKBPGDND" ("\VKBPGDND")
+Added Component: Designator=D4(0805 LED)
+Added Component: Designator=D5(0805 LED)
+Added Component: Designator=D6(0805 LED)
+Added Component: Designator=D7(0805 LED)
+Added Component: Designator=D8(0805 LED)
+Added Component: Designator=D9(0805 LED)
+Added Component: Designator=D10(0805 LED)
+Added Component: Designator=D11(0805 LED)
+Added Component: Designator=D12(0805 LED)
+Added Component: Designator=R6(0805)
+Added Component: Designator=R8(0805)
+Added Component: Designator=R9(0805)
+Added Pin To Net: NetName=NetD2_1 Pin=D4-1
+Added Pin To Net: NetName=NetD3_1 Pin=D5-1
+Added Pin To Net: NetName=NetD1_1 Pin=D6-1
+Added Pin To Net: NetName=NetD1_1 Pin=D7-1
+Added Pin To Net: NetName=NetD2_1 Pin=D8-1
+Added Pin To Net: NetName=NetD3_1 Pin=D9-1
+Added Pin To Net: NetName=NetD1_1 Pin=D10-1
+Added Pin To Net: NetName=NetD2_1 Pin=D11-1
+Added Pin To Net: NetName=NetD3_1 Pin=D12-1
+Added Pin To Net: NetName=NetD1_1 Pin=J1-11
+Added Pin To Net: NetName=NetD2_1 Pin=J1-12
+Added Pin To Net: NetName=NetD3_1 Pin=J1-13
+Added Pin To Net: NetName=+3.3V Pin=J1-16
+Added Pin To Net: NetName=NetJ1_10 Pin=R9-1
+Added Pin To Net: NetName=NetD4_2 Pin=D4-2
+Added Pin To Net: NetName=NetD4_2 Pin=D5-2
+Added Pin To Net: NetName=NetD4_2 Pin=D6-2
+Added Pin To Net: NetName=NetD4_2 Pin=R6-2
+Added Net: Name=NetD4_2
+Added Pin To Net: NetName=NetD7_2 Pin=D7-2
+Added Pin To Net: NetName=NetD7_2 Pin=D8-2
+Added Pin To Net: NetName=NetD7_2 Pin=D9-2
+Added Pin To Net: NetName=NetD7_2 Pin=R8-2
+Added Net: Name=NetD7_2
+Added Pin To Net: NetName=NetD10_2 Pin=D10-2
+Added Pin To Net: NetName=NetD10_2 Pin=D11-2
+Added Pin To Net: NetName=NetD10_2 Pin=D12-2
+Added Pin To Net: NetName=NetD10_2 Pin=R9-2
+Added Net: Name=NetD10_2
+Added Pin To Net: NetName=NetJ1_7 Pin=J1-7
+Added Pin To Net: NetName=NetJ1_7 Pin=R7-1
+Added Net: Name=NetJ1_7
+Added Pin To Net: NetName=NetJ1_8 Pin=J1-8
+Added Pin To Net: NetName=NetJ1_8 Pin=R6-1
+Added Net: Name=NetJ1_8
+Added Pin To Net: NetName=NetJ1_9 Pin=J1-9
+Added Pin To Net: NetName=NetJ1_9 Pin=R8-1
+Added Net: Name=NetJ1_9
+Added Pin To Net: NetName=NetJ1_14 Pin=J1-14
+Added Pin To Net: NetName=NetJ1_14 Pin=J2-3
+Added Net: Name=NetJ1_14
+Added Pin To Net: NetName=NetJ1_15 Pin=J1-15
+Added Pin To Net: NetName=NetJ1_15 Pin=J2-4
+Added Net: Name=NetJ1_15
+Added Member To Class: ClassName=UI Member=Component D4 red
+Added Member To Class: ClassName=UI Member=Component D5 red
+Added Member To Class: ClassName=UI Member=Component D6 green
+Added Member To Class: ClassName=UI Member=Component D7 green
+Added Member To Class: ClassName=UI Member=Component D8 red
+Added Member To Class: ClassName=UI Member=Component D9 red
+Added Member To Class: ClassName=UI Member=Component D10 green
+Added Member To Class: ClassName=UI Member=Component D11 red
+Added Member To Class: ClassName=UI Member=Component D12 red
+Added Member To Class: ClassName=UI Member=Component R6 390
+Added Member To Class: ClassName=UI Member=Component R8 390
+Added Member To Class: ClassName=UI Member=Component R9 390
