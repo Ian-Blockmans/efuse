@@ -60,7 +60,7 @@
 Adafruit_SSD1306 oled(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 // storage object
-FlashStorage(Restore_state, uint8_t);
+FlashStorage(Restore_state, uint16_t);
 
 typedef enum
 {
@@ -86,11 +86,12 @@ void init_timer(void);
 uint8_t ReadCoils(uint16_t,uint16_t);
 uint8_t ReadReg(uint16_t, uint16_t);
 uint8_t ReadInputs(uint16_t, uint16_t);
-void WriteCoils(uint16_t, uint16_t, uint8_t *, uint16_t);
+uint8_t WriteCoils(uint16_t, uint16_t, uint8_t *, uint16_t);
 void Exeption(uint8_t);
 
 void UserInterface(void);
 void OledDisplay(uint8_t);
+void Led_matrix(uint8_t, uint8_t);
 
 // global variables
 fsm_states_t fsm_current_state = INITIAL_STATE;
@@ -107,7 +108,10 @@ uint16_t bytecount = 0;
 uint16_t bitcount = 0;
 uint8_t dummycoil = 0;
 uint8_t backup_state = 0;
-uint8_t config_error = 0;
+uint8_t efuse_1_config_error = 0;
+uint8_t efuse_2_config_error = 0;
+uint8_t efuse_3_config_error = 0;
+uint8_t efuse_4_config_error = 0;
 
 unsigned short CRC16(unsigned char *puchMsg, unsigned short usDataLen) /* The function returns the CRC as a unsigned short type   */
 //unsigned char *puchMsg ;  message to calculate CRC upon 
@@ -224,17 +228,41 @@ void idle_state(void *arg)
 		if (backup_state == 1)
 		{
 			backup_state = 0;
+			uint16_t read_tmp = 0;
+			read_tmp = ReadCoils(0,8);
+			read_tmp |= (uint16_t)(ReadCoils(8,16)<<8);
 			if (ReadCoils(0,8) != Restore_state.read()){
 				//Restore_state.write(ReadCoils(0,8));
 			}
 		}
-		if(config_error == 1){
+		if( efuse_1_config_error > 1){
 			digitalWrite(RELAY1, LOW);
 			digitalWrite(SHDN1, LOW);
+			//turn on error led
+		}
+		else
+		{
+			//turn of error led
+		}
+		if( efuse_2_config_error > 1){
 			digitalWrite(RELAY2, LOW);
 			digitalWrite(SHDN2, LOW);
+			//turn on error led
+		}
+		else
+		{
+			//turn of error led
+		}
+		if( efuse_3_config_error > 1){
 			digitalWrite(RELAY3, LOW);
 			digitalWrite(SHDN3, LOW);
+			//turn on error led
+		}
+		else
+		{
+			//turn of error led
+		}
+		if( efuse_4_config_error > 1){
 			digitalWrite(RELAY4, LOW);
 			digitalWrite(SHDN4, LOW);
 			//turn on error led
@@ -383,60 +411,87 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 		int req = i;
 		if (i == (uint16_t)0)
 		{
-			retdata |= digitalRead(RELAY1)<<(i-starta); //0 == good 
+			retdata |= digitalRead(RELAY1)<<(i-starta); //1 == on 
 		}
 		if (i == (uint16_t)1)
 		{
-			retdata |= digitalRead(FLT1)<<(i-starta); //0 == fault
+			retdata |= (!digitalRead(FLT1))<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)2)
 		{
-			retdata |= config_error<<(i-starta); //0 == fault
+			if (efuse_1_config_error > 1){
+				retdata |= 1<<(i-starta); //1 == config fault
+			}
+			else
+			{
+				retdata |= 0<<(i-starta);
+			}
 		}
-		if (i == (uint16_t)0)
+		if (i == (uint16_t)3)
 		{
-			retdata |= digitalRead(RELAY2)<<(i-starta); //0 == good 
+			retdata |= digitalRead(RELAY2)<<(i-starta); //1 == on 
 		}
-		if (i == (uint16_t)1)
+		if (i == (uint16_t)4)
 		{
-			retdata |= digitalRead(FLT2)<<(i-starta); //0 == fault
+			retdata |= (!digitalRead(FLT2))<<(i-starta); //1 == fault
 		}
-		if (i == (uint16_t)2)
+		if (i == (uint16_t)5)
 		{
-			retdata |= config_error<<(i-starta); //0 == fault
+			if (efuse_2_config_error > 1){
+				retdata |= 1<<(i-starta); //1 == config fault
+			}
+			else
+			{
+				retdata |= 0<<(i-starta);
+			}
 		}
-		if (i == (uint16_t)0)
+		if (i == (uint16_t)6)
 		{
-			retdata |= digitalRead(RELAY3)<<(i-starta); //0 == good 
+			retdata |= digitalRead(RELAY3)<<(i-starta); //1 == on  
 		}
-		if (i == (uint16_t)1)
+		if (i == (uint16_t)7)
 		{
-			retdata |= digitalRead(FLT3)<<(i-starta); //0 == fault
+			retdata |= (!digitalRead(FLT3))<<(i-starta); //1 == fault
 		}
-		if (i == (uint16_t)2)
+		if (i == (uint16_t)8)
 		{
-			retdata |= config_error<<(i-starta); //0 == fault
+			if (efuse_3_config_error > 1){
+				retdata |= 1<<(i-starta); //1 == config fault
+			}
+			else
+			{
+				retdata |= 0<<(i-starta);
+			}
 		}
-		if (i == (uint16_t)0)
+		if (i == (uint16_t)9)
 		{
-			retdata |= digitalRead(RELAY4)<<(i-starta); //0 == good 
+			retdata |= digitalRead(RELAY4)<<(i-starta); //1 == on  
 		}
-		if (i == (uint16_t)1)
+		if (i == (uint16_t)10)
 		{
-			retdata |= digitalRead(FLT4)<<(i-starta); //0 == fault
+			retdata |= (!digitalRead(FLT4))<<(i-starta); //1 == fault
 		}
-		if (i == (uint16_t)2)
+		if (i == (uint16_t)11)
 		{
-			retdata |= config_error<<(i-starta); //0 == fault
+			if (efuse_4_config_error > 1){
+				retdata |= 1<<(i-starta); //1 == config fault
+			}
+			else
+			{
+				retdata |= 0<<(i-starta);
+			}
 		}
 		//... to add coils for read
 	}
 	return retdata;
 }
 
-void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
+uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 {
-	config_error = 0;
+	efuse_1_config_error = 0;
+	efuse_2_config_error = 0;
+	efuse_3_config_error = 0;
+	efuse_4_config_error = 0;
 	//efuse1
 	//adress:                                                              ↓                          ↓                                ↓
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)0)) && (starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0)) //ON/OFF
@@ -457,6 +512,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, LOW);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_1_config_error ++;
 	}
 	else if((starta <= (uint8_t)1) && ((bits+starta) >= (uint8_t)1))
 	{
@@ -468,6 +524,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, LOW);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_1_config_error ++;
 	}
 	else if((starta <= (uint8_t)2) && ((bits+starta) >= (uint8_t)2))
 	{
@@ -479,6 +536,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, LOW);
+		efuse_1_config_error ++;
 	}
 	else if((starta <= (uint8_t)3) && ((bits+starta) >= (uint8_t)3))
 	{
@@ -504,6 +562,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, LOW);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_2_config_error ++;
 	}
 	else if((starta <= (uint8_t)5) && ((bits+starta) >= (uint8_t)5))
 	{
@@ -515,6 +574,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, LOW);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_2_config_error ++;
 	}
 	else if((starta <= (uint8_t)6) && ((bits+starta) >= (uint8_t)6))
 	{
@@ -526,6 +586,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, LOW);
+		efuse_2_config_error ++;
 	}
 	else if((starta <= (uint8_t)7) && ((bits+starta) >= (uint8_t)7))
 	{
@@ -551,6 +612,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, LOW);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_3_config_error ++;
 	}
 	else if((starta <= (uint8_t)9) && ((bits+starta) >= (uint8_t)9))
 	{
@@ -562,6 +624,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, LOW);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_3_config_error ++;
 	}
 	else if((starta <= (uint8_t)10) && ((bits+starta) >= (uint8_t)10))
 	{
@@ -573,6 +636,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, LOW);
+		efuse_3_config_error ++;
 	}
 	else if((starta <= (uint8_t)11) && ((bits+starta) >= (uint8_t)11))
 	{
@@ -598,6 +662,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, LOW);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_4_config_error ++;
 	}
 	else if((starta <= (uint8_t)13) && ((bits+starta) >= (uint8_t)13))
 	{
@@ -609,6 +674,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, LOW);
 		digitalWrite(LCL3_1, HIGH);
+		efuse_4_config_error ++;
 	}
 	else if((starta <= (uint8_t)14) && ((bits+starta) >= (uint8_t)14))
 	{
@@ -620,6 +686,7 @@ void WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, LOW);
+		efuse_4_config_error ++;
 	}
 	else if((starta <= (uint8_t)15) && ((bits+starta) >= (uint8_t)15))
 	{
@@ -697,9 +764,15 @@ void control_and_wait_state(void *arg)
 					dataToSend[0] = data[0];
 					dataToSend[1] = data[1];
 					dataToSend[2] = bytecount;
+					uint16_t last_byte_bits = bitcount - (uint16_t)((float)bitcount / 8);
 					for (uint16_t i = 0; i < bytecount; i++)
 					{
-						dataToSend[i+(uint8_t)3] = ReadCoils(starta, bitcount);
+						if (i == (bytecount - 1)){
+							dataToSend[i+(uint8_t)3] = ReadCoils(starta + ((uint8_t)8*i), last_byte_bits);
+						}
+						else{
+							dataToSend[i+(uint8_t)3] = ReadCoils(starta + ((uint8_t)8*i), 8);
+						}
 					}
 					crc16bit = CRC16(dataToSend, (uint8_t)3 + bytecount);
 					crc[0] = crc16bit;
@@ -733,9 +806,15 @@ void control_and_wait_state(void *arg)
 					dataToSend[0] = data[0];
 					dataToSend[1] = data[1];
 					dataToSend[2] = bytecount;
+					uint16_t last_byte_bits = bitcount - (uint16_t)((float)bitcount / 8);
 					for (uint16_t i = 0; i < bytecount; i++)
 					{
-						dataToSend[i+(uint8_t)3] = ReadInputs(starta, bitcount);
+						if (i == (bytecount - 1)){
+							dataToSend[i+(uint8_t)3] = ReadInputs(starta + ((uint8_t)8*i), last_byte_bits);
+						}
+						else{
+							dataToSend[i+(uint8_t)3] = ReadInputs(starta + ((uint8_t)8*i), 8);
+						}
 					}
 					crc16bit = CRC16(dataToSend, (uint8_t)3+bytecount);
 					crc[0] = crc16bit;
@@ -747,7 +826,7 @@ void control_and_wait_state(void *arg)
 				send = 1;
 				done = 1;
 			}
-			else if (data[1] == (uint8_t)0x03) //read registers
+			/*else if (data[1] == (uint8_t)0x03) //read registers
 			{
 				starta = data[3];
 				starta |= data[2]<<(uint8_t)8;
@@ -781,10 +860,10 @@ void control_and_wait_state(void *arg)
 				}
 				send = 1;
 				done = 1;
-			}
+			}*/
 			else if (data[1] == (uint8_t)0x0F) //write multiple coils
 			{
-				
+				uint8_t write_error = 0;
 				starta = data[3];
 				starta |= data[2]<<8;
 				bitcount = data[5];
@@ -804,10 +883,6 @@ void control_and_wait_state(void *arg)
 					Exeption(2);
 					error = 1;
 				}
-				else if (((starta > 0)) && (starta <= 4) && ((((write[0] & (1+(2^(6-starta)))) & ((write[0] & (1+(2^(6-starta))))-1))) == 0) ){
-					config_error = 1;
-					Exeption(3);
-				}
 				else
 				{
 					dataToSend[0] = data[0];
@@ -820,12 +895,17 @@ void control_and_wait_state(void *arg)
 					{
 						WriteCoils(starta, i, write, bitcount-(uint8_t)1);
 					}
-					crc16bit = CRC16(dataToSend, 6);
-					crc[0] = crc16bit;
-					crc[1] = crc16bit >> (uint8_t)8;
+					if (efuse_1_config_error > 1 || efuse_2_config_error > 1 || efuse_3_config_error > 1 || efuse_4_config_error > 1){ //check for incorrect configuration 
+						Exeption(3);
+					}
+					else{
+						crc16bit = CRC16(dataToSend, 6);
+						crc[0] = crc16bit;
+						crc[1] = crc16bit >> (uint8_t)8;
 
-					dataToSend[6] = crc[0];
-					dataToSend[7] = crc[1];
+						dataToSend[6] = crc[0];
+						dataToSend[7] = crc[1];
+					}
 				}
 				send = 1;
 				done = 1;
@@ -1036,6 +1116,90 @@ void UserInterface(void){
 		{
 		}
 	}
+}
+
+void Led_matrix(uint8_t xbits, uint8_t ybits){
+	if (xbits & 1)
+	{
+		digitalWrite(LED_X1, HIGH);
+		digitalWrite(LED_X2, LOW);
+		digitalWrite(LED_X3, LOW);
+		digitalWrite(LED_X4, LOW);
+		if(ybits & 1){
+			digitalWrite(LED_Y1, LOW);
+		}
+		if(ybits & 2){
+			digitalWrite(LED_Y2, LOW);
+		}
+		if(ybits & 4){
+			digitalWrite(LED_Y3, LOW);
+		}
+		delay(1);
+		digitalWrite(LED_Y1, HIGH);
+		digitalWrite(LED_Y2, HIGH);
+		digitalWrite(LED_Y3, HIGH);
+	}
+	if (xbits & 2)
+	{
+		digitalWrite(LED_X1, LOW);
+		digitalWrite(LED_X2, HIGH);
+		digitalWrite(LED_X3, LOW);
+		digitalWrite(LED_X4, LOW);
+		if(ybits & 1){
+			digitalWrite(LED_Y1, LOW);
+		}
+		if(ybits & 2){
+			digitalWrite(LED_Y2, LOW);
+		}
+		if(ybits & 4){
+			digitalWrite(LED_Y3, LOW);
+		}
+		delay(1);
+		digitalWrite(LED_Y1, HIGH);
+		digitalWrite(LED_Y2, HIGH);
+		digitalWrite(LED_Y3, HIGH);
+	}
+	if (xbits & 4)
+	{
+		digitalWrite(LED_X1, LOW);
+		digitalWrite(LED_X2, LOW);
+		digitalWrite(LED_X3, HIGH);
+		digitalWrite(LED_X4, LOW);
+		if(ybits & 1){
+			digitalWrite(LED_Y1, LOW);
+		}
+		if(ybits & 2){
+			digitalWrite(LED_Y2, LOW);
+		}
+		if(ybits & 4){
+			digitalWrite(LED_Y3, LOW);
+		}
+		delay(1);
+		digitalWrite(LED_Y1, HIGH);
+		digitalWrite(LED_Y2, HIGH);
+		digitalWrite(LED_Y3, HIGH);
+	}
+	if (xbits & 8)
+	{
+		digitalWrite(LED_X1, LOW);
+		digitalWrite(LED_X2, LOW);
+		digitalWrite(LED_X3, LOW);
+		digitalWrite(LED_X4, HIGH);
+		if(ybits & 1){
+			digitalWrite(LED_Y1, LOW);
+		}
+		if(ybits & 2){
+			digitalWrite(LED_Y2, LOW);
+		}
+		if(ybits & 4){
+			digitalWrite(LED_Y3, LOW);
+		}
+		delay(1);
+		digitalWrite(LED_Y1, HIGH);
+		digitalWrite(LED_Y2, HIGH);
+		digitalWrite(LED_Y3, HIGH);
+	}
+	
 }
 
 void TC4_Handler(void)
