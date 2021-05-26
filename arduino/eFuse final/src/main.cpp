@@ -888,7 +888,6 @@ void control_and_wait_state(void *arg)
 			}
 			else if (data[1] == (uint8_t)0x05) //write coil
 			{
-				uint8_t write[10];
 				starta = data[3];
 				starta |= data[2]<<(uint8_t)8;
 				write[0] = data[4] & (uint8_t)1 ;
