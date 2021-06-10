@@ -89,7 +89,7 @@ uint8_t WriteCoils(uint16_t, uint16_t, uint8_t *, uint16_t);
 void Exeption(uint8_t);
 
 void UserInterface(void);
-void OledDisplay(uint8_t);
+void OledDisplay(uint8_t, uint8_t, uint8_t, uint8_t);
 void Led_matrix(uint8_t, uint8_t);
 
 // global variables
@@ -991,37 +991,98 @@ void emission_state(void *arg)
 	}
 }
 
-void OledDisplay(uint8_t pos){
-	const char * items[6] = {"LCL1", "LCL2", "LCL3", "12V", "5V", "toggle ON/OFF"};
+void OledDisplay(uint8_t pos, uint8_t fuse, uint8_t status, uint8_t onoff){
+	pos = pos + 1; 
 	oled.clearDisplay(); // clear display
-
+	uint8_t triangle_pos_left = 5;
+	uint8_t triangle_pos_right = 58;
+	uint8_t left_align = 6;
+  	const char * items[4] = {"ON/OFF", "LCL1", "LCL2", "LCL3"};
+	//const char * fuse_text[4] = {"eFuse 1", "eFuse 2", "eFuse 3", "eFuse 4"};
+  	oled.clearDisplay(); // clear display
+	oled.drawLine(64,0,64,64,WHITE);
 	for (uint8_t i = 0; i < ((uint8_t)8+(uint8_t)2); i++)
 	{
-		oled.drawLine(0,i+(pos*(uint8_t)10),128,i+(pos*(uint8_t)10),WHITE);
+		oled.drawLine(0,i+(pos*(uint8_t)10),64,i+(pos*(uint8_t)10),WHITE);
 	}
+	oled.fillTriangle(triangle_pos_left,7,triangle_pos_left,1,triangle_pos_left-3,4,WHITE);
+	oled.fillTriangle(triangle_pos_right,7,triangle_pos_right,1,triangle_pos_right+3,4,WHITE);
 
 	oled.setTextSize(1);		  // text size
-	for (uint8_t i = 0; i < (uint8_t)(sizeof(items)/sizeof(items[0])); i++)
+	oled.setTextColor(WHITE);	  // text color
+
+	oled.setCursor(70, 1);	// position to display
+	oled.println("status:"); // text to display
+	oled.setCursor(70, 11);	// position to display
+	switch (status)
+	{
+	case 1:
+		oled.println("LCL1"); // text to display
+		break;
+	case 2:
+		oled.println("LCL2"); // text to display
+		break;
+	case 4:
+		oled.println("LCL3"); // text to display
+		break;
+	default:
+		break;
+	}
+
+	oled.setCursor(70, 21);	// position to display
+	switch (onoff)
+	{
+	case 0:
+		oled.println("OFF"); // text to display
+		break;
+	case 1:
+		oled.println("ON"); // text to display
+		break;
+	default:
+		break;
+	}
+	
+	oled.setCursor(11, 1);	// position to display
+	switch (fuse)
+	{
+	case 0:
+		oled.println("eFuse 1"); // text to display
+		break;
+	case 1:
+		oled.println("eFuse 2"); // text to display
+		break;
+	case 2:
+		oled.println("eFuse 3"); // text to display
+		break;
+	case 3:
+		oled.println("eFuse 4"); // text to display
+		break;
+	default:
+		break;
+	}
+
+	for (uint8_t i = 1; i < (uint8_t)(sizeof(items)/sizeof(items[0]))+1; i++)
 	{
 		if (pos == i){
 			oled.setTextColor(BLACK,WHITE);	  // text color
-			oled.setCursor(20, (uint8_t)1+i+(i*(uint8_t)9));	// position to display
-			oled.println(items[i]); // text to display
+			oled.setCursor(left_align, (uint8_t)1+i+(i*(uint8_t)9));	// position to display
+			oled.println(items[i-1]); // text to display
 		}
 		else
 		{
 			oled.setTextColor(WHITE);	  // text color
-			oled.setCursor(20, (uint8_t)1+i+(i*(uint8_t)9));	// position to display
-			oled.println(items[i]); // text to display
+			oled.setCursor(left_align, (uint8_t)1+i+(i*(uint8_t)9));	// position to display
+			oled.println(items[i-1]); // text to display
 		}
 	}
-	oled.display();
+  	oled.display();
 	return;
 }
 
 void UserInterface(void){
 	static uint8_t redraw = 1;
 	static uint8_t position = 0;
+	static uint8_t fuse = 0;
 	uint8_t one = 1;
 	uint8_t zero = 0;
 	//enum menu {lcl1,lcl2,lcl3,V5,V12};
@@ -1029,7 +1090,20 @@ void UserInterface(void){
 	if (!digitalRead(UP_BUTTON)){
 		delay(20);
 		if (!digitalRead(UP_BUTTON)){
-			if(position == (uint8_t)4){
+			if(position == (uint8_t)0){
+				position = 3;
+			}
+			else
+			{
+				position--;
+			}
+			redraw = 1;
+		}
+	}
+	else if (!digitalRead(DOWN_BUTTON)){
+		delay(20);
+		if (!digitalRead(DOWN_BUTTON)){
+			if(position == (uint8_t)3){
 				position = 0;
 			}
 			else
@@ -1039,15 +1113,28 @@ void UserInterface(void){
 			redraw = 1;
 		}
 	}
-	else if (!digitalRead(DOWN_BUTTON)){
+	else if (!digitalRead(LEFT_BUTTON)){
 		delay(20);
-		if (!digitalRead(DOWN_BUTTON)){
-			if(position == (uint8_t)0){
-				position = 4;
+		if (!digitalRead(LEFT_BUTTON)){
+			if(fuse == (uint8_t)0){
+				fuse = 3;
 			}
 			else
 			{
-				position--;
+				fuse--;
+			}
+			redraw = 1;
+		}
+	}
+	else if (!digitalRead(RIGHT_BUTTON)){
+		delay(20);
+		if (!digitalRead(RIGHT_BUTTON)){
+			if(fuse == (uint8_t)3){
+				fuse = 0;
+			}
+			else
+			{
+				fuse++;
 			}
 			redraw = 1;
 		}
@@ -1058,22 +1145,16 @@ void UserInterface(void){
 			switch (position)
 			{
 			case 0:
-				WriteCoils(1,0,&one,0);
+				WriteCoils(1+(fuse*4),0,&one,0);
 				break;
 			case 1:
-				WriteCoils(2,0,&one,0);
+				WriteCoils(2+(fuse*4),0,&one,0);
 				break;
 			case 2:
-				WriteCoils(3,0,&one,0);
+				WriteCoils(3+(fuse*4),0,&one,0);
 				break;
 			case 3:
-				WriteCoils(4,0,&one,0);
-				break;
-			case 4:
-				WriteCoils(5,0,&one,0);
-				break;
-			case 5:
-				WriteCoils(0,0,&one,0);
+				WriteCoils(4+(fuse*4),0,&one,0);
 				break;
 			default:
 				break;
@@ -1083,10 +1164,12 @@ void UserInterface(void){
 	else{}
 
 	if (redraw == (uint8_t)1){
-		OledDisplay(position);
+		uint8_t status = ReadCoils((fuse*4)+2,4);
+		uint8_t onoff = ReadCoils((fuse*4)+1,1);
+		OledDisplay(position, fuse, status, onoff);
 		redraw = 0;
 		delay(50);
-		while (!digitalRead(UP_BUTTON) || !digitalRead(OK_BUTTON) || !digitalRead(DOWN_BUTTON))
+		while (!digitalRead(UP_BUTTON) || !digitalRead(OK_BUTTON) || !digitalRead(DOWN_BUTTON) || !digitalRead(LEFT_BUTTON) || !digitalRead(RIGHT_BUTTON))
 		{
 		}
 	}
@@ -1196,14 +1279,6 @@ void init_timer(void)
 void setup()
 {
 
-	#define LED_X1 7
-	#define LED_X2 8
-	#define LED_X3 9
-	#define LED_X4 10
-	#define LED_Y1 11
-	#define LED_Y2 12
-	#define LED_Y3 13
-
 	// setup I/O
 	pinMode(UP_BUTTON, INPUT_PULLUP);
 	pinMode(OK_BUTTON, INPUT_PULLUP);
@@ -1296,7 +1371,7 @@ void setup()
 	SerialUSB.begin(9600,SERIAL_8N2);
 
 	// setup oled display
-	if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3C))
+	if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3D))
 	{
 		Serial.println(F("SSD1306 allocation failed"));
 		while (true){}

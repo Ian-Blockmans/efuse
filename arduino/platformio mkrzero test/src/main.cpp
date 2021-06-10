@@ -106,7 +106,7 @@ uint8_t bytesRecieved;
 uint8_t error = 0;
 uint16_t bytecount = 0;
 uint16_t bitcount = 0;
-uint8_t dummycoil = 0;
+uint8_t dummycoilarray[16];
 uint8_t backup_state = 0;
 uint8_t efuse_1_config_error = 0;
 uint8_t efuse_2_config_error = 0;
@@ -236,8 +236,7 @@ void idle_state(void *arg)
 			}
 		}
 		if( efuse_1_config_error > 1){
-			digitalWrite(RELAY1, LOW);
-			digitalWrite(SHDN1, LOW);
+			dummycoilarray[0] = 0;
 			//turn on error led
 		}
 		else
@@ -245,8 +244,7 @@ void idle_state(void *arg)
 			//turn of error led
 		}
 		if( efuse_2_config_error > 1){
-			digitalWrite(RELAY2, LOW);
-			digitalWrite(SHDN2, LOW);
+			dummycoilarray[4] = 0;
 			//turn on error led
 		}
 		else
@@ -254,8 +252,7 @@ void idle_state(void *arg)
 			//turn of error led
 		}
 		if( efuse_3_config_error > 1){
-			digitalWrite(RELAY3, LOW);
-			digitalWrite(SHDN3, LOW);
+			dummycoilarray[8] = 0;
 			//turn on error led
 		}
 		else
@@ -263,8 +260,7 @@ void idle_state(void *arg)
 			//turn of error led
 		}
 		if( efuse_4_config_error > 1){
-			digitalWrite(RELAY4, LOW);
-			digitalWrite(SHDN4, LOW);
+			dummycoilarray[12] = 0;
 			//turn on error led
 		}
 		else
@@ -272,30 +268,26 @@ void idle_state(void *arg)
 			//turn of error led
 		}
 
-		if (digitalRead(FLT1) == LOW)
+		/*if (digitalRead(FLT1) == LOW)
 		{
-			digitalWrite(RELAY1, LOW);
-			digitalWrite(SHDN1, LOW);
+			dummycoilarray[0] = 0;
 		}
 		if (digitalRead(FLT2) == LOW)
 		{
-			digitalWrite(RELAY2, LOW);
-			digitalWrite(SHDN2, LOW);
+			dummycoilarray[4] = 0;
 		}
 		if (digitalRead(FLT3) == LOW)
 		{
-			digitalWrite(RELAY3, LOW);
-			digitalWrite(SHDN3, LOW);
+			dummycoilarray[8] = 0;
 		}
 		if (digitalRead(FLT4) == LOW)
 		{
-			digitalWrite(RELAY4, LOW);
-			digitalWrite(SHDN4, LOW);
+			dummycoilarray[12] = 0;
 		}
 		else
 		{
 			//digitalWrite(RELAY, HIGH);
-		}
+		}*/
 		UserInterface();
 	}
 }
@@ -328,70 +320,70 @@ uint8_t ReadCoils(uint16_t starta, uint16_t bits) //COILS 1
 		//efuse1
 		if (i == (uint16_t)0)
 		{
-			retdata |= ((digitalRead(SHDN1) & digitalRead(RELAY1)) <<(i-starta));
+			retdata |= (dummycoilarray[0]<<(i-starta));
 		}
 		if (i == (uint16_t)1)
 		{
-			retdata |= ((!digitalRead(LCL1_1))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[1]<<(i-starta));
 		}
 		if (i == (uint16_t)2)
 		{
-			retdata |= ((!digitalRead(LCL2_1))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[2]<<(i-starta));
 		}
 		if (i == (uint16_t)3)
 		{
-			retdata |= ((!digitalRead(LCL3_1))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[3]<<(i-starta));
 		}
 		//efuse2
 		if (i == (uint16_t)4)
 		{
-			retdata |= ((digitalRead(SHDN2) & digitalRead(RELAY2))<<(i-starta));
+			retdata |= (dummycoilarray[4]<<(i-starta));
 		}
 		if (i == (uint16_t)5)
 		{
-			retdata |= ((!digitalRead(LCL1_2))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[5]<<(i-starta));
 		}
 		if (i == (uint16_t)6)
 		{
-			retdata |= ((!digitalRead(LCL2_2))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[6]<<(i-starta));
 		}
 		if (i == (uint16_t)7)
 		{
-			retdata |= ((!digitalRead(LCL3_2))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[7]<<(i-starta));
 		}
 		//efuse3
 		if (i == (uint16_t)8)
 		{
-			retdata |= ((digitalRead(SHDN3) & digitalRead(RELAY2))<<(i-starta));
+			retdata |= (dummycoilarray[8]<<(i-starta));
 		}
 		if (i == (uint16_t)9)
 		{
-			retdata |= ((!digitalRead(LCL1_3))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[9]<<(i-starta));
 		}
 		if (i == (uint16_t)10)
 		{
-			retdata |= ((!digitalRead(LCL2_3))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[10]<<(i-starta));
 		}
 		if (i == (uint16_t)11)
 		{
-			retdata |= ((!digitalRead(LCL3_3))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[11]<<(i-starta));
 		}
 		//efuse4
 		if (i == (uint16_t)12)
 		{
-			retdata |= ((digitalRead(SHDN4) & digitalRead(RELAY2))<<(i-starta));
+			retdata |= (dummycoilarray[12]<<(i-starta));
 		}
 		if (i == (uint16_t)13)
 		{
-			retdata |= ((!digitalRead(LCL1_4))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[13]<<(i-starta));
 		}
 		if (i == (uint16_t)14)
 		{
-			retdata |= ((!digitalRead(LCL2_4))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[14]<<(i-starta));
 		}
 		if (i == (uint16_t)15)
 		{
-			retdata |= ((!digitalRead(LCL3_4))&HIGH)<<(i-starta);
+			retdata |= (dummycoilarray[15]<<(i-starta));
 		}
 		//... to add coils for read
 	}
@@ -411,74 +403,74 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 		int req = i;
 		if (i == (uint16_t)0)
 		{
-			retdata |= digitalRead(RELAY1)<<(i-starta); //1 == on 
+			//retdata |= digitalRead(RELAY1)<<(i-starta); //1 == on 
 		}
 		if (i == (uint16_t)1)
 		{
-			retdata |= (!digitalRead(FLT1))<<(i-starta); //1 == fault
+			//retdata |= (!digitalRead(FLT1))<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)2)
 		{
 			if (efuse_1_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
+				//retdata |= 1<<(i-starta); //1 == config fault
 			}
 			else
 			{
-				retdata |= 0<<(i-starta);
+				//retdata |= 0<<(i-starta);
 			}
 		}
 		if (i == (uint16_t)3)
 		{
-			retdata |= digitalRead(RELAY2)<<(i-starta); //1 == on 
+			//retdata |= digitalRead(RELAY2)<<(i-starta); //1 == on 
 		}
 		if (i == (uint16_t)4)
 		{
-			retdata |= (!digitalRead(FLT2))<<(i-starta); //1 == fault
+			//retdata |= (!digitalRead(FLT2))<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)5)
 		{
 			if (efuse_2_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
+				//retdata |= 1<<(i-starta); //1 == config fault
 			}
 			else
 			{
-				retdata |= 0<<(i-starta);
+				//retdata |= 0<<(i-starta);
 			}
 		}
 		if (i == (uint16_t)6)
 		{
-			retdata |= digitalRead(RELAY3)<<(i-starta); //1 == on  
+			//etdata |= digitalRead(RELAY3)<<(i-starta); //1 == on  
 		}
 		if (i == (uint16_t)7)
 		{
-			retdata |= (!digitalRead(FLT3))<<(i-starta); //1 == fault
+			//retdata |= (!digitalRead(FLT3))<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)8)
 		{
 			if (efuse_3_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
+				//retdata |= 1<<(i-starta); //1 == config fault
 			}
 			else
 			{
-				retdata |= 0<<(i-starta);
+				//retdata |= 0<<(i-starta);
 			}
 		}
 		if (i == (uint16_t)9)
 		{
-			retdata |= digitalRead(RELAY4)<<(i-starta); //1 == on  
+			//retdata |= digitalRead(RELAY4)<<(i-starta); //1 == on  
 		}
 		if (i == (uint16_t)10)
 		{
-			retdata |= (!digitalRead(FLT4))<<(i-starta); //1 == fault
+			//retdata |= (!digitalRead(FLT4))<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)11)
 		{
 			if (efuse_4_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
+				//retdata |= 1<<(i-starta); //1 == config fault
 			}
 			else
 			{
-				retdata |= 0<<(i-starta);
+				//retdata |= 0<<(i-starta);
 			}
 		}
 		//... to add coils for read
@@ -496,200 +488,180 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	//adress:                                                              ↓                          ↓                                ↓
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)0)) && (starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0)) //ON/OFF
 	{
-		digitalWrite(SHDN1, HIGH);
-		digitalWrite(RELAY1, HIGH);
+		dummycoilarray[0] = 1;
 	}
 	//adress:                    ↓                                ↓
 	else if ((starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0))
 	{
-		digitalWrite(SHDN1, LOW);
-		digitalWrite(RELAY1, LOW);
+		dummycoilarray[0] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)1)) && (starta <= (uint8_t)1) && ((bits+starta) >= (uint8_t)1)) //LCL1
 	{
-		digitalWrite(LCL1_1, LOW);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[1] = 1;
 		efuse_1_config_error ++;
 	}
 	else if((starta <= (uint8_t)1) && ((bits+starta) >= (uint8_t)1))
 	{
+		dummycoilarray[1] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)2)) && (starta <= (uint8_t)2) && ((bits+starta) >= (uint8_t)2)) //LCL2
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, LOW);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[2] = 1;
 		efuse_1_config_error ++;
 	}
 	else if((starta <= (uint8_t)2) && ((bits+starta) >= (uint8_t)2))
 	{
+		dummycoilarray[2] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)3)) && (starta <= (uint8_t)3) && ((bits+starta) >= (uint8_t)3)) //LCL3
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, LOW);
+		dummycoilarray[3] = 1;
 		efuse_1_config_error ++;
 	}
 	else if((starta <= (uint8_t)3) && ((bits+starta) >= (uint8_t)3))
 	{
+		dummycoilarray[3] = 0;
 	}
 	else{}
 
 	// efuse 2 ------------------------------------------------------------------------------------------------------------------------------------
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)4)) && (starta <= (uint8_t)4) && ((bits+starta) >= (uint8_t)4)) //ON/OFF
 	{
-		digitalWrite(SHDN1, HIGH);
-		digitalWrite(RELAY1, HIGH);
+		dummycoilarray[4] = 1;
 	}
 
 	else if ((starta <= (uint8_t)4) && ((bits+starta) >= (uint8_t)4))
 	{
-		digitalWrite(SHDN1, LOW);
-		digitalWrite(RELAY1, LOW);
+		dummycoilarray[4] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)5)) && (starta <= (uint8_t)5) && ((bits+starta) >= (uint8_t)5)) //LCL1
 	{
-		digitalWrite(LCL1_1, LOW);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[5] = 1;
 		efuse_2_config_error ++;
 	}
 	else if((starta <= (uint8_t)5) && ((bits+starta) >= (uint8_t)5))
 	{
+		dummycoilarray[5] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)6)) && (starta <= (uint8_t)6) && ((bits+starta) >= (uint8_t)6)) //LCL2
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, LOW);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[6] = 1;
 		efuse_2_config_error ++;
 	}
 	else if((starta <= (uint8_t)6) && ((bits+starta) >= (uint8_t)6))
 	{
+		dummycoilarray[6] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)7)) && (starta <= (uint8_t)7) && ((bits+starta) >= (uint8_t)7)) //LCL3
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, LOW);
+		dummycoilarray[7] = 1;
 		efuse_2_config_error ++;
 	}
 	else if((starta <= (uint8_t)7) && ((bits+starta) >= (uint8_t)7))
 	{
+		dummycoilarray[7] = 0;
 	}
 	else{}
 
 	// efuse 3 ------------------------------------------------------------------------------------------------------------------------------------
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)8)) && (starta <= (uint8_t)8) && ((bits+starta) >= (uint8_t)8)) //ON/OFF
 	{
-		digitalWrite(SHDN1, HIGH);
-		digitalWrite(RELAY1, HIGH);
+		dummycoilarray[8] = 1;
 	}
 
 	else if ((starta <= (uint8_t)8) && ((bits+starta) >= (uint8_t)8))
 	{
-		digitalWrite(SHDN1, LOW);
-		digitalWrite(RELAY1, LOW);
+		dummycoilarray[8] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)9)) && (starta <= (uint8_t)9) && ((bits+starta) >= (uint8_t)9)) //LCL1
 	{
-		digitalWrite(LCL1_1, LOW);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[9] = 1;
 		efuse_3_config_error ++;
 	}
 	else if((starta <= (uint8_t)9) && ((bits+starta) >= (uint8_t)9))
 	{
+		dummycoilarray[9] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)10)) && (starta <= (uint8_t)10) && ((bits+starta) >= (uint8_t)10)) //LCL2
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, LOW);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[10] = 1;
 		efuse_3_config_error ++;
 	}
 	else if((starta <= (uint8_t)10) && ((bits+starta) >= (uint8_t)10))
 	{
+		dummycoilarray[10] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)11)) && (starta <= (uint8_t)11) && ((bits+starta) >= (uint8_t)11)) //LCL3
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, LOW);
+		dummycoilarray[11] = 1;
 		efuse_3_config_error ++;
 	}
 	else if((starta <= (uint8_t)11) && ((bits+starta) >= (uint8_t)11))
 	{
+		dummycoilarray[11] = 0;
 	}
 	else{}
 
 	// efuse 4 ------------------------------------------------------------------------------------------------------------------------------------
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)12)) && (starta <= (uint8_t)12) && ((bits+starta) >= (uint8_t)12)) //ON/OFF
 	{
-		digitalWrite(SHDN1, HIGH);
-		digitalWrite(RELAY1, HIGH);
+		dummycoilarray[12] = 1;
 	}
 
 	else if ((starta <= (uint8_t)12) && ((bits+starta) >= (uint8_t)12))
 	{
-		digitalWrite(SHDN1, LOW);
-		digitalWrite(RELAY1, LOW);
+		dummycoilarray[12] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)13)) && (starta <= (uint8_t)13) && ((bits+starta) >= (uint8_t)13)) //LCL1
 	{
-		digitalWrite(LCL1_1, LOW);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[13] = 1;
 		efuse_4_config_error ++;
 	}
 	else if((starta <= (uint8_t)13) && ((bits+starta) >= (uint8_t)13))
 	{
+		dummycoilarray[13] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)14)) && (starta <= (uint8_t)14) && ((bits+starta) >= (uint8_t)14)) //LCL2
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, LOW);
-		digitalWrite(LCL3_1, HIGH);
+		dummycoilarray[14] = 1;
 		efuse_4_config_error ++;
 	}
 	else if((starta <= (uint8_t)14) && ((bits+starta) >= (uint8_t)14))
 	{
+		dummycoilarray[14] = 0;
 	}
 	else{}
 
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)15)) && (starta <= (uint8_t)15) && ((bits+starta) >= (uint8_t)15)) //LCL3
 	{
-		digitalWrite(LCL1_1, HIGH);
-		digitalWrite(LCL2_1, HIGH);
-		digitalWrite(LCL3_1, LOW);
+		dummycoilarray[15] = 1;
 		efuse_4_config_error ++;
 	}
 	else if((starta <= (uint8_t)15) && ((bits+starta) >= (uint8_t)15))
 	{
+		dummycoilarray[15] = 0;
 	}
 	else{}
 
@@ -1253,14 +1225,6 @@ void init_timer(void)
 void setup()
 {
 
-	#define LED_X1 7
-	#define LED_X2 8
-	#define LED_X3 9
-	#define LED_X4 10
-	#define LED_Y1 11
-	#define LED_Y2 12
-	#define LED_Y3 13
-
 	// setup I/O
 	pinMode(UP_BUTTON, INPUT_PULLUP);
 	pinMode(OK_BUTTON, INPUT_PULLUP);
@@ -1268,77 +1232,77 @@ void setup()
 	pinMode(LEFT_BUTTON, INPUT_PULLUP);
 	pinMode(RIGHT_BUTTON, INPUT_PULLUP);
 
-	pinMode(LED_X1, OUTPUT);
-	pinMode(LED_X2, OUTPUT);
-	pinMode(LED_X3, OUTPUT);
-	pinMode(LED_X4, OUTPUT);
-	pinMode(LED_Y1, OUTPUT);
-	pinMode(LED_Y2, OUTPUT);
-	pinMode(LED_Y3, OUTPUT);
-	
-	pinMode(RELAY1, OUTPUT);
-	pinMode(LCL3_1, OUTPUT);
-	pinMode(LCL2_1, OUTPUT);
-	pinMode(LCL1_1, OUTPUT);
-	pinMode(SHDN1, OUTPUT);
-	pinMode(FLT1, INPUT);
-
-	pinMode(RELAY2, OUTPUT);
-	pinMode(LCL3_2, OUTPUT);
-	pinMode(LCL2_2, OUTPUT);
-	pinMode(LCL1_2, OUTPUT);
-	pinMode(SHDN2, OUTPUT);
-	pinMode(FLT2, INPUT);
-
-	pinMode(RELAY3, OUTPUT);
-	pinMode(LCL3_3, OUTPUT);
-	pinMode(LCL2_3, OUTPUT);
-	pinMode(LCL1_3, OUTPUT);
-	pinMode(SHDN3, OUTPUT);
-	pinMode(FLT3, INPUT);
-
-	pinMode(RELAY4, OUTPUT);
-	pinMode(LCL3_4, OUTPUT);
-	pinMode(LCL2_4, OUTPUT);
-	pinMode(LCL1_4, OUTPUT);
-	pinMode(SHDN4, OUTPUT);
-	pinMode(FLT4, INPUT);
-
-	pinMode(LED_BUILTIN, OUTPUT);
-
-
-	// i/o initial set
-	digitalWrite(RELAY1, LOW);
-	digitalWrite(SHDN1, LOW);
-	digitalWrite(LCL3_1, HIGH);
-	digitalWrite(LCL2_1, HIGH);
-	digitalWrite(LCL1_1, HIGH);
-
-	digitalWrite(RELAY2, LOW);
-	digitalWrite(SHDN2, LOW);
-	digitalWrite(LCL3_2, HIGH);
-	digitalWrite(LCL2_2, HIGH);
-	digitalWrite(LCL1_2, HIGH);
-
-	digitalWrite(RELAY3, LOW);
-	digitalWrite(SHDN3, LOW);
-	digitalWrite(LCL3_3, HIGH);
-	digitalWrite(LCL2_3, HIGH);
-	digitalWrite(LCL1_3, HIGH);
-
-	digitalWrite(RELAY4, LOW);
-	digitalWrite(SHDN4, LOW);
-	digitalWrite(LCL3_4, HIGH);
-	digitalWrite(LCL2_4, HIGH);
-	digitalWrite(LCL1_4, HIGH);
-
-	digitalWrite(LED_X1, LOW);
-	digitalWrite(LED_X2, LOW);
-	digitalWrite(LED_X3, LOW);
-	digitalWrite(LED_X4, LOW);
-	digitalWrite(LED_Y1, HIGH);
-	digitalWrite(LED_Y2, HIGH);
-	digitalWrite(LED_Y3, HIGH);
+	//pinMode(LED_X1, OUTPUT);
+	//pinMode(LED_X2, OUTPUT);
+	//pinMode(LED_X3, OUTPUT);
+	//pinMode(LED_X4, OUTPUT);
+	//pinMode(LED_Y1, OUTPUT);
+	//pinMode(LED_Y2, OUTPUT);
+	//pinMode(LED_Y3, OUTPUT);
+	//
+	//pinMode(RELAY1, OUTPUT);
+	//pinMode(LCL3_1, OUTPUT);
+	//pinMode(LCL2_1, OUTPUT);
+	//pinMode(LCL1_1, OUTPUT);
+	//pinMode(SHDN1, OUTPUT);
+	//pinMode(FLT1, INPUT);
+//
+	//pinMode(RELAY2, OUTPUT);
+	//pinMode(LCL3_2, OUTPUT);
+	//pinMode(LCL2_2, OUTPUT);
+	//pinMode(LCL1_2, OUTPUT);
+	//pinMode(SHDN2, OUTPUT);
+	//pinMode(FLT2, INPUT);
+//
+	//pinMode(RELAY3, OUTPUT);
+	//pinMode(LCL3_3, OUTPUT);
+	//pinMode(LCL2_3, OUTPUT);
+	//pinMode(LCL1_3, OUTPUT);
+	//pinMode(SHDN3, OUTPUT);
+	//pinMode(FLT3, INPUT);
+//
+	//pinMode(RELAY4, OUTPUT);
+	//pinMode(LCL3_4, OUTPUT);
+	//pinMode(LCL2_4, OUTPUT);
+	//pinMode(LCL1_4, OUTPUT);
+	//pinMode(SHDN4, OUTPUT);
+	//pinMode(FLT4, INPUT);
+//
+	//pinMode(LED_BUILTIN, OUTPUT);
+//
+//
+	//// i/o initial set
+	//digitalWrite(RELAY1, LOW);
+	//digitalWrite(SHDN1, LOW);
+	//digitalWrite(LCL3_1, HIGH);
+	//digitalWrite(LCL2_1, HIGH);
+	//digitalWrite(LCL1_1, HIGH);
+//
+	//digitalWrite(RELAY2, LOW);
+	//digitalWrite(SHDN2, LOW);
+	//digitalWrite(LCL3_2, HIGH);
+	//digitalWrite(LCL2_2, HIGH);
+	//digitalWrite(LCL1_2, HIGH);
+//
+	//digitalWrite(RELAY3, LOW);
+	//digitalWrite(SHDN3, LOW);
+	//digitalWrite(LCL3_3, HIGH);
+	//digitalWrite(LCL2_3, HIGH);
+	//digitalWrite(LCL1_3, HIGH);
+//
+	//digitalWrite(RELAY4, LOW);
+	//digitalWrite(SHDN4, LOW);
+	//digitalWrite(LCL3_4, HIGH);
+	//digitalWrite(LCL2_4, HIGH);
+	//digitalWrite(LCL1_4, HIGH);
+//
+	//digitalWrite(LED_X1, LOW);
+	//digitalWrite(LED_X2, LOW);
+	//digitalWrite(LED_X3, LOW);
+	//digitalWrite(LED_X4, LOW);
+	//digitalWrite(LED_Y1, HIGH);
+	//digitalWrite(LED_Y2, HIGH);
+	//digitalWrite(LED_Y3, HIGH);
 
 	// setup Timers
 	init_timer();
