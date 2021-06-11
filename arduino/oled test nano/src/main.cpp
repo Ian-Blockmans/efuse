@@ -115,7 +115,6 @@ void UserInterface(void){
 		delay(50);
 		while (!digitalRead(UP_BUTTON) || !digitalRead(OK_BUTTON) || !digitalRead(DOWN_BUTTON) || !digitalRead(LEFT_BUTTON) || !digitalRead(RIGHT_BUTTON))
 		{
-			Serial.println("sad");
 		}
 	}
 }
@@ -135,7 +134,7 @@ void Led_matrix(uint8_t x1bits, uint8_t x2bits, uint8_t x3bits, uint8_t x4bits){
 	if(x1bits & 4){
 		digitalWrite(LED_Y3, LOW);
 	}
-	delay(1);
+	delayMicroseconds(100);
 	digitalWrite(LED_Y1, HIGH);
 	digitalWrite(LED_Y2, HIGH);
 	digitalWrite(LED_Y3, HIGH);
@@ -154,7 +153,7 @@ void Led_matrix(uint8_t x1bits, uint8_t x2bits, uint8_t x3bits, uint8_t x4bits){
 	if(x2bits & 4){
 		digitalWrite(LED_Y3, LOW);
 	}
-	delay(1);
+	delayMicroseconds(100);
 	digitalWrite(LED_Y1, HIGH);
 	digitalWrite(LED_Y2, HIGH);
 	digitalWrite(LED_Y3, HIGH);
@@ -173,7 +172,7 @@ void Led_matrix(uint8_t x1bits, uint8_t x2bits, uint8_t x3bits, uint8_t x4bits){
 	if(x3bits & 4){
 		digitalWrite(LED_Y3, LOW);
 	}
-	delay(1);
+	delayMicroseconds(100);
 	digitalWrite(LED_Y1, HIGH);
 	digitalWrite(LED_Y2, HIGH);
 	digitalWrite(LED_Y3, HIGH);
@@ -192,7 +191,7 @@ void Led_matrix(uint8_t x1bits, uint8_t x2bits, uint8_t x3bits, uint8_t x4bits){
 	if(x4bits & 4){
 		digitalWrite(LED_Y3, LOW);
 	}
-	delay(1);
+	delayMicroseconds(100);
 	digitalWrite(LED_Y1, HIGH);
 	digitalWrite(LED_Y2, HIGH);
 	digitalWrite(LED_Y3, HIGH);
