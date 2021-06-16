@@ -5,6 +5,7 @@
 #include <DueFlashStorage.h>
 #include <DueTimer.h>
 #include <string.h>
+#include <math.h>
 
 #define SCREEN_WIDTH 128 // OLED display width,  in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
@@ -13,11 +14,11 @@
 #define INPUTS 12 // aantal inputs
 
 //arduino io
-#define UP_BUTTON 3
+#define UP_BUTTON 6
 #define OK_BUTTON 4
-#define DOWN_BUTTON 6
-#define LEFT_BUTTON 5
-#define RIGHT_BUTTON 2
+#define DOWN_BUTTON 3
+#define LEFT_BUTTON 2
+#define RIGHT_BUTTON 5
 
 #define LED_X1 10
 #define LED_X2 9
@@ -115,6 +116,10 @@ uint8_t efuse_1_config_error = 0;
 uint8_t efuse_2_config_error = 0;
 uint8_t efuse_3_config_error = 0;
 uint8_t efuse_4_config_error = 0;
+uint8_t efuse1_status = 0;
+uint8_t efuse2_status = 0;
+uint8_t efuse3_status = 0;
+uint8_t efuse4_status = 0;
 
 unsigned short CRC16(unsigned char *puchMsg, unsigned short usDataLen) /* The function returns the CRC as a unsigned short type   */
 //unsigned char *puchMsg ;  message to calculate CRC upon 
@@ -190,11 +195,6 @@ void initial_state(void *arg)
 
 void idle_state(void *arg)
 {
-	static uint8_t efuse1_status = 0;
-	static uint8_t efuse2_status = 0;
-	static uint8_t efuse3_status = 0;
-	static uint8_t efuse4_status = 0;
-
 	if (SerialUSB.available() > 0)
 	{
 		data[bytesRecieved] = SerialUSB.read();
@@ -225,11 +225,7 @@ void idle_state(void *arg)
 			efuse1_status |= 0b100;
 			//turn on error led
 		}
-		else
-		{
-			efuse1_status &= (~0b100);
-			//turn of error led
-		}
+		else{}
 
 		if( efuse_2_config_error > 1){
 			digitalWrite(RELAY2, LOW);
@@ -237,11 +233,7 @@ void idle_state(void *arg)
 			efuse2_status |= 0b100;
 			//turn on error led
 		}
-		else
-		{
-			efuse2_status &= (~0b100);
-			//turn of error led
-		}
+		else{}
 
 		if( efuse_3_config_error > 1){
 			digitalWrite(RELAY3, LOW);
@@ -249,11 +241,7 @@ void idle_state(void *arg)
 			efuse3_status |= 0b100;
 			//turn on error led
 		}
-		else
-		{
-			efuse3_status &= (~0b100);
-			//turn of error led
-		}
+		else{}
 
 		if( efuse_4_config_error > 1){
 			digitalWrite(RELAY4, LOW);
@@ -261,11 +249,7 @@ void idle_state(void *arg)
 			efuse4_status |= 0b100;
 			//turn on error led
 		}
-		else
-		{
-			efuse4_status &= (~0b100);
-			//turn of error led
-		}
+		else{}
 
 		if (digitalRead(FLT1) == LOW)
 		{
@@ -273,10 +257,7 @@ void idle_state(void *arg)
 			digitalWrite(SHDN1, LOW);
 			efuse1_status |= 0b010;
 		}
-		else
-		{
-			efuse1_status &= (~0b010);
-		}
+		else{}
 
 		if (digitalRead(FLT2) == LOW)
 		{
@@ -284,10 +265,7 @@ void idle_state(void *arg)
 			digitalWrite(SHDN2, LOW);
 			efuse2_status |= 0b010;
 		}
-		else
-		{
-			efuse2_status &= (~0b010);
-		}
+		else{}
 
 		if (digitalRead(FLT3) == LOW)
 		{
@@ -295,10 +273,7 @@ void idle_state(void *arg)
 			digitalWrite(SHDN3, LOW);
 			efuse3_status |= 0b010;
 		}
-		else
-		{
-			efuse3_status &= (~0b010);
-		}
+		else{}
 
 		if (digitalRead(FLT4) == LOW)
 		{
@@ -306,14 +281,12 @@ void idle_state(void *arg)
 			digitalWrite(SHDN4, LOW);
 			efuse4_status |= 0b010;
 		}
-		else
-		{
-			efuse4_status &= (~0b010);
-		}
+		else{}
 
 		if (ReadCoils(0,1)>0)
 		{
 			efuse1_status |= 1;
+			efuse1_status &= (~0b110);
 		}
 		else
 		{
@@ -323,6 +296,7 @@ void idle_state(void *arg)
 		if (ReadCoils(4,1)>0)
 		{
 			efuse2_status |= 1;
+			efuse2_status &= (~0b110);
 		}
 		else
 		{
@@ -332,6 +306,7 @@ void idle_state(void *arg)
 		if (ReadCoils(8,1)>0)
 		{
 			efuse3_status |= 1;
+			efuse3_status &= (~0b110);
 		}
 		else
 		{
@@ -341,6 +316,7 @@ void idle_state(void *arg)
 		if (ReadCoils(12,1)>0)
 		{
 			efuse4_status |= 1;
+			efuse4_status &= (~0b110);
 		}
 		else
 		{
@@ -461,17 +437,11 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 		}
 		if (i == (uint16_t)1)
 		{
-			retdata |= (!digitalRead(FLT1))<<(i-starta); //1 == fault
+			retdata |= ((efuse1_status & 0b010)>>1)<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)2)
 		{
-			if (efuse_1_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
-			}
-			else
-			{
-				retdata |= 0<<(i-starta);
-			}
+			retdata |= ((efuse1_status & 0b100)>>2)<<(i-starta); //1 == config fault
 		}
 		if (i == (uint16_t)3)
 		{
@@ -479,17 +449,11 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 		}
 		if (i == (uint16_t)4)
 		{
-			retdata |= (!digitalRead(FLT2))<<(i-starta); //1 == fault
+			retdata |= ((efuse2_status & 0b010)>>1)<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)5)
 		{
-			if (efuse_2_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
-			}
-			else
-			{
-				retdata |= 0<<(i-starta);
-			}
+			retdata |= ((efuse2_status & 0b100)>>2)<<(i-starta);
 		}
 		if (i == (uint16_t)6)
 		{
@@ -497,17 +461,11 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 		}
 		if (i == (uint16_t)7)
 		{
-			retdata |= (!digitalRead(FLT3))<<(i-starta); //1 == fault
+			retdata |= ((efuse3_status & 0b010)>>1)<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)8)
 		{
-			if (efuse_3_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
-			}
-			else
-			{
-				retdata |= 0<<(i-starta);
-			}
+			retdata |= ((efuse3_status & 0b100)>>2)<<(i-starta);
 		}
 		if (i == (uint16_t)9)
 		{
@@ -515,17 +473,11 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 		}
 		if (i == (uint16_t)10)
 		{
-			retdata |= (!digitalRead(FLT4))<<(i-starta); //1 == fault
+			retdata |= ((efuse4_status & 0b010)>>1)<<(i-starta); //1 == fault
 		}
 		if (i == (uint16_t)11)
 		{
-			if (efuse_4_config_error > 1){
-				retdata |= 1<<(i-starta); //1 == config fault
-			}
-			else
-			{
-				retdata |= 0<<(i-starta);
-			}
+			retdata |= ((efuse4_status & 0b100)>>2)<<(i-starta);
 		}
 		//... to add coils for read
 	}
@@ -794,7 +746,7 @@ void control_and_wait_state(void *arg)
 				starta |= data[2]<<(uint8_t)8;
 				bitcount = data[5];
 				bitcount |= data[4]<<(uint8_t)8;
-				bytecount = ((float)bitcount / 8) + 1;
+				bytecount = ceil((float)bitcount / 8);
 				if ((bitcount < (uint16_t)1) || (bitcount > (uint16_t)65535))
 				{
 					Exeption(3);
@@ -836,7 +788,7 @@ void control_and_wait_state(void *arg)
 				starta |= data[2]<<(uint8_t)8;
 				bitcount = data[5];
 				bitcount |= data[4]<<(uint8_t)8;
-				bytecount = ((float)bitcount / 8) + 1;
+				bytecount = ceil((float)bitcount / 8);
 				if ((bitcount < (uint8_t)1) || (bitcount > (uint16_t)65535))
 				{
 					Exeption(3);
