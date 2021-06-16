@@ -494,8 +494,10 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	//adress:                                                              ↓                          ↓                                ↓
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)0)) && (starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0)) //ON/OFF
 	{
-		digitalWrite(SHDN1, HIGH);
-		digitalWrite(RELAY1, HIGH);
+		if((efuse1_status & 0b100) == 0){
+			digitalWrite(SHDN1, HIGH);
+			digitalWrite(RELAY1, HIGH);
+		}
 	}
 	//adress:                    ↓                                ↓
 	else if ((starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0))
@@ -544,8 +546,10 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	// efuse 2 ------------------------------------------------------------------------------------------------------------------------------------
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)4)) && (starta <= (uint8_t)4) && ((bits+starta) >= (uint8_t)4)) //ON/OFF
 	{
-		digitalWrite(SHDN2, HIGH);
-		digitalWrite(RELAY2, HIGH);
+		if((efuse2_status & 0b100) == 0){
+			digitalWrite(SHDN2, HIGH);
+			digitalWrite(RELAY2, HIGH);
+		}
 	}
 
 	else if ((starta <= (uint8_t)4) && ((bits+starta) >= (uint8_t)4))
@@ -594,8 +598,10 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	// efuse 3 ------------------------------------------------------------------------------------------------------------------------------------
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)8)) && (starta <= (uint8_t)8) && ((bits+starta) >= (uint8_t)8)) //ON/OFF
 	{
-		digitalWrite(SHDN3, HIGH);
-		digitalWrite(RELAY3, HIGH);
+		if((efuse3_status & 0b100) == 0){
+			digitalWrite(SHDN3, HIGH);
+			digitalWrite(RELAY3, HIGH);
+		}
 	}
 
 	else if ((starta <= (uint8_t)8) && ((bits+starta) >= (uint8_t)8))
@@ -644,8 +650,10 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 	// efuse 4 ------------------------------------------------------------------------------------------------------------------------------------
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)12)) && (starta <= (uint8_t)12) && ((bits+starta) >= (uint8_t)12)) //ON/OFF
 	{
-		digitalWrite(SHDN4, HIGH);
-		digitalWrite(RELAY4, HIGH);
+		if((efuse4_status & 0b100) == 0){
+			digitalWrite(SHDN4, HIGH);
+			digitalWrite(RELAY4, HIGH);
+		}
 	}
 
 	else if ((starta <= (uint8_t)12) && ((bits+starta) >= (uint8_t)12))
@@ -1405,7 +1413,7 @@ void setup()
 
 	//setup serial
 	SerialUSB.begin(9600,SERIAL_8N2);
-
+	delay(2000); //wait for oled powerup
 	// setup oled display
 	if (!oled.begin(SSD1306_SWITCHCAPVCC, 0x3D))
 	{
