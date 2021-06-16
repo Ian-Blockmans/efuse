@@ -9,6 +9,20 @@ ser.close()
 modbus_efuse = modbusClient.ModbusClient(COMPORT)
 modbus_efuse.connect()
 
+onoff = input("turn on efuse?(y/n)")
+if onoff == 'y':
+    modbus_efuse.write_single_coil(0, True)
+else:
+    modbus_efuse.write_single_coil(0, False)
+
+coils = modbus_efuse.read_coils(1, 1) #(start adress, bits)
+if coils == 1:
+    print("efuse is now on")
+else:
+    print("efuse is now off")
+
+modbus_efuse.read_coils()
+
 class Test_Modbus:
     def test_write_read_1coil(self):
         modbus_efuse.write_single_coil(1, True)
