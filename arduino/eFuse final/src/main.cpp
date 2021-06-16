@@ -225,7 +225,9 @@ void idle_state(void *arg)
 			efuse1_status |= 0b100;
 			//turn on error led
 		}
-		else{}
+		else{
+			efuse1_status &= (~0b100);
+		}
 
 		if( efuse_2_config_error > 1){
 			digitalWrite(RELAY2, LOW);
@@ -233,7 +235,9 @@ void idle_state(void *arg)
 			efuse2_status |= 0b100;
 			//turn on error led
 		}
-		else{}
+		else{
+			efuse2_status &= (~0b010);
+		}
 
 		if( efuse_3_config_error > 1){
 			digitalWrite(RELAY3, LOW);
@@ -241,7 +245,9 @@ void idle_state(void *arg)
 			efuse3_status |= 0b100;
 			//turn on error led
 		}
-		else{}
+		else{
+			efuse3_status &= (~0b010);
+		}
 
 		if( efuse_4_config_error > 1){
 			digitalWrite(RELAY4, LOW);
@@ -249,7 +255,9 @@ void idle_state(void *arg)
 			efuse4_status |= 0b100;
 			//turn on error led
 		}
-		else{}
+		else{
+			efuse4_status &= (~0b010);
+		}
 
 		if (digitalRead(FLT1) == LOW)
 		{
@@ -869,7 +877,6 @@ void control_and_wait_state(void *arg)
 			}*/
 			else if (data[1] == (uint8_t)0x0F) //write multiple coils
 			{
-				uint8_t write_error = 0;
 				starta = data[3];
 				starta |= data[2]<<8;
 				bitcount = data[5];
