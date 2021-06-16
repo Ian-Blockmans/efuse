@@ -212,10 +212,10 @@ void idle_state(void *arg)
 		if (backup_state == 1)
 		{
 			backup_state = 0;
-			for (uint8_t i = 0; i < (COILS/8); i++)
+			for (uint8_t i = 0; i < 2; i++)
 			{
-				if ((ReadCoils((i*8),((i*8)+8)) & 0b01110111) != dueFlashStorage.read(i)){
-					//dueFlashStorage.write(0,ReadCoils(0,8) & 0b01110111);//write byte 1 - on of bits if change
+				if ((ReadCoils((i*8),((i*8)+8)) & 0b11101110) != dueFlashStorage.read(i)){
+					//dueFlashStorage.write(i,ReadCoils(i,8) & 0b11101110);//write byte 1 - on of bits if change
 				}
 			}
 		}
@@ -236,7 +236,7 @@ void idle_state(void *arg)
 			//turn on error led
 		}
 		else{
-			efuse2_status &= (~0b010);
+			efuse2_status &= (~0b100);
 		}
 
 		if( efuse_3_config_error > 1){
@@ -246,7 +246,7 @@ void idle_state(void *arg)
 			//turn on error led
 		}
 		else{
-			efuse3_status &= (~0b010);
+			efuse3_status &= (~0b100);
 		}
 
 		if( efuse_4_config_error > 1){
@@ -256,7 +256,7 @@ void idle_state(void *arg)
 			//turn on error led
 		}
 		else{
-			efuse4_status &= (~0b010);
+			efuse4_status &= (~0b100);
 		}
 
 		if (digitalRead(FLT1) == LOW)
@@ -494,10 +494,15 @@ uint8_t ReadInputs(uint16_t starta, uint16_t bits)
 
 uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 {
-	efuse_1_config_error = 0;
-	efuse_2_config_error = 0;
-	efuse_3_config_error = 0;
-	efuse_4_config_error = 0;
+	uint8_t efuse_1_config_error_tmp = 0;
+	uint8_t efuse_2_config_error_tmp = 0;
+	uint8_t efuse_3_config_error_tmp = 0;
+	uint8_t efuse_4_config_error_tmp = 0;
+	uint8_t config_error_commit_1 = 0;
+	uint8_t config_error_commit_2 = 0;
+	uint8_t config_error_commit_3 = 0;
+	uint8_t config_error_commit_4 = 0;
+	
 	//efuse1
 	//adress:                                                              ↓                          ↓                                ↓
 	if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)0)) && (starta <= (uint8_t)0) && ((bits+starta) >= (uint8_t)0)) //ON/OFF
@@ -520,10 +525,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, LOW);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, HIGH);
-		efuse_1_config_error ++;
+		efuse_1_config_error_tmp ++;
+		config_error_commit_1 = 1;
 	}
 	else if((starta <= (uint8_t)1) && ((bits+starta) >= (uint8_t)1))
 	{
+		config_error_commit_1 = 1;
 	}
 	else{}
 
@@ -532,10 +539,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, LOW);
 		digitalWrite(LCL3_1, HIGH);
-		efuse_1_config_error ++;
+		efuse_1_config_error_tmp ++;
+		config_error_commit_1 = 1;
 	}
 	else if((starta <= (uint8_t)2) && ((bits+starta) >= (uint8_t)2))
 	{
+		config_error_commit_1 = 1;
 	}
 	else{}
 
@@ -544,10 +553,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_1, HIGH);
 		digitalWrite(LCL2_1, HIGH);
 		digitalWrite(LCL3_1, LOW);
-		efuse_1_config_error ++;
+		efuse_1_config_error_tmp ++;
+		config_error_commit_1 = 1;
 	}
 	else if((starta <= (uint8_t)3) && ((bits+starta) >= (uint8_t)3))
 	{
+		config_error_commit_1 = 1;
 	}
 	else{}
 
@@ -572,10 +583,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_2, LOW);
 		digitalWrite(LCL2_2, HIGH);
 		digitalWrite(LCL3_2, HIGH);
-		efuse_2_config_error ++;
+		efuse_2_config_error_tmp ++;
+		config_error_commit_2 = 1;
 	}
 	else if((starta <= (uint8_t)5) && ((bits+starta) >= (uint8_t)5))
 	{
+		config_error_commit_2 = 1;
 	}
 	else{}
 
@@ -584,10 +597,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_2, HIGH);
 		digitalWrite(LCL2_2, LOW);
 		digitalWrite(LCL3_2, HIGH);
-		efuse_2_config_error ++;
+		efuse_2_config_error_tmp ++;
+		config_error_commit_2 = 1;
 	}
 	else if((starta <= (uint8_t)6) && ((bits+starta) >= (uint8_t)6))
 	{
+		config_error_commit_2 = 1;
 	}
 	else{}
 
@@ -596,10 +611,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_2, HIGH);
 		digitalWrite(LCL2_2, HIGH);
 		digitalWrite(LCL3_2, LOW);
-		efuse_2_config_error ++;
+		efuse_2_config_error_tmp ++;
+		config_error_commit_2 = 1;
 	}
 	else if((starta <= (uint8_t)7) && ((bits+starta) >= (uint8_t)7))
 	{
+		config_error_commit_2 = 1;
 	}
 	else{}
 
@@ -624,10 +641,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_3, LOW);
 		digitalWrite(LCL2_3, HIGH);
 		digitalWrite(LCL3_3, HIGH);
-		efuse_3_config_error ++;
+		efuse_3_config_error_tmp ++;
+		config_error_commit_3 = 1;
 	}
 	else if((starta <= (uint8_t)9) && ((bits+starta) >= (uint8_t)9))
 	{
+		config_error_commit_3 = 1;
 	}
 	else{}
 
@@ -636,10 +655,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_3, HIGH);
 		digitalWrite(LCL2_3, LOW);
 		digitalWrite(LCL3_3, HIGH);
-		efuse_3_config_error ++;
+		efuse_3_config_error_tmp ++;
+		config_error_commit_3 = 1;
 	}
 	else if((starta <= (uint8_t)10) && ((bits+starta) >= (uint8_t)10))
 	{
+		config_error_commit_3 = 1;
 	}
 	else{}
 
@@ -648,10 +669,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_3, HIGH);
 		digitalWrite(LCL2_3, HIGH);
 		digitalWrite(LCL3_3, LOW);
-		efuse_3_config_error ++;
+		efuse_3_config_error_tmp ++;
+		config_error_commit_3 = 1;
 	}
 	else if((starta <= (uint8_t)11) && ((bits+starta) >= (uint8_t)11))
 	{
+		config_error_commit_3 = 1;
 	}
 	else{}
 
@@ -676,10 +699,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_4, LOW);
 		digitalWrite(LCL2_4, HIGH);
 		digitalWrite(LCL3_4, HIGH);
-		efuse_4_config_error ++;
+		efuse_4_config_error_tmp ++;
+		config_error_commit_4 = 1;
 	}
 	else if((starta <= (uint8_t)13) && ((bits+starta) >= (uint8_t)13))
 	{
+		config_error_commit_4 = 1;
 	}
 	else{}
 
@@ -688,10 +713,12 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_4, HIGH);
 		digitalWrite(LCL2_4, LOW);
 		digitalWrite(LCL3_4, HIGH);
-		efuse_4_config_error ++;
+		efuse_4_config_error_tmp ++;
+		config_error_commit_4 = 1;
 	}
 	else if((starta <= (uint8_t)14) && ((bits+starta) >= (uint8_t)14))
 	{
+		config_error_commit_4 = 1;
 	}
 	else{}
 
@@ -700,12 +727,35 @@ uint8_t WriteCoils(uint16_t starta, uint16_t byte, uint8_t* write,uint16_t bits)
 		digitalWrite(LCL1_4, HIGH);
 		digitalWrite(LCL2_4, HIGH);
 		digitalWrite(LCL3_4, LOW);
-		efuse_4_config_error ++;
+		efuse_4_config_error_tmp ++;
+		config_error_commit_4 = 1;
 	}
 	else if((starta <= (uint8_t)15) && ((bits+starta) >= (uint8_t)15))
 	{
+		config_error_commit_4 = 1;
 	}
 	else{}
+
+	if (config_error_commit_1 == 1)
+	{
+		efuse_1_config_error = efuse_1_config_error_tmp;
+		config_error_commit_1 = 0;
+	}
+	if (config_error_commit_2 == 1)
+	{
+		efuse_2_config_error = efuse_2_config_error_tmp;
+		config_error_commit_2 = 0;
+	}
+	if (config_error_commit_3 == 1)
+	{
+		efuse_3_config_error = efuse_3_config_error_tmp;
+		config_error_commit_3 = 0;
+	}
+	if (config_error_commit_4 == 1)
+	{
+		efuse_4_config_error = efuse_4_config_error_tmp;
+		config_error_commit_4 = 0;
+	}
 
 	/*if (((write[byte]<<(starta+(byte*(uint8_t)8))) & ((uint8_t)1<<(uint8_t)8)) && (starta <= (uint8_t)8) && ((bits+starta) >= (uint8_t)8)) //buildin led
 	{
